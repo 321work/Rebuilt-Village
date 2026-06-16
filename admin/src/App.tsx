@@ -2,6 +2,10 @@ import { useCallback } from "react";
 import {
   FireCMS,
   useBuildNavigationController,
+  useBuildModeController,
+  ModeControllerProvider,
+  SnackbarProvider,
+  CircularProgressCenter,
   NavigationRoutes,
   Scaffold,
   AppBar,
@@ -120,96 +124,93 @@ export default function App() {
     dataSourceDelegate: firestoreDelegate,
   });
 
+  // Theme/mode controller — REQUIRED. Without ModeControllerProvider the
+  // FireCMS UI (and the login view) render blank.
+  const modeController = useBuildModeController();
+
   // UI-layer whitelist gate. Real security is Firestore rules.
   const signInAllowed = useCallback((user: User | null): boolean => {
     if (!user?.email) return false;
     return ALLOWED_EMAILS.has(user.email);
   }, []);
 
-  // ── Not signed in ─────────────────────────────────────────────────────────
-  if (!authController.user) {
-    return (
-      <FirebaseLoginView
-        authController={authController}
-        firebaseApp={app}
-        signInOptions={["google.com"]}
-      />
-    );
-  }
-
-  // ── Signed in but not on the whitelist ────────────────────────────────────
-  if (!signInAllowed(authController.user)) {
-    return (
-      <div
-        style={{
-          minHeight: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "system-ui, sans-serif",
-          background: "#f5f5f5",
-          gap: "1rem",
-          padding: "2rem",
-          textAlign: "center",
-        }}
-      >
-        <h1 style={{ fontSize: "1.5rem", color: "#1a1a1a" }}>Access denied</h1>
-        <p style={{ color: "#555", maxWidth: 400 }}>
-          Your account ({authController.user.email}) is not authorized to access
-          the Rebuilt Village admin. Contact the admin to request access.
-        </p>
-        <button
-          onClick={() => authController.signOut()}
-          style={{
-            padding: "0.5rem 1.25rem",
-            background: "#1a1a1a",
-            color: "#fff",
-            border: "none",
-            borderRadius: 6,
-            cursor: "pointer",
-            fontSize: "0.9rem",
-          }}
-        >
-          Sign out
-        </button>
-      </div>
-    );
-  }
-
-  // ── Main CMS ──────────────────────────────────────────────────────────────
   return (
-    <FireCMS
-      authController={authController}
-      dataSourceDelegate={firestoreDelegate}
-      storageSource={storageSource}
-      navigationController={navigationController}
-    >
-      {({ loading }) => {
-        if (loading) {
-          return (
-            <div
-              style={{
-                minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "system-ui, sans-serif",
-                color: "#555",
-              }}
-            >
-              Loading...
-            </div>
-          );
-        }
-        return (
-          <Scaffold>
-            <AppBar />
-            <DefaultDrawer />
-            <NavigationRoutes />
-          </Scaffold>
-        );
-      }}
-    </FireCMS>
+    <SnackbarProvider>
+      <ModeControllerProvider value={modeController}>
+        <FireCMS
+          authController={authController}
+          dataSourceDelegate={firestoreDelegate}
+          storageSource={storageSource}
+          navigationController={navigationController}
+        >
+          {({ loading }) => {
+            if (loading) {
+              return <CircularProgressCenter />;
+            }
+
+            // Not signed in — show the Google login view (inside FireCMS context).
+            if (!authController.user) {
+              return (
+                <FirebaseLoginView
+                  authController={authController}
+                  firebaseApp={app}
+                  signInOptions={["google.com"]}
+                />
+              );
+            }
+
+            // Signed in but not on the whitelist — access denied.
+            if (!signInAllowed(authController.user)) {
+              return (
+                <div
+                  style={{
+                    minHeight: "100vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "system-ui, sans-serif",
+                    background: "#f5f5f5",
+                    gap: "1rem",
+                    padding: "2rem",
+                    textAlign: "center",
+                  }}
+                >
+                  <h1 style={{ fontSize: "1.5rem", color: "#1a1a1a" }}>Access denied</h1>
+                  <p style={{ color: "#555", maxWidth: 400 }}>
+                    Your account ({authController.user.email}) is not authorized to
+                    access the Rebuilt Village admin. Contact the admin to request
+                    access.
+                  </p>
+                  <button
+                    onClick={() => authController.signOut()}
+                    style={{
+                      padding: "0.5rem 1.25rem",
+                      background: "#1a1a1a",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: 6,
+                      cursor: "pointer",
+                      fontSize: "0.9rem",
+                    }}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              );
+            }
+
+            // Authorized — full CMS.
+            return (
+              <Scaffold>
+                <AppBar />
+                <DefaultDrawer />
+                <NavigationRoutes />
+              </Scaffold>
+            );
+          }}
+        </FireCMS>
+      </ModeControllerProvider>
+    </SnackbarProvider>
   );
 }

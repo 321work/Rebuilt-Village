@@ -1,10 +1,25 @@
-// Phase 1 shim. Returns empty data; pages fall back to their hardcoded arrays.
-// Phase 2 replaces this with Firestore fetches once FireCMS ships and the
-// page-level FALLBACK arrays are migrated to Firestore documents.
+// Content service. Reads the six content collections from Firestore and maps
+// the stored documents to the page-facing shapes below. Named `sanityService`
+// for historical reasons (the page import paths predate the FireCMS migration);
+// the data source is now Firestore, not Sanity.
+//
+// Safety: every getter is wrapped so a Firestore error (offline, empty project,
+// missing emulator in dev) returns []/null and the pages keep rendering from
+// their FALLBACK_* arrays. A 60s in-memory cache mirrors projectBalancesService.
 
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from './firebaseClient';
+import { COLLECTIONS } from '../types/firestore';
+import type {
+  BoardMemberDoc,
+  EventDoc,
+  PostDoc,
+  ProgramDoc,
+  TeamMemberDoc,
+} from '../types/firestore';
 import { Event } from '../types';
 
-// ─── Sanity document interfaces (retained for page imports) ───────────────────
+// ─── Page-facing interfaces (retained so page imports do not change) ──────────
 
 export interface SanityProgram {
     _id: string;
@@ -24,7 +39,7 @@ export interface SanityPost {
     author: string;
     mainImage: any;
     publishedAt: string;
-    body: any[];
+    body: string;
     seo?: {
         metaTitle?: string;
         metaDescription?: string;
@@ -95,18 +110,146 @@ export interface SanityProgramFull {
     active: boolean;
 }
 
-// ─── Query shims ──────────────────────────────────────────────────────────────
+// ─── 60s in-memory cache (mirrors projectBalancesService polling TTL) ─────────
 
-export const getPrograms = async (): Promise<SanityProgram[]> => [];
+const CACHE_TTL_MS = 60_000;
+interface CacheEntry<T> { at: number; value: T; }
+const cache = new Map<string, CacheEntry<unknown>>();
 
-export const getPosts = async (): Promise<SanityPost[]> => [];
+/**
+ * Reads a whole (small) collection once per TTL window. On error, serves the
+ * last good value if we have one, otherwise the provided fallback. Collections
+ * are tiny, so we fetch all docs and filter/sort in JS — this avoids any
+ * composite-index requirement in production.
+ */
+async function loadCollection<TDoc>(name: string): Promise<Array<TDoc & { _id: string }>> {
+  const snap = await getDocs(collection(db, name));
+  return snap.docs.map((d) => ({ _id: d.id, ...(d.data() as TDoc) }));
+}
 
-export const getPostBySlug = async (_slug: string): Promise<SanityPost | null> => null;
+async function cached<T>(key: string, loader: () => Promise<T>, fallback: T): Promise<T> {
+  const hit = cache.get(key) as CacheEntry<T> | undefined;
+  if (hit && Date.now() - hit.at < CACHE_TTL_MS) return hit.value;
+  try {
+    const value = await loader();
+    cache.set(key, { at: Date.now(), value });
+    return value;
+  } catch (err) {
+    console.warn(`[content] "${key}" load failed, using fallback:`, err);
+    return hit ? hit.value : fallback;
+  }
+}
 
-export const getEvents = async (): Promise<Event[]> => [];
+const byOrder = (a: { order?: number }, b: { order?: number }) => (a.order ?? 0) - (b.order ?? 0);
 
-export const getTeamMembers = async (): Promise<SanityTeamMember[]> => [];
+// ─── Queries ──────────────────────────────────────────────────────────────────
 
-export const getBoardMembers = async (): Promise<SanityBoardMember[]> => [];
+export const getEvents = async (): Promise<Event[]> =>
+  cached('events', async () => {
+    const docs = await loadCollection<EventDoc>(COLLECTIONS.events);
+    return docs
+      .map(({ _id, _updatedAt, ...rest }) => rest as unknown as Event)
+      .sort((a, b) => a.date.localeCompare(b.date));
+  }, []);
 
-export const getProgramsFull = async (): Promise<SanityProgramFull[]> => [];
+export const getTeamMembers = async (): Promise<SanityTeamMember[]> =>
+  cached('teamMembers', async () => {
+    const docs = await loadCollection<TeamMemberDoc>(COLLECTIONS.teamMembers);
+    return docs
+      .filter((d) => d.active !== false)
+      .sort(byOrder)
+      .map((d) => ({
+        _id: d._id,
+        name: d.name,
+        role: d.role,
+        bio: d.bio,
+        headshot: d.headshot,
+        order: d.order,
+        active: d.active,
+        socialLinks: d.socialLinks,
+      }));
+  }, []);
+
+export const getBoardMembers = async (): Promise<SanityBoardMember[]> =>
+  cached('boardMembers', async () => {
+    const docs = await loadCollection<BoardMemberDoc>(COLLECTIONS.boardMembers);
+    return docs
+      .filter((d) => d.active !== false)
+      .sort(byOrder)
+      .map((d) => ({
+        _id: d._id,
+        name: d.name,
+        role: d.role,
+        bio: d.bio,
+        headshot: d.headshot,
+        order: d.order,
+        active: d.active,
+        linkedIn: d.linkedIn,
+        email: d.email,
+        committees: d.committees,
+        termStart: d.termStart,
+        termEnd: d.termEnd,
+      }));
+  }, []);
+
+export const getProgramsFull = async (): Promise<SanityProgramFull[]> =>
+  cached('programs', async () => {
+    const docs = await loadCollection<ProgramDoc>(COLLECTIONS.programs);
+    return docs
+      .filter((d) => d.active !== false)
+      .map((d) => ({
+        _id: d._id,
+        title: d.title,
+        slug: { current: d.slug },
+        shortLabel: d.shortLabel,
+        description: d.description,
+        details: d.details,
+        category: d.category,
+        ageGroup: d.ageGroup,
+        schedule: d.schedule,
+        location: d.location,
+        cost: d.cost,
+        highlights: d.highlights,
+        enrollmentUrl: d.enrollmentUrl,
+        image: d.image,
+        partnerInstitution: d.partnerInstitution,
+        featured: d.featured,
+        active: d.active,
+      }));
+  }, []);
+
+export const getPrograms = async (): Promise<SanityProgram[]> => {
+  const full = await getProgramsFull();
+  return full.map((p) => ({
+    _id: p._id,
+    title: p.title,
+    description: p.description,
+    image: p.image,
+    category: p.category,
+    featured: p.featured,
+  }));
+};
+
+export const getPosts = async (): Promise<SanityPost[]> =>
+  cached('posts', async () => {
+    const docs = await loadCollection<PostDoc>(COLLECTIONS.posts);
+    return docs
+      .map((d) => ({
+        _id: d._id,
+        title: d.title,
+        slug: { current: d.slug },
+        excerpt: d.excerpt,
+        category: d.category,
+        author: d.author,
+        mainImage: d.mainImage,
+        publishedAt: d.publishedAt,
+        body: d.body,
+        seo: d.seo,
+      }))
+      .sort((a, b) => (b.publishedAt ?? '').localeCompare(a.publishedAt ?? ''));
+  }, []);
+
+export const getPostBySlug = async (slug: string): Promise<SanityPost | null> => {
+  const posts = await getPosts();
+  return posts.find((p) => p.slug.current === slug) ?? null;
+};

@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   const useEmulators = env.VITE_USE_EMULATORS === 'true';
-  const projectId = env.VITE_FIREBASE_PROJECT_ID ?? 'rebuilt-village-prod';
+  const projectId = env.VITE_FIREBASE_PROJECT_ID ?? 'rebuilt-village-web';
   const emulatorHost = `http://localhost:5001/${projectId}/us-central1`;
 
   return {
@@ -30,7 +30,14 @@ export default defineConfig(({ mode }) => {
         : undefined,
     },
     plugins: [react()],
+    // Pre-bundle marked so the lazy-loaded blog route doesn't trigger an
+    // on-the-fly dep re-optimization (which races with React init on first load).
+    optimizeDeps: {
+      include: ['marked'],
+    },
     resolve: {
+      // Dedupe React to a single copy as a guard against duplicate instances.
+      dedupe: ['react', 'react-dom'],
       alias: {
         '@': path.resolve(__dirname, '.'),
       },
@@ -44,6 +51,7 @@ export default defineConfig(({ mode }) => {
             vendor: ['react', 'react-dom', 'react-router-dom'],
             motion: ['framer-motion'],
             ui: ['lucide-react', '@headlessui/react'],
+            firebase: ['firebase/app', 'firebase/firestore', 'firebase/storage'],
           },
         },
       },

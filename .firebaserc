@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "rebuilt-village-web"
+  },
+  "targets": {
+    "rebuilt-village-web": {
+      "hosting": {
+        "main": [
+          "rebuilt-village-web"
+        ],
+        "admin": [
+          "admin-rebuiltvillage"
+        ]
+      }
+    }
   }
 }

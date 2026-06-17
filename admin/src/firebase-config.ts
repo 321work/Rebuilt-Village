@@ -5,12 +5,7 @@ import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA2fiaZfGYZQYVyw6yqg0kkkmg1Gv3tkjs",
-  // Use the admin site's own domain as the auth domain so the Google sign-in
-  // popup is same-origin. The default <project>.firebaseapp.com domain would be
-  // cross-origin here and breaks under Chrome's third-party storage partitioning
-  // ("The requested action is invalid."). The admin Hosting site serves the
-  // /__/auth/handler helper, and the domain is already in Authorized domains.
-  authDomain: "admin-rebuiltvillage.web.app",
+  authDomain: "rebuilt-village-web.firebaseapp.com",
   projectId: "rebuilt-village-web",
   storageBucket: "rebuilt-village-web.firebasestorage.app",
   messagingSenderId: "903273862134",

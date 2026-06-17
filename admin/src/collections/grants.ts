@@ -1,7 +1,7 @@
 import { buildCollection, buildProperty } from "@firecms/core";
 
 /**
- * Grants collection — read-only in the UI.
+ * Grants collection - read-only in the UI.
  * Admins and editors can read. All writes go through Cloud Functions.
  */
 export type GrantEntity = {
@@ -35,7 +35,7 @@ export const grantsCollection = buildCollection<GrantEntity>({
   singularName: "Grant",
   path: "grants",
   icon: "AssuredWorkload",
-  description: "Grant awards and tracking — read only. Populated by Cloud Functions.",
+  description: "Grant awards and tracking - read only. Populated by Cloud Functions.",
   permissions,
   defaultSize: "m",
   properties: {

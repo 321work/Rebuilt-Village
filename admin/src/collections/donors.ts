@@ -1,7 +1,7 @@
 import { buildCollection, buildProperty } from "@firecms/core";
 
 /**
- * Donor collection — read-only in the UI.
+ * Donor collection - read-only in the UI.
  * Admins can read; editors can read. All client writes denied (Cloud Functions
  * write these via Admin SDK; Firestore rules enforce this).
  */
@@ -36,7 +36,7 @@ export const donorsCollection = buildCollection<DonorEntity>({
   singularName: "Donor",
   path: "donors",
   icon: "VolunteerActivism",
-  description: "Donor CRM records — read only. Populated by Cloud Functions.",
+  description: "Donor CRM records - read only. Populated by Cloud Functions.",
   permissions,
   defaultSize: "m",
   properties: {

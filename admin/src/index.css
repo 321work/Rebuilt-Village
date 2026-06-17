@@ -1,0 +1,21 @@
+/* FireCMS v3 is built on Tailwind v4. This entry must run through the
+ * @tailwindcss/vite plugin so the utility classes used inside the @firecms
+ * packages (declared via @source below) are actually generated. Without it the
+ * admin renders unstyled. Canonical setup from the FireCMS CLI template. */
+@import 'tailwindcss';
+@import "@firecms/ui/index.css" layer(base);
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@plugin "@tailwindcss/typography";
+
+@source "../index.html";
+@source "./**/*.{js,ts,jsx,tsx}";
+@source "../node_modules/@firecms/**/*.{js,ts,jsx,tsx}";
+
+/* FireCMS UI theme accent tokens (admin chrome only). These are NOT the public
+ * site brand tokens from /src/brand.ts - the admin is a separate build and uses
+ * FireCMS's own theming. Keep in sync deliberately if brand accents change. */
+:root {
+    --color-primary: #0070F4;
+    --color-secondary: #FF5B79;
+}

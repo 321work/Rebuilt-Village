@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 
-// FireCMS v3 requires the Tailwind/custom stylesheet from @firecms/ui.
-import "@firecms/ui/index.css";
+// FireCMS v3 (Tailwind v4) styles. index.css imports tailwindcss + the FireCMS
+// theme and declares @source globs so the @firecms utility classes are generated.
+import "./index.css";
 
 // Surface render errors instead of a silent blank screen.
 class ErrorBoundary extends React.Component<

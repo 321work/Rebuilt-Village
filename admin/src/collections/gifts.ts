@@ -1,7 +1,7 @@
 import { buildCollection, buildProperty } from "@firecms/core";
 
 /**
- * Gifts collection — read-only in the UI.
+ * Gifts collection - read-only in the UI.
  * Admins and editors can read. All writes go through Cloud Functions.
  */
 export type GiftEntity = {
@@ -36,7 +36,7 @@ export const giftsCollection = buildCollection<GiftEntity>({
   singularName: "Gift",
   path: "gifts",
   icon: "CardGiftcard",
-  description: "Individual gift / donation records — read only. Populated by Cloud Functions.",
+  description: "Individual gift / donation records - read only. Populated by Cloud Functions.",
   permissions,
   defaultSize: "m",
   properties: {

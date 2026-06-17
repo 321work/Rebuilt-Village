@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   FireCMS,
   useBuildNavigationController,
@@ -9,17 +9,22 @@ import {
   NavigationRoutes,
   Scaffold,
   AppBar,
-  DefaultDrawer,
+  Drawer,
+  SideDialogs,
 } from "@firecms/core";
 import type { Role, User } from "@firecms/core";
 import {
   useFirebaseAuthController,
   useFirestoreDelegate,
   useFirebaseStorageSource,
-  FirebaseLoginView,
 } from "@firecms/firebase";
+import {
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+} from "firebase/auth";
 
-import { app } from "./firebase-config";
+import { app, auth } from "./firebase-config";
 
 import { eventsCollection } from "./collections/events";
 import { teamMembersCollection } from "./collections/teamMembers";
@@ -67,7 +72,7 @@ async function defineRolesFor(user: User): Promise<Role[] | undefined> {
   const email = user.email ?? "";
 
   if (!ALLOWED_EMAILS.has(email)) {
-    // Not whitelisted — return no roles (FireCMS will deny access).
+    // Not whitelisted - return no roles (FireCMS will deny access).
     return undefined;
   }
 
@@ -85,12 +90,12 @@ async function defineRolesFor(user: User): Promise<Role[] | undefined> {
     if (claimedRole === "editor") return [EDITOR_ROLE];
   }
 
-  // Dev fallback: no claim set yet — treat founding admin account as admin.
+  // Dev fallback: no claim set yet - treat founding admin account as admin.
   if (import.meta.env["DEV"] && email === "cortez@321work.com") {
     return [ADMIN_ROLE];
   }
 
-  // Whitelisted but claim not yet set — default to editor until Admin SDK sets claim.
+  // Whitelisted but claim not yet set - default to editor until Admin SDK sets claim.
   return [EDITOR_ROLE];
 }
 
@@ -107,13 +112,36 @@ const collections = [
   grantsCollection,
 ];
 
+// ─── Google sign-in (redirect flow) ──────────────────────────────────────────
+// FireCMS's built-in FirebaseLoginView uses signInWithPopup. That fails here with
+// "The requested action is invalid." because the auth handler at the default
+// authDomain (rebuilt-village-web.firebaseapp.com) is cross-origin to this app
+// (admin-rebuiltvillage.web.app), and modern-browser cross-origin isolation
+// (COOP / storage partitioning) blocks the popup→opener handshake the handler
+// needs to verify the calling domain. signInWithRedirect has no opener and works.
+function startGoogleRedirect() {
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: "select_account" });
+  return signInWithRedirect(auth, provider);
+}
+
 // ─── App ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const authController = useFirebaseAuthController({
     firebaseApp: app,
-    signInOptions: ["google.com"],
     defineRolesFor,
   });
+
+  // Surface any redirect sign-in error and finalize the pending credential on
+  // return from Google. The resolved user flows into FireCMS via the auth
+  // controller's onAuthStateChanged listener - no extra wiring needed.
+  const [signInError, setSignInError] = useState<string | null>(null);
+  useEffect(() => {
+    getRedirectResult(auth).catch((e: unknown) => {
+      const err = e as { code?: string; message?: string };
+      setSignInError(err.code ?? err.message ?? "sign-in-failed");
+    });
+  }, []);
 
   const firestoreDelegate = useFirestoreDelegate({ firebaseApp: app });
   const storageSource = useFirebaseStorageSource({ firebaseApp: app });
@@ -124,7 +152,7 @@ export default function App() {
     dataSourceDelegate: firestoreDelegate,
   });
 
-  // Theme/mode controller — REQUIRED. Without ModeControllerProvider the
+  // Theme/mode controller - REQUIRED. Without ModeControllerProvider the
   // FireCMS UI (and the login view) render blank.
   const modeController = useBuildModeController();
 
@@ -148,18 +176,61 @@ export default function App() {
               return <CircularProgressCenter />;
             }
 
-            // Not signed in — show the Google login view (inside FireCMS context).
+            // Not signed in - show the Google login screen (redirect flow).
             if (!authController.user) {
               return (
-                <FirebaseLoginView
-                  authController={authController}
-                  firebaseApp={app}
-                  signInOptions={["google.com"]}
-                />
+                <div
+                  style={{
+                    minHeight: "100vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontFamily: "system-ui, sans-serif",
+                    background: "#f5f5f5",
+                    gap: "1.5rem",
+                    padding: "2rem",
+                    textAlign: "center",
+                  }}
+                >
+                  <h1 style={{ fontSize: "1.5rem", color: "#1a1a1a", margin: 0 }}>
+                    Rebuilt Village Admin
+                  </h1>
+                  <p style={{ color: "#555", maxWidth: 360, margin: 0 }}>
+                    Sign in with your authorized Google account to manage site
+                    content.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSignInError(null);
+                      startGoogleRedirect().catch((e: unknown) => {
+                        const err = e as { code?: string; message?: string };
+                        setSignInError(err.code ?? err.message ?? "sign-in-failed");
+                      });
+                    }}
+                    style={{
+                      padding: "0.65rem 1.5rem",
+                      background: "#1a1a1a",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: 6,
+                      cursor: "pointer",
+                      fontSize: "0.95rem",
+                    }}
+                  >
+                    Sign in with Google
+                  </button>
+                  {signInError && (
+                    <p style={{ color: "#b00020", fontSize: "0.85rem", margin: 0 }}>
+                      Sign-in failed: {signInError}
+                    </p>
+                  )}
+                </div>
               );
             }
 
-            // Signed in but not on the whitelist — access denied.
+            // Signed in but not on the whitelist - access denied.
             if (!signInAllowed(authController.user)) {
               return (
                 <div
@@ -183,6 +254,7 @@ export default function App() {
                     access.
                   </p>
                   <button
+                    type="button"
                     onClick={() => authController.signOut()}
                     style={{
                       padding: "0.5rem 1.25rem",
@@ -200,12 +272,15 @@ export default function App() {
               );
             }
 
-            // Authorized — full CMS.
+            // Authorized - full CMS. Drawer (not DefaultDrawer) is the
+            // Scaffold-integrated sidebar; SideDialogs powers the record-edit
+            // side panels.
             return (
-              <Scaffold>
-                <AppBar />
-                <DefaultDrawer />
+              <Scaffold autoOpenDrawer={false}>
+                <AppBar title="Rebuilt Village" />
+                <Drawer />
                 <NavigationRoutes />
+                <SideDialogs />
               </Scaffold>
             );
           }}

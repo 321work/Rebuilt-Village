@@ -55,6 +55,18 @@ describe('content collections', () => {
   test('admin can write programs', async () => {
     await assertSucceeds(setDoc(doc(db('admin'), 'programs/p1'), { title: 'x' }));
   });
+
+  test('anyone can read documents', async () => {
+    await assertSucceeds(getDoc(doc(db(), 'documents/d1')));
+  });
+
+  test('anonymous cannot write documents', async () => {
+    await assertFails(setDoc(doc(db(), 'documents/d1'), { title: 'x' }));
+  });
+
+  test('editor can write documents', async () => {
+    await assertSucceeds(setDoc(doc(db('editor'), 'documents/d1'), { title: 'x' }));
+  });
 });
 
 describe('donorProjects (admin-only write, public read)', () => {

@@ -12,12 +12,14 @@ import { db } from './firebaseClient';
 import { COLLECTIONS } from '../types/firestore';
 import type {
   BoardMemberDoc,
+  DocumentDoc,
   EventDoc,
   PostDoc,
   ProgramDoc,
   TeamMemberDoc,
 } from '../types/firestore';
 import { Event } from '../types';
+import { urlFor } from './sanityClient';
 
 // ─── Page-facing interfaces (retained so page imports do not change) ──────────
 
@@ -88,6 +90,16 @@ export interface SanityBoardMember {
     committees?: string[];
     termStart?: string;
     termEnd?: string;
+}
+
+export interface SanityDocument {
+    _id: string;
+    title: string;
+    description: string;
+    year: string;
+    type: 'tax' | 'financial' | 'governance' | 'annual';
+    fileUrl?: string;
+    externalUrl?: string;
 }
 
 export interface SanityProgramFull {
@@ -253,3 +265,20 @@ export const getPostBySlug = async (slug: string): Promise<SanityPost | null> =>
   const posts = await getPosts();
   return posts.find((p) => p.slug.current === slug) ?? null;
 };
+
+export const getDocuments = async (): Promise<SanityDocument[]> =>
+  cached('documents', async () => {
+    const docs = await loadCollection<DocumentDoc>(COLLECTIONS.documents);
+    return docs
+      .filter((d) => d.active !== false)
+      .sort(byOrder)
+      .map((d) => ({
+        _id: d._id,
+        title: d.title,
+        description: d.description ?? '',
+        year: d.year ?? '',
+        type: d.category,
+        fileUrl: d.file ? urlFor(d.file).url() : undefined,
+        externalUrl: d.externalUrl,
+      }));
+  }, []);

@@ -19,6 +19,7 @@ export const COLLECTIONS = {
   posts: 'posts',
   programs: 'programs',
   sponsors: 'sponsors',
+  documents: 'documents',
 } as const;
 
 export type ContentCollection = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
@@ -97,6 +98,20 @@ export interface SponsorDoc extends WithUpdatedAt {
   tier: string;
   logo?: string;
   url?: string;
+  order: number;
+  active: boolean;
+}
+
+/** `documents` — public transparency files (990s, determination letter, bylaws). */
+export interface DocumentDoc extends WithUpdatedAt {
+  title: string;
+  description?: string;
+  category: 'tax' | 'financial' | 'governance' | 'annual';
+  year?: string;
+  /** Firebase Storage path to the uploaded PDF (resolved via urlFor). */
+  file?: string;
+  /** Optional external link used instead of an uploaded file. */
+  externalUrl?: string;
   order: number;
   active: boolean;
 }

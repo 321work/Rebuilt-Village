@@ -19,6 +19,7 @@ service cloud.firestore {
     match /posts/{id}        { allow read: if true; allow write: if isStaff(); }
     match /programs/{id}     { allow read: if true; allow write: if isStaff(); }
     match /sponsors/{id}     { allow read: if true; allow write: if isStaff(); }
+    match /documents/{id}    { allow read: if true; allow write: if isStaff(); }
 
     // Donor-facing project metadata: public read (site shows goals/progress),
     // admin-only write (editors do not manage fundraising targets).

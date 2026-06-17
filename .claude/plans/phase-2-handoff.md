@@ -1,3 +1,15 @@
+> # ✅ RESOLVED — 2026-06-16 (retired)
+>
+> The sign-in blocker described below is fixed and **PR #4 is merged to `main`**. Root cause was
+> the cross-origin auth handler (popup opener + redirect credential handoff broken by browser storage
+> partitioning), fixed by same-origin `authDomain` + `signInWithRedirect` (commit `72f44d5`). A separate
+> Tailwind-v4 styling bug was also fixed. Cortez's `role: admin` claim is set; public site is live on
+> Firestore. **This document is historical — see the latest entry in
+> [`active-plan.md`](./active-plan.md) "Notes and decisions made this phase" for the resolution and the
+> remaining Phase 2 tail (admin DNS, Jess/Amanda onboarding).** Original handoff preserved below for context.
+
+---
+
 # Phase 2 Handoff — FireCMS admin sign-in blocker
 
 **Date:** 2026-06-16

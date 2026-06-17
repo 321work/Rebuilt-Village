@@ -1,0 +1,21 @@
+rules_version = '2';
+
+// Firebase Storage access for Rebuilt Village media (headshots, hero, logos).
+// Public assets live under public/ and are world-readable; editors and admins
+// upload via the FireCMS admin UI. Roles come from custom claims.
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() { return request.auth != null; }
+    function role() { return request.auth.token.role; }
+    function isStaff() {
+      return signedIn() && (role() == 'admin' || role() == 'editor');
+    }
+
+    match /public/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}

@@ -163,4 +163,19 @@ Items discovered or deferred during Phase 1 that are not in scope for Phase 2's 
 
 ## Notes and decisions made this phase
 
-<add notes here as you go>
+**2026-06-16 — Phase 2 build session (branch `chore/phase-2-firecms`, commit `c988bf7`):**
+
+- FireCMS confirmed over Sanity (founder decision this session). Linear reconciled: Phase 4 milestone + RVL-18/19/20/26/28/36 reworded Sanity→FireCMS. The milestone had encoded a contradictory "stay on Sanity / substantially complete" note; corrected.
+- Registered a Firebase **web app** (none existed): appId `1:903273862134:web:e1ac3e7ac248be7364add7`. Public web config committed in `services/firebaseClient.ts` (not secret; `.env*` writes are policy-blocked so config lives in code).
+- Frontend reads Firestore via `services/sanityService.ts` (same 7 signatures, 60s cache, try/catch → FALLBACK). Emulator-connected in dev via `import.meta.env.DEV`. Verified end-to-end with a sentinel doc + all six routes.
+- Rules: `firestore.rules` + `storage.rules` (role-based, claims `role: admin|editor`). `npm run test:rules` (vitest + @firebase/rules-unit-testing) 10/10 pass. OpenJDK installed (keg-only, `/opt/homebrew/opt/openjdk`) for the emulator.
+- **Blog body switched portable-text → Markdown** (rendered by `marked`; dropped `@portabletext/react`). FireCMS authors Markdown; portable-text had no producer left.
+- `/admin`: FireCMS v3 self-hosted, Google sign-in, whitelist (`cortez@321work.com`), 9 collections (6 content + donors/gifts/grants read-only), roles from claims. **Live: https://admin-rebuiltvillage.web.app**
+- `firebase.json` hosting → array (`main`+`admin` targets); `.firebaserc` targets; CI builds/deploys both via `target:`.
+- **Deployed to prod:** `firestore:rules` (this created the project's default Firestore DB — it did not exist before, so prod Firestore was empty), and the admin hosting site.
+- **NOT done (blocked/handoff):**
+  - Prod Firestore **seed** blocked by the backup gate: `gcloud` (export tool) is denied in the sandbox, so the dated backup could not run. DB is brand-new/empty so the backup protects nothing; awaiting decision to seed without it (`RUN_AGAINST_PRODUCTION=yes npm run migrate:fallbacks`).
+  - Console (founder): enable **Storage** (Get Started) + **Google** auth provider, add `admin-rebuiltvillage.web.app` to Authorized domains.
+  - Custom claim `role:admin` for Cortez: set AFTER first sign-in (Auth user created on first login).
+  - Cloudflare DNS `admin.rebuiltvillage.org` (RVL-19); Jess/Amanda onboarding (RVL-18/36).
+  - Main-site Firestore reads are committed but NOT merged — live public site still uses FALLBACK arrays until the PR merges (deliberate, safe).

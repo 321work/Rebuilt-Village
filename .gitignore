@@ -34,3 +34,6 @@ functions/lib/
 
 # Claude Code worktrees (session-local, never committed)
 .claude/worktrees/
+
+# Firebase deploy cache
+.firebase/

@@ -46,6 +46,13 @@ jobs:
       - name: Build main site
         run: npm run build
 
+      - name: Install admin dependencies
+        working-directory: admin
+        run: npm ci
+
+      - name: Build admin site
+        run: npm run build:admin
+
       - name: Check if should deploy
         id: check
         run: |
@@ -60,6 +67,13 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 7
+
+      - name: Upload admin build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-dist
+          path: admin/dist/
           retention-days: 7
 
   deploy-preview:
@@ -81,6 +95,7 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_REBUILT_VILLAGE_WEB }}
           projectId: rebuilt-village-web
+          target: main
           expires: 7d
           channelId: pr-${{ github.event.pull_request.number }}
 
@@ -100,10 +115,26 @@ jobs:
           name: dist
           path: dist/
 
-      - name: Deploy to live
+      - name: Deploy main site to live
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_REBUILT_VILLAGE_WEB }}
           projectId: rebuilt-village-web
+          target: main
+          channelId: live
+
+      - name: Download admin build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: admin-dist
+          path: admin/dist/
+
+      - name: Deploy admin site to live
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_REBUILT_VILLAGE_WEB }}
+          projectId: rebuilt-village-web
+          target: admin
           channelId: live

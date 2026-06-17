@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { PortableText } from '@portabletext/react';
+import { marked } from 'marked';
 import { ArrowLeft, Calendar, User, Clock } from 'lucide-react';
 import { Section } from '../components/Section';
 import { Button } from '../components/Button';
@@ -94,7 +94,7 @@ export const PostDetail: React.FC = () => {
                             </div>
                             <div className="flex items-center">
                                 <Clock size={14} className="mr-2 text-primary" />
-                                {Math.ceil(JSON.stringify(post.body || '').length / 1000)} min read
+                                {Math.ceil((post.body || '').length / 1000)} min read
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,9 @@ export const PostDetail: React.FC = () => {
                                       prose-blockquote:bg-slate-900/50 prose-blockquote:p-6 prose-blockquote:rounded-lg
                                       prose-img:rounded-xl prose-img:border prose-img:border-slate-800">
                             {post.body ? (
-                                <PortableText value={post.body} />
+                                // Blog body is markdown authored by trusted CMS editors (admin/editor
+                                // roles), rendered to HTML by marked. The surrounding .prose classes style it.
+                                <div dangerouslySetInnerHTML={{ __html: marked.parse(post.body, { async: false }) as string }} />
                             ) : (
                                 <p className="italic text-slate-500">The content of this post is currently in production.</p>
                             )}

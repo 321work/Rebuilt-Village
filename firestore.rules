@@ -1,0 +1,36 @@
+rules_version = '2';
+
+// Role-based access for Rebuilt Village content + financial collections.
+// Roles come from custom claims (request.auth.token.role): 'admin' | 'editor'.
+// Cloud Functions write via the Admin SDK, which bypasses these rules entirely.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function role() { return request.auth.token.role; }
+    function isAdmin() { return signedIn() && role() == 'admin'; }
+    function isEditor() { return signedIn() && role() == 'editor'; }
+    function isStaff() { return isAdmin() || isEditor(); }
+
+    // Content collections: world-readable (the public site reads them),
+    // writable by editors and admins via the FireCMS admin UI.
+    match /events/{id}      { allow read: if true; allow write: if isStaff(); }
+    match /teamMembers/{id}  { allow read: if true; allow write: if isStaff(); }
+    match /boardMembers/{id} { allow read: if true; allow write: if isStaff(); }
+    match /posts/{id}        { allow read: if true; allow write: if isStaff(); }
+    match /programs/{id}     { allow read: if true; allow write: if isStaff(); }
+    match /sponsors/{id}     { allow read: if true; allow write: if isStaff(); }
+
+    // Donor-facing project metadata: public read (site shows goals/progress),
+    // admin-only write (editors do not manage fundraising targets).
+    match /donorProjects/{id} { allow read: if true; allow write: if isAdmin(); }
+
+    // Sensitive financial collections: admin read only. All client writes denied;
+    // these are populated exclusively by Cloud Functions via the Admin SDK.
+    match /donors/{id} { allow read: if isAdmin(); allow write: if false; }
+    match /gifts/{id}  { allow read: if isAdmin(); allow write: if false; }
+    match /grants/{id} { allow read: if isAdmin(); allow write: if false; }
+
+    // Default deny everything not explicitly matched above.
+    match /{document=**} { allow read, write: if false; }
+  }
+}

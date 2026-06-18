@@ -6,6 +6,7 @@ import { Button } from '../components/Button';
 import { getDocuments } from '../services/sanityService';
 
 interface Document {
+    _id?: string;
     title: string;
     description: string;
     year: string;
@@ -163,7 +164,7 @@ export const Documents: React.FC = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                         {documents.map((doc, index) => (
                             <div
-                                key={index}
+                                key={doc._id ?? index}
                                 className="bg-slate-900/40 border border-slate-800 p-8 hover:border-primary transition-all duration-500 group relative"
                             >
                                 <div className="flex items-start justify-between mb-8">
@@ -192,10 +193,10 @@ export const Documents: React.FC = () => {
                                     className="w-full border-slate-700 hover:border-white h-12"
                                     onClick={() => window.open(doc.fileUrl || doc.externalUrl || '#', '_blank')}
                                 >
-                                    {doc.externalUrl ? (
-                                        <span className="flex items-center"><ExternalLink size={14} className="mr-2" /> View Archive</span>
-                                    ) : (
+                                    {doc.fileUrl ? (
                                         <span className="flex items-center"><Download size={14} className="mr-2" /> Pull Master File</span>
+                                    ) : (
+                                        <span className="flex items-center"><ExternalLink size={14} className="mr-2" /> View Archive</span>
                                     )}
                                 </Button>
                             </div>

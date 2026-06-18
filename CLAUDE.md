@@ -44,7 +44,7 @@ These apply to Claude's output in chat, code comments, commit messages, and PR d
 - Pages live in `/pages`. Do not inline page components in `App.tsx`. If you find inline components there, extract them.
 - Shared components live in `/components`. Navigation lives in `/src/components/ViewfinderNav.tsx`.
 - Brand tokens live in `/src/brand.ts`. Do not hardcode colors, fonts, or donor tier values elsewhere.
-- Firestore collections (canonical list): `events`, `teamMembers`, `boardMembers`, `posts`, `programs`, `sponsors`, `donors`, `gifts`, `grants`, `donorProjects`.
+- Firestore collections (canonical list): `events`, `teamMembers`, `boardMembers`, `posts`, `programs`, `sponsors`, `documents`, `donors`, `gifts`, `grants`, `donorProjects`.
 - Cloud Functions live in `/functions/src/handlers`. Each handler is a named export from `/functions/src/index.ts`.
 - Real EIN must appear in exactly four locations: `pages/Donate.tsx` (transparency panel), `index.html` (schema.org `taxID`), `components/Footer.tsx`, and `functions/src/handlers/createCheckoutSession.ts` (Stripe metadata). When the EIN changes, grep for the old value and replace everywhere.
 

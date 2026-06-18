@@ -278,6 +278,8 @@ export const getDocuments = async (): Promise<SanityDocument[]> =>
         description: d.description ?? '',
         year: d.year ?? '',
         type: d.category,
+        // urlFor resolves the Storage path to a download URL (same helper the
+        // image fields use); the width/height chain is a no-op for a PDF.
         fileUrl: d.file ? urlFor(d.file).url() : undefined,
         externalUrl: d.externalUrl,
       }));

@@ -12,13 +12,16 @@ service cloud.firestore {
     function isStaff() { return isAdmin() || isEditor(); }
 
     // Content collections: world-readable (the public site reads them),
-    // writable by editors and admins via the FireCMS admin UI.
+    // writable by editors and admins via the FireCMS admin UI. Delete is gated
+    // to admins at the UI layer (the FireCMS collection permissions); rules
+    // allow staff write as defense-in-depth, since the admin UI is the only client.
     match /events/{id}      { allow read: if true; allow write: if isStaff(); }
     match /teamMembers/{id}  { allow read: if true; allow write: if isStaff(); }
     match /boardMembers/{id} { allow read: if true; allow write: if isStaff(); }
     match /posts/{id}        { allow read: if true; allow write: if isStaff(); }
     match /programs/{id}     { allow read: if true; allow write: if isStaff(); }
     match /sponsors/{id}     { allow read: if true; allow write: if isStaff(); }
+    match /documents/{id}    { allow read: if true; allow write: if isStaff(); }
 
     // Donor-facing project metadata: public read (site shows goals/progress),
     // admin-only write (editors do not manage fundraising targets).

@@ -32,6 +32,7 @@ import { boardMembersCollection } from "./collections/boardMembers";
 import { postsCollection } from "./collections/posts";
 import { programsCollection } from "./collections/programs";
 import { sponsorsCollection } from "./collections/sponsors";
+import { documentsCollection } from "./collections/documents";
 import { donorsCollection } from "./collections/donors";
 import { giftsCollection } from "./collections/gifts";
 import { grantsCollection } from "./collections/grants";
@@ -107,6 +108,7 @@ const collections = [
   postsCollection,
   programsCollection,
   sponsorsCollection,
+  documentsCollection,
   donorsCollection,
   giftsCollection,
   grantsCollection,

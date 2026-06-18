@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Section } from '../components/Section';
 import { FileText, Download, ExternalLink, Calendar, ShieldCheck } from 'lucide-react';
 import { Button } from '../components/Button';
+import { getDocuments } from '../services/sanityService';
 
 interface Document {
+    _id?: string;
     title: string;
     description: string;
     year: string;
@@ -18,7 +20,10 @@ export const Documents: React.FC = () => {
     'Public Documents — Rebuilt Village',
     'Access Rebuilt Village nonprofit public records including our 990 filings, articles of incorporation, grant reports, and bylaws.'
   );
-    const documents: Document[] = [
+    // Firestore is the source of truth (managed in FireCMS → Documents). These
+    // tiles render until the collection loads, and remain the fallback if it is
+    // empty or unreachable so the page never goes blank.
+    const FALLBACK_DOCUMENTS: Document[] = [
         {
             title: "Internal Revenue Service Form 990 (2024)",
             description: "Annual tax return filed with the IRS showing our financial activities and governance.",
@@ -76,6 +81,21 @@ export const Documents: React.FC = () => {
             fileUrl: "#"
         }
     ];
+
+    const [documents, setDocuments] = useState<Document[]>(FALLBACK_DOCUMENTS);
+    useEffect(() => {
+        let cancelled = false;
+        getDocuments()
+            .then((docs) => {
+                if (!cancelled && docs.length > 0) setDocuments(docs);
+            })
+            .catch(() => {
+                /* keep FALLBACK_DOCUMENTS */
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     const getTypeColor = (type: Document['type']) => {
         switch (type) {
@@ -144,7 +164,7 @@ export const Documents: React.FC = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                         {documents.map((doc, index) => (
                             <div
-                                key={index}
+                                key={doc._id ?? index}
                                 className="bg-slate-900/40 border border-slate-800 p-8 hover:border-primary transition-all duration-500 group relative"
                             >
                                 <div className="flex items-start justify-between mb-8">
@@ -173,10 +193,10 @@ export const Documents: React.FC = () => {
                                     className="w-full border-slate-700 hover:border-white h-12"
                                     onClick={() => window.open(doc.fileUrl || doc.externalUrl || '#', '_blank')}
                                 >
-                                    {doc.externalUrl ? (
-                                        <span className="flex items-center"><ExternalLink size={14} className="mr-2" /> View Archive</span>
-                                    ) : (
+                                    {doc.fileUrl ? (
                                         <span className="flex items-center"><Download size={14} className="mr-2" /> Pull Master File</span>
+                                    ) : (
+                                        <span className="flex items-center"><ExternalLink size={14} className="mr-2" /> View Archive</span>
                                     )}
                                 </Button>
                             </div>

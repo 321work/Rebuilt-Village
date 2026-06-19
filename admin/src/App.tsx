@@ -38,12 +38,14 @@ import { giftsCollection } from "./collections/gifts";
 import { grantsCollection } from "./collections/grants";
 
 // ─── Email whitelist ────────────────────────────────────────────────────────
-// In production: add Tony, Jess, and Amanda's emails before deploying.
+// Whitelisted accounts can sign in. Role (admin/editor) is set separately via
+// scripts/set-custom-claims.ts after each person's first sign-in.
 const ALLOWED_EMAILS = new Set([
   "cortez@321work.com",
-  // "tony@<domain>",
-  // "jess@<domain>",
-  // "amanda@<domain>",
+  "anthony@rebuiltvillage.org", // Tony (admin)
+  "shauna@rebuiltvillage.org", // Shauna (admin)
+  // "jess@<domain>",   // pending onboarding
+  // "amanda@<domain>", // pending onboarding
 ]);
 
 // ─── Role definitions ────────────────────────────────────────────────────────

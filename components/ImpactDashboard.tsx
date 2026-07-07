@@ -1,43 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { PieChart, Zap, Users, Shield, TrendingUp } from 'lucide-react';
+import { Award, Heart, PieChart, Shield, Star, TrendingUp, Users, Zap } from 'lucide-react';
+import type { SanityImpactStat } from '../services/sanityService';
+import { getImpactStats } from '../services/sanityService';
 
-interface ImpactMetric {
-  label: string;
-  value: string;
-  subtext: string;
-  icon: React.ElementType;
-}
+const ICON_MAP: Record<string, React.ElementType> = {
+  TrendingUp, Users, Zap, Shield, PieChart, Heart, Star, Award,
+};
 
-const METRICS: ImpactMetric[] = [
-  {
-    label: 'Direct Program Flow',
-    value: '85%',
-    subtext: 'Efficiency Ratio',
-    icon: TrendingUp
-  },
-  {
-    label: 'Youth Reached',
-    value: '450+',
-    subtext: 'Scholarships Awarded',
-    icon: Users
-  },
-  {
-    label: 'Stories Preserved',
-    value: '12',
-    subtext: 'Local Narratives',
-    icon: Zap
-  },
-  {
-    label: 'Verified Status',
-    value: '501(c)(3)',
-    subtext: 'Tax Exempt',
-    icon: Shield
-  }
+// Fallback used when Firestore is empty or unavailable.
+const FALLBACK_METRICS: SanityImpactStat[] = [
+  { _id: 'f1', label: 'Direct Program Flow', value: '85%', description: 'Efficiency Ratio', icon: 'TrendingUp', order: 0 },
+  { _id: 'f2', label: 'Youth Reached', value: '450+', description: 'Scholarships Awarded', icon: 'Users', order: 1 },
+  { _id: 'f3', label: 'Stories Preserved', value: '12', description: 'Local Narratives', icon: 'Zap', order: 2 },
+  { _id: 'f4', label: 'Verified Status', value: '501(c)(3)', description: 'Tax Exempt', icon: 'Shield', order: 3 },
 ];
 
 export const ImpactDashboard: React.FC = () => {
   const prefersReduced = useReducedMotion();
+  const [metrics, setMetrics] = useState<SanityImpactStat[]>(FALLBACK_METRICS);
+
+  useEffect(() => {
+    getImpactStats().then((stats) => {
+      if (stats.length > 0) setMetrics(stats);
+    }).catch(() => { /* keep fallback */ });
+  }, []);
+
   return (
     <div className="bg-surface border border-border overflow-hidden relative group">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-50" />
@@ -59,11 +47,11 @@ export const ImpactDashboard: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {METRICS.map((metric, idx) => {
-            const Icon = metric.icon;
+          {metrics.map((metric, idx) => {
+            const Icon = ICON_MAP[metric.icon ?? ''] ?? TrendingUp;
             return (
               <motion.div
-                key={metric.label}
+                key={metric._id}
                 initial={{ opacity: 0, y: prefersReduced ? 0 : 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: prefersReduced ? 0 : idx * 0.1, duration: 0.5 }}
@@ -80,7 +68,7 @@ export const ImpactDashboard: React.FC = () => {
                   {metric.value}
                 </div>
                 <p className="font-mono text-[10px] text-text-muted italic opacity-40 uppercase tracking-widest">
-                  {metric.subtext}
+                  {metric.description}
                 </p>
               </motion.div>
             );

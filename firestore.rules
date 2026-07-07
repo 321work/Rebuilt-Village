@@ -23,6 +23,14 @@ service cloud.firestore {
     match /sponsors/{id}     { allow read: if true; allow write: if isStaff(); }
     match /documents/{id}    { allow read: if true; allow write: if isStaff(); }
 
+    // Site-wide singleton settings: admin-only (breaking changes are high-impact).
+    match /siteSettings/{id}  { allow read: if isAdmin(); allow write: if isAdmin(); }
+
+    // Public content collections — world-readable, staff-writable.
+    match /impactStats/{id}   { allow read: if true; allow write: if isStaff(); }
+    match /faqs/{id}          { allow read: if true; allow write: if isStaff(); }
+    match /testimonials/{id}  { allow read: if true; allow write: if isStaff(); }
+
     // Donor-facing project metadata: public read (site shows goals/progress),
     // admin-only write (editors do not manage fundraising targets).
     match /donorProjects/{id} { allow read: if true; allow write: if isAdmin(); }

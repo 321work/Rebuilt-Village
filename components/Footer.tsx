@@ -212,7 +212,7 @@ export const Footer: React.FC = () => {
                 <span className="font-display font-bold text-xl text-primary tracking-wide" aria-label={stat.value}>
                   {stat.value}
                 </span>
-                <span className="font-mono text-[10px] text-white/70 uppercase tracking-widest">
+                <span className="font-mono text-xs text-white/70 uppercase tracking-widest">
                   {stat.label}
                 </span>
                 {i < STATS.length - 1 && (

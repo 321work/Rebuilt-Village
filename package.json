@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "postbuild": "node prerender.cjs",
     "preview": "vite preview",
     "test:rules": "vitest run test/firestore.rules.test.ts",
     "test:rules:emulator": "firebase emulators:exec --only firestore \"npm run test:rules\"",
@@ -42,9 +43,11 @@
     "axe-core": "^4.11.1",
     "firebase-admin": "^13.10.0",
     "firebase-tools": "^15.10.0",
+    "puppeteer": "^25.3.0",
     "tsx": "^4.22.4",
     "typescript": "~5.8.2",
     "vite": "^6.2.0",
+    "vite-plugin-prerender": "^1.0.8",
     "vitest": "^4.1.9"
   }
 }

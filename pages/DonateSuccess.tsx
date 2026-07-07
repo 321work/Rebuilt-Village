@@ -76,6 +76,14 @@ export const DonateSuccess: React.FC = () => {
           Cut. Print.<br />Thank you.
         </h1>
 
+        {/* Donation amount */}
+        {amountDollars && (
+          <p className="text-5xl font-bold font-display text-text mb-4">
+            ${amountDollars.toLocaleString()}
+            <span className="text-text-muted text-lg font-normal font-mono ml-2">donated</span>
+          </p>
+        )}
+
         {/* Tier callout */}
         {tier && (
           <div

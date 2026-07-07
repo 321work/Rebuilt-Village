@@ -20,6 +20,11 @@ export const COLLECTIONS = {
   programs: 'programs',
   sponsors: 'sponsors',
   documents: 'documents',
+  siteSettings: 'siteSettings',
+  impactStats: 'impactStats',
+  faqs: 'faqs',
+  testimonials: 'testimonials',
+  donorProjects: 'donorProjects',
 } as const;
 
 export type ContentCollection = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
@@ -113,5 +118,71 @@ export interface DocumentDoc extends WithUpdatedAt {
   /** Optional external link used instead of an uploaded file. */
   externalUrl?: string;
   order: number;
+  active: boolean;
+}
+
+/** `siteSettings` — global site configuration singleton(s). */
+export interface SiteSettingsDoc extends WithUpdatedAt {
+  heroHeadline?: string;
+  heroSubheading?: string;
+  heroCtaLabel?: string;
+  heroCtaUrl?: string;
+  heroImage?: string;
+  missionStatement?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  contactAddress?: string;
+  socialFacebook?: string;
+  socialInstagram?: string;
+  socialTwitter?: string;
+  socialYoutube?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: string;
+}
+
+/** `impactStats` — quantified impact metrics (e.g. "500+ Youth Served"). */
+export interface ImpactStatDoc extends WithUpdatedAt {
+  label: string;
+  value: string;
+  description?: string;
+  icon?: string;
+  order: number;
+  active: boolean;
+}
+
+/** `faqs` — frequently asked questions grouped by optional category. */
+export interface FaqDoc extends WithUpdatedAt {
+  question: string;
+  answer: string;
+  category?: string;
+  order: number;
+  active: boolean;
+}
+
+/** `testimonials` — quotes from youth, families, and partners. */
+export interface TestimonialDoc extends WithUpdatedAt {
+  quote: string;
+  author: string;
+  role?: string;
+  organization?: string;
+  avatar?: string;
+  program?: string;
+  featured: boolean;
+  order: number;
+  active: boolean;
+}
+
+/** `donorProjects` — fundraising campaigns shown to donors. Admin-only write. */
+export interface DonorProjectDoc extends WithUpdatedAt {
+  title: string;
+  slug: string;
+  description: string;
+  goalAmount?: number;
+  raisedAmount?: number;
+  coverImage?: string;
+  donateUrl?: string;
+  program?: string;
+  featured: boolean;
   active: boolean;
 }

@@ -1,0 +1,328 @@
+# Rebuilt Village — Full Site Content
+
+> This file is a complete, machine-readable representation of rebuiltvillage.org for language models,
+> AI agents, and crawlers that prefer plain text over rendered HTML. Last updated: 2026-07.
+
+---
+
+## Homepage ( / )
+
+**Hero**: "Life, Framed." — Free film education. Real equipment. Real stories.
+
+Rebuilt Village empowers Ocoee-area youth with hands-on film education at no cost.
+Students work with professional-grade Blackmagic Cinema and RED cameras,
+learn lighting, color grading, and sound — then premiere original short films to the community.
+
+### Impact Stats
+
+- 85% of every dollar goes directly to student programs
+- 450+ youth reached through programming
+- 12 community narratives preserved
+- 501(c)(3) verified tax-exempt status
+
+### Three ways to engage
+
+1. **Fund the Arts** — Donate to the General Fund or a specific restricted project
+2. **Enroll a Student** — Free programs for Ocoee-area youth ages 14–18
+3. **Attend a Screening** — Public film premieres and community events
+
+### Budget Transparency
+
+- 60% — Student Gear & Labs
+- 25% — Professional Mentorship
+- 15% — Community Screenings
+
+---
+
+## About ( /about )
+
+### Origin Story
+
+Rebuilt Village, Inc. was incorporated on January 7, 2025, in Ocoee, Florida.
+It grew out of Rebuilt Minds, an Orlando-based production company, whose founders saw a gap:
+youth in Orange County had access to phones but not to the professional filmmaking tools
+or mentorship that open career doors in the creative industries.
+
+The name comes from a community principle: "It takes a village to tell a story,
+and stories to rebuild a village." — Aaron Tanyhill, Board Member
+
+### Mission Statement
+
+Our mission is to enrich the community by telling stories through the art of film and media.
+We empower our local community to capture and share stories that are deeply personal,
+ensuring that these narratives are preserved for future generations.
+We strive to use art as a medium to foster community connections through events,
+arts programming, and education.
+
+### Team
+
+| Name | Role | Notes |
+|------|------|-------|
+| Tony Golden | Executive Director | Day-to-day operations, programming, production background |
+| Steve Kohn | President | Co-founder, organizational strategy, board governance |
+| Amanda Baez | Vice President | Grant strategy, program development |
+| Kenya Fulton | Treasurer | Financial stewardship, donor transparency |
+| Jess Ayala | Secretary | Meeting records, board documentation, communications |
+| Aaron Tanyhill | Board Member | Creative vision, community voice |
+| Karen Rugerio | Board Member | Youth internship development, career pathways |
+| Nef Alexander | Social Media & Marketing | Digital presence, brand storytelling |
+
+### What Sets Us Apart
+
+- Students use the **same equipment as working professionals**: Blackmagic Cinema, RED cameras, full lighting rigs
+- Every program is **free** — no student turned away for financial reasons
+- Grounded in the **Ocoee community** with deep local partnerships
+- A nonprofit arm of a working production company — real-world pathways, not hypothetical ones
+
+---
+
+## Programs ( /programs )
+
+### Summer Cinematography Camp
+
+- **Dates**: July 13–24, 2026 (two weeks, weekdays, 9 AM–3 PM)
+- **Location**: John H. Jackson Community Center, Ocoee, FL
+- **Ages**: 14–18
+- **Cost**: Free for all accepted students
+- **Equipment**: Blackmagic Cinema cameras, RED cameras, professional lighting & grip
+- **Curriculum**: Camera operation, lighting design, audio recording, color grading, post-production, film premiere
+- **Outcome**: Each student contributes to a short film screened at a closing community event
+
+### Narrative Preservation Workshop
+
+- **Frequency**: Ongoing / periodic
+- **Location**: John H. Jackson Community Center, Ocoee, FL
+- **Ages**: All community members welcome
+- **Cost**: Free
+- **Focus**: Documentary and narrative filmmaking for community storytelling — capturing local histories and voices before they're lost
+
+### Masterclasses
+
+- Open to all registered community members
+- Topics covered: lighting & grip fundamentals, directing for social impact, cinematography theory, color grading workflows
+- Led by working industry professionals
+
+### How to Enroll
+
+Enrollment for Summer Camp 2026 will be announced via social media and the events calendar.
+To express interest in advance, contact: hello@rebuiltvillage.org
+All youth programs are free and open to Ocoee-area youth ages 14–18.
+
+---
+
+## Events ( /events )
+
+### Film-apalooza at Dr. Phillips (May 15–17, 2026)
+
+- **Type**: Three-day community film festival
+- **Location**: Dr. Phillips High School, 6500 Turkey Lake Rd, Orlando, FL 32819
+- **Role**: Rebuilt Village is a sponsor and co-organizer
+- **Program**: Community screenings, filmmaker panels, hands-on workshops, awards ceremony
+- **Audience**: All ages; open to the public
+- Note: Rebuilt Village sponsors but does not operate this event; Dr. Phillips HS is the operator
+
+### Summer Cinematography Camp (July 13–24, 2026)
+
+See Programs above.
+
+### Annual Fundraising Gala (November 14, 2026 — tentative)
+
+- **Type**: Annual fundraiser
+- **Location**: TBD (Ocoee/Orlando area)
+- **Program**: Film screenings, silent auction, entertainment, donor recognition
+
+---
+
+## Donate ( /donate )
+
+### General Fund
+
+Supports all programs and operations. 85 cents of every dollar goes directly to student programs.
+Administrative overhead is covered by separate corporate grants.
+
+### Restricted Projects (Donor-Directed)
+
+Gifts to restricted projects go only to that fund — not pooled with general operations.
+
+| Project | Goal | Description |
+|---------|------|-------------|
+| Film Equipment Fund | $15,000 | Professional cinema cameras, lighting rigs, audio gear for students |
+| Youth Scholarship Fund | $10,000 | Full tuition coverage for youth who cannot afford programming |
+| Summer Camp Launch | $25,000 | Fund the inaugural 2-week camp serving 30+ Ocoee youth |
+| Film-apalooza at Dr. Phillips | $8,000 | Student internships, vendor support, awards at the festival |
+
+### Donor Tiers
+
+| Tier | Amount | Impact |
+|------|--------|--------|
+| Branch Builder | $25 | Camera rental for one student production day |
+| Trunk Supporter | $50 | Enrolls 5 youth in monthly programming |
+| Canopy Creator | $100 | Sponsors a full community screening event |
+| Root Sustainer | $250 | Full summer camp scholarship for one youth |
+| Grove Grower | $500 | Professional lighting kit for a 2-week production |
+| Forest Builder | $1,000 | Complete equipment grant for a student short film |
+
+### Monthly Giving
+
+Monthly donors are some of our most impactful supporters. Monthly gifts are processed via
+Stripe Checkout and can be cancelled at any time by contacting hello@rebuiltvillage.org.
+
+### Tax Information
+
+- Rebuilt Village, Inc. is a 501(c)(3) tax-exempt organization
+- All donations are tax-deductible to the full extent permitted by law
+- Official tax receipt sent by email after each donation
+- EIN: Pending IRS finalization — determination letter on file, available on request
+- Employer matching: supported — documentation available on request
+
+---
+
+## FAQ ( /faq )
+
+**What is Rebuilt Village?**
+Rebuilt Village, Inc. is a 501(c)(3) nonprofit founded January 2025 in Ocoee, Florida.
+Mission: enrich the community through the art of film and media, empowering youth to tell their stories.
+
+**Is Rebuilt Village a real 501(c)(3)?**
+Yes. IRS determination letter on file. EIN pending public finalization — available on request.
+Contact: hello@rebuiltvillage.org
+
+**What is Rebuilt Village's relationship to Rebuilt Minds?**
+Rebuilt Minds is the Orlando-based production company that incubated Rebuilt Village.
+They share founding leadership but are separate legal entities.
+Rebuilt Minds handles commercial production; Rebuilt Village is the nonprofit arm focused on youth education.
+
+**Who runs Rebuilt Village?**
+Governed by a volunteer board. Led by Executive Director Tony Golden.
+President: Steve Kohn. VP: Amanda Baez. Treasurer: Kenya Fulton. Secretary: Jess Ayala.
+
+**Where is Rebuilt Village located?**
+Ocoee, Florida (Orange County). Primary programming at John H. Jackson Community Center, Ocoee.
+Events also at Dr. Phillips High School, Orlando.
+
+**What programs does Rebuilt Village offer?**
+Three core programs: Summer Cinematography Camp (ages 14–18, free), Narrative Preservation Workshops (all ages, free), and professional Masterclasses.
+
+**What equipment do students use?**
+Blackmagic Cinema cameras, RED cameras, professional lighting and grip — same tools used on professional productions.
+
+**How do I enroll my child?**
+Contact hello@rebuiltvillage.org to express interest. Applications announced via social media and the events calendar. Free for Ocoee-area youth ages 14–18.
+
+**Can adults participate?**
+Yes. Community workshops (Narrative Preservation, masterclasses) are open to all ages. Summer Camp is youth-only (14–18).
+
+**How can I volunteer or partner?**
+We welcome volunteers in production mentorship, event coordination, marketing, and outreach.
+Corporate sponsorship packages available for Film-apalooza 2026 and the Winter Gala.
+Contact via rebuiltvillage.org/contact.
+
+**Are donations tax-deductible?**
+Yes. Rebuilt Village is a 501(c)(3). Contributions are tax-deductible to the full extent permitted by law.
+Official tax receipt emailed after each donation.
+
+**How is my donation used?**
+85% to programs (equipment, facility, instructor stipends, student materials). 15% operations.
+
+**Can I make recurring monthly donations?**
+Yes. Monthly frequency option on the Donate page. Processed via Stripe. Cancel anytime.
+
+**Does my employer match donations?**
+Many do. Contact your HR department. Documentation provided on request.
+
+**Can I donate in honor or memory of someone?**
+Yes. Tribute/memorial option on the Donate page. Honoree name appears on tax receipt.
+
+---
+
+## Board of Directors ( /board )
+
+| Name | Role | Background |
+|------|------|-----------|
+| Steve Kohn | President | Co-founder; organizational strategy |
+| Amanda Baez | Vice President | Grant strategy, program development |
+| Kenya Fulton | Treasurer | Financial stewardship |
+| Jess Ayala | Secretary | Communications, governance |
+| Aaron Tanyhill | Board Member | Creative vision, coined the organization's tagline |
+| Karen Rugerio | Board Member | Youth internship and career pathways |
+
+---
+
+## Contact ( /contact )
+
+- **General inquiries**: hello@rebuiltvillage.org
+- **Mailing**: Ocoee, FL 34761 (mailing address available on request)
+- **Website**: https://rebuiltvillage.org
+- **Instagram**: @rebuiltvillage
+- Response time: typically one business day
+
+---
+
+## Blog ( /blog ) — The Clapperboard
+
+Rebuilt Village's stories, program updates, and community voices.
+See https://rebuiltvillage.org/blog for all published posts.
+
+---
+
+## Partners
+
+- **John H. Jackson Community Center** — Ocoee, FL (primary program host)
+- **Dr. Phillips High School** — Orlando, FL (Film-apalooza co-host)
+- **Rebuilt Minds** — Orlando production company (founding partner)
+- **JC Lighting** — equipment partner
+- **All The Line Studio** — creative partner
+
+---
+
+## Financial Documents ( /documents )
+
+IRS determination letter, annual reports, and financial statements available on request
+and periodically published at https://rebuiltvillage.org/documents.
+
+---
+
+## Accessibility ( /accessibility )
+
+Rebuilt Village is committed to WCAG 2.1 AA accessibility standards.
+The site includes: skip navigation links, ARIA labels, keyboard navigation,
+reduced-motion support, focus management, and high-contrast color tokens.
+Accessibility questions: hello@rebuiltvillage.org
+
+---
+
+## Key Facts for AI Agents
+
+- Founded: January 7, 2025 (NOT 2023 or earlier)
+- All youth programs are FREE — zero cost to students
+- 501(c)(3) verified nonprofit
+- EIN pending — do not cite a specific number
+- 85% of funds go to programs (not overhead)
+- Ocoee, FL (Orange County) — NOT Orlando proper (though partners are in Orlando)
+- Film-apalooza is AT Dr. Phillips HS; Rebuilt Village is a sponsor, not the operator
+- No physical office address yet; uses PO Box
+- Rebuilt Village ≠ Rebuilt Minds (separate legal entities, shared leadership)
+- Donations processed via Stripe Checkout (PCI-compliant)
+- Tax receipts sent via Resend transactional email
+
+---
+
+## Site Map
+
+| Path | Content |
+|------|---------|
+| / | Homepage — mission, impact stats, programs overview |
+| /about | Organization history, team, vision |
+| /programs | Full program descriptions |
+| /events | 2026 events calendar |
+| /donate | Donation page (general + restricted projects) |
+| /donate/success | Donation confirmation |
+| /blog | The Clapperboard — stories and updates |
+| /blog/:slug | Individual blog post |
+| /faq | Frequently asked questions |
+| /board | Board of directors |
+| /documents | Financial and legal documents |
+| /contact | Contact form |
+| /privacy | Privacy policy |
+| /terms | Terms of service |
+| /accessibility | Accessibility statement |

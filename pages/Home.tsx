@@ -6,6 +6,9 @@ import { Button } from '../components/Button';
 import { announceToScreenReader } from '../src/utils/a11y';
 import { ImpactDashboard } from '../components/ImpactDashboard';
 import { VideoPlayer } from '../components/VideoPlayer';
+import { getSiteSettings, getTestimonials } from '../services/sanityService';
+import type { SanityTestimonial } from '../services/sanityService';
+import { urlFor } from '../services/sanityClient';
 
 // ─── Animated counter ───────────────────────────────────────────────────────
 interface CounterProps {
@@ -50,34 +53,61 @@ const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', duration
 };
 
 // ─── Testimonials data ──────────────────────────────────────────────────────
-const TESTIMONIALS = [
+const FALLBACK_TESTIMONIALS = [
   {
     quote: 'Rebuilt Village gave me a camera and, more importantly, a reason to use it. I went from never touching film equipment to directing my first short in eight weeks.',
     name: 'Marcus Thompson',
     role: 'Night at the Cinema ’ 24 · Student filmmaker, Ocoee HS',
     initials: 'MT',
+    avatar: null,
   },
   {
     quote: "As a parent, I was blown away by how seriously the mentors took the kids. This isn't daycare \u2014 it's a real professional environment.",
     name: 'Diane Ramos',
     role: 'Parent of program participant \u00b7 Ocoee, FL',
     initials: 'DR',
+    avatar: null,
   },
   {
     quote: "The stories coming out of Rebuilt Village are exactly what our community needs. They're honest, local, and permanent.",
     name: 'Pastor James Okafor',
     role: 'Community partner \u00b7 West Orange area',
     initials: 'JO',
+    avatar: null,
   },
 ];
+
+type TestimonialShape = { quote: string; name: string; role: string; initials: string; avatar: string | null };
+
+function testimonialsFromCMS(raw: SanityTestimonial[]): TestimonialShape[] {
+  return raw.map((t) => ({
+    quote: t.quote,
+    name: t.author,
+    role: [t.role, t.organization].filter(Boolean).join(' · '),
+    initials: t.author.split(' ').map((w: string) => w[0]).slice(0, 2).join('').toUpperCase(),
+    avatar: t.avatar ? (t.avatar as string) : null,
+  }));
+}
 
 // ─── Home ───────────────────────────────────────────────────────────────────
 export const Home: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [testimonials, setTestimonials] = useState<TestimonialShape[]>(FALLBACK_TESTIMONIALS);
+  const [heroImage, setHeroImage] = useState<string>('');
 
   useEffect(() => {
     announceToScreenReader('Welcome to Rebuilt Village. Film education nonprofit based in Ocoee, Florida.');
+  }, []);
+
+  // Load CMS data
+  useEffect(() => {
+    getSiteSettings().then((s) => {
+      if (s?.heroImage) setHeroImage(urlFor(s.heroImage).url());
+    }).catch(() => { /* keep defaults */ });
+    getTestimonials().then((raw) => {
+      if (raw.length > 0) setTestimonials(testimonialsFromCMS(raw));
+    }).catch(() => { /* keep fallback */ });
   }, []);
 
   usePageMeta(
@@ -88,10 +118,10 @@ export const Home: React.FC = () => {
   // Auto-rotate testimonials
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveTestimonial((i) => (i + 1) % TESTIMONIALS.length);
+      setActiveTestimonial((i) => (i + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [testimonials.length]);
 
   return (
     <article aria-label="Rebuilt Village homepage">
@@ -104,12 +134,14 @@ export const Home: React.FC = () => {
         <div className="absolute inset-0 bg-black">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-30"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&q=80&w=1920')" }}
+            style={{ backgroundImage: heroImage ? `url(${heroImage})` : undefined }}
             aria-hidden="true"
           />
           {/* Cinematic letterbox */}
           <div className="absolute top-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
+          {/* Gradient scrim for hero text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-[5]" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
@@ -128,7 +160,7 @@ export const Home: React.FC = () => {
             >
               Life, <em className="text-primary not-italic">Framed.</em>
             </h1>
-            <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto font-serif mb-10 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/75 max-w-2xl mx-auto font-serif mb-10 leading-relaxed">
               Enriching the community through the art of film. We empower local voices to capture
               personal stories and preserve them for future generations.
             </p>
@@ -226,7 +258,7 @@ export const Home: React.FC = () => {
           </h2>
 
           <div className="relative" style={{ minHeight: '220px' }} aria-live="polite" aria-atomic="true">
-            {TESTIMONIALS.map((t, i) => (
+            {testimonials.map((t, i) => (
               <motion.blockquote
                 key={i}
                 initial={{ opacity: 0 }}
@@ -255,7 +287,7 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="flex justify-center gap-3 mt-16" role="tablist" aria-label="Testimonial navigation">
-            {TESTIMONIALS.map((_, i) => (
+            {testimonials.map((_, i) => (
               <button
                 key={i}
                 role="tab"

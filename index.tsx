@@ -1,6 +1,6 @@
 import './src/index.css';
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -19,8 +19,7 @@ if (!container) {
   throw new Error("Could not find root element to mount to");
 }
 
-const root = createRoot(container);
-root.render(
+const app = (
   <React.StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
@@ -31,3 +30,10 @@ root.render(
     </ErrorBoundary>
   </React.StrictMode>
 );
+
+// Hydrate if the root already has prerendered HTML (SSG build); otherwise mount fresh.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, app);
+} else {
+  createRoot(container).render(app);
+}

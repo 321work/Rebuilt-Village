@@ -36,6 +36,11 @@ import { documentsCollection } from "./collections/documents";
 import { donorsCollection } from "./collections/donors";
 import { giftsCollection } from "./collections/gifts";
 import { grantsCollection } from "./collections/grants";
+import { siteSettingsCollection } from "./collections/siteSettings";
+import { impactStatsCollection } from "./collections/impactStats";
+import { faqsCollection } from "./collections/faqs";
+import { testimonialsCollection } from "./collections/testimonials";
+import { donorProjectsCollection } from "./collections/donorProjects";
 
 // ─── Email whitelist ────────────────────────────────────────────────────────
 // Whitelisted accounts can sign in. Role (admin/editor) is set separately via
@@ -114,6 +119,11 @@ const collections = [
   donorsCollection,
   giftsCollection,
   grantsCollection,
+  siteSettingsCollection,
+  impactStatsCollection,
+  faqsCollection,
+  testimonialsCollection,
+  donorProjectsCollection,
 ];
 
 // ─── Google sign-in (redirect flow) ──────────────────────────────────────────

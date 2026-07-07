@@ -14,9 +14,14 @@ import type {
   BoardMemberDoc,
   DocumentDoc,
   EventDoc,
+  FaqDoc,
+  ImpactStatDoc,
   PostDoc,
   ProgramDoc,
+  SiteSettingsDoc,
   TeamMemberDoc,
+  TestimonialDoc,
+  DonorProjectDoc,
 } from '../types/firestore';
 import { Event } from '../types';
 import { urlFor } from './sanityClient';
@@ -283,4 +288,176 @@ export const getDocuments = async (): Promise<SanityDocument[]> =>
         fileUrl: d.file ? urlFor(d.file).url() : undefined,
         externalUrl: d.externalUrl,
       }));
+  }, []);
+
+// ─── Site Settings ────────────────────────────────────────────────────────────
+
+export interface SanitySiteSettings {
+  _id: string;
+  heroHeadline?: string;
+  heroSubheading?: string;
+  heroCtaLabel?: string;
+  heroCtaUrl?: string;
+  heroImage?: any;
+  missionStatement?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  contactAddress?: string;
+  socialFacebook?: string;
+  socialInstagram?: string;
+  socialTwitter?: string;
+  socialYoutube?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImage?: any;
+}
+
+/**
+ * Returns the first active site-settings document, or null if none exist.
+ * Convention: maintain a single document with a well-known id (e.g. "main").
+ */
+export const getSiteSettings = async (): Promise<SanitySiteSettings | null> =>
+  cached('siteSettings', async () => {
+    const docs = await loadCollection<SiteSettingsDoc>(COLLECTIONS.siteSettings);
+    if (!docs.length) return null;
+    const d = docs[0];
+    return {
+      _id: d._id,
+      heroHeadline: d.heroHeadline,
+      heroSubheading: d.heroSubheading,
+      heroCtaLabel: d.heroCtaLabel,
+      heroCtaUrl: d.heroCtaUrl,
+      heroImage: d.heroImage,
+      missionStatement: d.missionStatement,
+      contactEmail: d.contactEmail,
+      contactPhone: d.contactPhone,
+      contactAddress: d.contactAddress,
+      socialFacebook: d.socialFacebook,
+      socialInstagram: d.socialInstagram,
+      socialTwitter: d.socialTwitter,
+      socialYoutube: d.socialYoutube,
+      seoTitle: d.seoTitle,
+      seoDescription: d.seoDescription,
+      seoImage: d.seoImage,
+    };
+  }, null);
+
+// ─── Impact Stats ─────────────────────────────────────────────────────────────
+
+export interface SanityImpactStat {
+  _id: string;
+  label: string;
+  value: string;
+  description?: string;
+  icon?: string;
+  order: number;
+}
+
+export const getImpactStats = async (): Promise<SanityImpactStat[]> =>
+  cached('impactStats', async () => {
+    const docs = await loadCollection<ImpactStatDoc>(COLLECTIONS.impactStats);
+    return docs
+      .filter((d) => d.active !== false)
+      .sort(byOrder)
+      .map((d) => ({
+        _id: d._id,
+        label: d.label,
+        value: d.value,
+        description: d.description,
+        icon: d.icon,
+        order: d.order,
+      }));
+  }, []);
+
+// ─── FAQs ─────────────────────────────────────────────────────────────────────
+
+export interface SanityFaq {
+  _id: string;
+  question: string;
+  answer: string;
+  category?: string;
+  order: number;
+}
+
+export const getFaqs = async (): Promise<SanityFaq[]> =>
+  cached('faqs', async () => {
+    const docs = await loadCollection<FaqDoc>(COLLECTIONS.faqs);
+    return docs
+      .filter((d) => d.active !== false)
+      .sort(byOrder)
+      .map((d) => ({
+        _id: d._id,
+        question: d.question,
+        answer: d.answer,
+        category: d.category,
+        order: d.order,
+      }));
+  }, []);
+
+// ─── Testimonials ─────────────────────────────────────────────────────────────
+
+export interface SanityTestimonial {
+  _id: string;
+  quote: string;
+  author: string;
+  role?: string;
+  organization?: string;
+  avatar?: any;
+  program?: string;
+  featured: boolean;
+  order: number;
+}
+
+export const getTestimonials = async (): Promise<SanityTestimonial[]> =>
+  cached('testimonials', async () => {
+    const docs = await loadCollection<TestimonialDoc>(COLLECTIONS.testimonials);
+    return docs
+      .filter((d) => d.active !== false)
+      .sort(byOrder)
+      .map((d) => ({
+        _id: d._id,
+        quote: d.quote,
+        author: d.author,
+        role: d.role,
+        organization: d.organization,
+        avatar: d.avatar,
+        program: d.program,
+        featured: d.featured,
+        order: d.order,
+      }));
+  }, []);
+
+// ─── Donor Projects ───────────────────────────────────────────────────────────
+
+export interface SanityDonorProject {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  description: string;
+  goalAmount?: number;
+  raisedAmount?: number;
+  coverImage?: any;
+  donateUrl?: string;
+  program?: string;
+  featured: boolean;
+}
+
+export const getDonorProjects = async (): Promise<SanityDonorProject[]> =>
+  cached('donorProjects', async () => {
+    const docs = await loadCollection<DonorProjectDoc>(COLLECTIONS.donorProjects);
+    return docs
+      .filter((d) => d.active !== false)
+      .map((d) => ({
+        _id: d._id,
+        title: d.title,
+        slug: { current: d.slug },
+        description: d.description,
+        goalAmount: d.goalAmount,
+        raisedAmount: d.raisedAmount,
+        coverImage: d.coverImage,
+        donateUrl: d.donateUrl,
+        program: d.program,
+        featured: d.featured,
+      }))
+      .sort((a, b) => Number(b.featured) - Number(a.featured));
   }, []);

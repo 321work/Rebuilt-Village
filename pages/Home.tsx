@@ -110,6 +110,8 @@ export const Home: React.FC = () => {
           {/* Cinematic letterbox */}
           <div className="absolute top-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
+          {/* Gradient scrim for hero text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-[5]" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
@@ -128,7 +130,7 @@ export const Home: React.FC = () => {
             >
               Life, <em className="text-primary not-italic">Framed.</em>
             </h1>
-            <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto font-serif mb-10 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/75 max-w-2xl mx-auto font-serif mb-10 leading-relaxed">
               Enriching the community through the art of film. We empower local voices to capture
               personal stories and preserve them for future generations.
             </p>

@@ -45,10 +45,10 @@ const ImpactTicker = () => {
   ];
 
   return (
-    <motion.div style={{ opacity }} className="impact-ticker h-8 flex items-center text-[11px] overflow-hidden sticky top-0 z-[60]" role="marquee" aria-label="Impact statistics">
+    <motion.div style={{ opacity }} className="impact-ticker h-8 flex items-center text-[12px] overflow-hidden sticky top-0 z-[60]" role="marquee" aria-label="Impact statistics">
       <div className="flex whitespace-nowrap animate-marquee">
         {[...metrics, ...metrics].map((text, i) => (
-          <span key={i} className="mx-8 font-mono font-bold tracking-[0.3em] text-brand-black" aria-hidden={i >= metrics.length}>
+          <span key={i} className="mx-8 font-mono font-bold tracking-[0.2em] text-brand-black" aria-hidden={i >= metrics.length}>
             {text}
           </span>
         ))}

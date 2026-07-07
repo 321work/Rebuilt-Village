@@ -70,7 +70,7 @@ export const createCheckoutSession = functions.onRequest(
     const { amount, frequency, fundType, projectId, tributeName, donorEmail } = parsed.data;
     const origin     = 'https://rebuiltvillage.org';
     const successUrl = parsed.data.successUrl
-      ?? `${origin}/donate/success?session_id={CHECKOUT_SESSION_ID}&fund_type=${fundType}${projectId ? `&project_id=${projectId}` : ''}`;
+      ?? `${origin}/donate/success?session_id={CHECKOUT_SESSION_ID}&amount=${amount}&fund_type=${fundType}${projectId ? `&project_id=${projectId}` : ''}`;
     const cancelUrl  = parsed.data.cancelUrl ?? `${origin}/donate?cancelled=true`;
 
     // Build a readable product name

@@ -95,10 +95,17 @@
     "foundingDate": "2025-01-07",
     "taxID": "",
     "nonprofitStatus": "Nonprofit501c3",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "hello@rebuiltvillage.org",
+      "availableLanguage": "English"
+    },
     "sameAs": [
       "https://instagram.com/rebuiltvillage",
       "https://facebook.com/rebuiltvillage",
-      "https://twitter.com/rebuiltvillage"
+      "https://twitter.com/rebuiltvillage",
+      "https://youtube.com/@rebuiltvillage"
     ],
     "areaServed": {
       "@type": "City",
@@ -274,6 +281,25 @@
       "url": "https://rebuiltvillage.org/events"
     }
   ]
+  </script>
+
+  <!-- Structured Data: WebSite (enables Google Sitelinks Search Box) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Rebuilt Village",
+    "url": "https://rebuiltvillage.org",
+    "description": "Film education nonprofit empowering Ocoee's youth through professional cinema training",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://rebuiltvillage.org/blog?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
   </script>
 
   <!-- LLM discoverability hint -->

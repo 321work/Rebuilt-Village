@@ -8,8 +8,9 @@ import {
   Shield,
   Users,
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useProjectBalances } from '../services/projectBalancesService';
+import { getDonorProjects } from '../services/sanityService';
 import { Link, useSearchParams } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { motion } from 'framer-motion';
@@ -189,6 +190,7 @@ export const Donate: React.FC = () => {
   const cancelled                             = searchParams.get('cancelled') === 'true';
 
   const [fundType, setFundType]               = useState<FundType>('general');
+  const [projects, setProjects]               = useState<RestrictedProject[]>(RESTRICTED_PROJECTS);
   const [projectId, setProjectId]             = useState<string>(RESTRICTED_PROJECTS[0].id);
   const [amount, setAmount]                   = useState<number>(100);
   const [customAmount, setCustomAmount]       = useState<string>('');
@@ -197,6 +199,26 @@ export const Donate: React.FC = () => {
   const [tributeName, setTributeName]         = useState('');
   const [isLoading, setIsLoading]             = useState(false);
   const [error, setError]                     = useState<string | null>(null);
+
+  // Load CMS donor projects; falls back to hardcoded RESTRICTED_PROJECTS
+  useEffect(() => {
+    getDonorProjects().then((cms) => {
+      if (cms.length > 0) {
+        const mapped: RestrictedProject[] = cms.map((p) => ({
+          id: p._id,
+          title: p.title,
+          description: p.description,
+          goal: p.goalAmount ?? 0,
+          raisedSeed: p.raisedAmount ?? 0,
+          deadline: '',
+          color: BRAND.colors.teal,
+          impact: (amt: number) => p.description ? `${generalImpact(amt)} toward ${p.title}` : generalImpact(amt),
+        }));
+        setProjects(mapped);
+        setProjectId(mapped[0].id);
+      }
+    }).catch(() => { /* keep RESTRICTED_PROJECTS */ });
+  }, []);
 
   // Live Firestore balances — polls every 60s; falls back to raisedSeed if unreachable
   const { balances: liveBalances } = useProjectBalances(60_000);
@@ -208,7 +230,7 @@ export const Donate: React.FC = () => {
     return project.raisedSeed;
   }
 
-  const selectedProject = RESTRICTED_PROJECTS.find((p) => p.id === projectId) ?? RESTRICTED_PROJECTS[0];
+  const selectedProject = projects.find((p) => p.id === projectId) ?? projects[0];
   const displayAmount   = customAmount ? parseFloat(customAmount) || 0 : amount;
   const selectedCents   = Math.round(displayAmount * 100);
   const donorTier       = displayAmount > 0 ? donorTierForAmount(displayAmount) : null;
@@ -404,7 +426,7 @@ export const Donate: React.FC = () => {
                   Choose a Project
                 </p>
                 <div className="space-y-3" role="group" aria-label="Restricted donation projects">
-                  {RESTRICTED_PROJECTS.map((project) => {
+                  {projects.map((project) => {
                     const raised     = getRaised(project);
                     const pct        = Math.min(100, Math.round((raised / project.goal) * 100));
                     const isSelected = projectId === project.id;

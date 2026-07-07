@@ -1,9 +1,11 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { ChevronDown, Mail } from 'lucide-react';
-import React, { useState } from 'react';
+import { marked } from 'marked';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Section } from '../components/Section';
+import { getFaqs } from '../services/sanityService';
 
 // ─── FAQ data ─────────────────────────────────────────────────────────────────
 // Keep this in sync with the FAQPage JSON-LD block in index.html
@@ -250,10 +252,23 @@ export const FAQ: React.FC = () => {
   );
   const [openId, setOpenId]         = useState<string | null>(null);
   const [activeCategory, setActiveCat] = useState<FAQItem['category'] | 'all'>('all');
+  const [allFaqs, setAllFaqs] = useState<FAQItem[]>(FAQS);
+
+  useEffect(() => {
+    getFaqs().then((cmsFaqs) => {
+      if (cmsFaqs.length > 0) {
+        setAllFaqs(cmsFaqs.map((f) => ({
+          question: f.question,
+          answer: <span dangerouslySetInnerHTML={{ __html: marked.parse(f.answer) as string }} />,
+          category: (f.category ?? 'organization') as FAQItem['category'],
+        })));
+      }
+    }).catch(() => { /* keep hardcoded */ });
+  }, []);
 
   const filtered = activeCategory === 'all'
-    ? FAQS
-    : FAQS.filter(f => f.category === activeCategory);
+    ? allFaqs
+    : allFaqs.filter(f => f.category === activeCategory);
 
   function toggle(question: string) {
     setOpenId(prev => (prev === question ? null : question));

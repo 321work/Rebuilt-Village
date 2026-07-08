@@ -29,6 +29,13 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Cache Puppeteer Chrome
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: puppeteer-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: puppeteer-${{ runner.os }}-
+
       - name: Install dependencies
         run: npm ci
 
@@ -37,7 +44,7 @@ jobs:
 
       - name: Install functions dependencies
         working-directory: functions
-        run: npm ci
+        run: PUPPETEER_SKIP_DOWNLOAD=true npm ci
 
       - name: Type check functions
         working-directory: functions
@@ -48,7 +55,7 @@ jobs:
 
       - name: Install admin dependencies
         working-directory: admin
-        run: npm ci
+        run: PUPPETEER_SKIP_DOWNLOAD=true npm ci
 
       - name: Build admin site
         run: npm run build:admin

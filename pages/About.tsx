@@ -141,14 +141,13 @@ export const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-16 items-start mb-32">
             <div className="relative group overflow-hidden border border-border p-2">
               <img
-                src="/assets/brand/team-action.png"
-                alt="Rebuilt Village team working with students"
-                width={800}
-                height={600}
+                src="/assets/hero/studio-students.jpg"
+                alt="Rebuilt Village students learning in a film studio beneath overhead production lights"
+                width={1350}
+                height={1800}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 transform group-hover:scale-[1.02]"
-                style={{ willChange: 'transform' }}
+                className="w-full h-auto"
               />
               {/* Film strip decoration */}
               <div className="absolute top-0 left-0 w-8 h-full bg-surface/20 flex flex-col justify-around py-4 border-r border-border">

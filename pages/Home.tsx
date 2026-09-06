@@ -1,56 +1,13 @@
-import { motion, useInView, useReducedMotion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Button } from '../components/Button';
 import { announceToScreenReader } from '../src/utils/a11y';
-import { ImpactDashboard } from '../components/ImpactDashboard';
 import { VideoPlayer } from '../components/VideoPlayer';
 import { getSiteSettings, getTestimonials } from '../services/sanityService';
 import type { SanityTestimonial } from '../services/sanityService';
 import { urlFor } from '../services/sanityClient';
-
-// ─── Animated counter ───────────────────────────────────────────────────────
-interface CounterProps {
-  target: number;
-  suffix?: string;
-  duration?: number;
-}
-
-const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', duration = 2000 }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReduced = useReducedMotion();
-
-  useEffect(() => {
-    if (!inView) return;
-    if (prefersReduced) { setCount(target); return; }
-
-    const steps = 60;
-    const increment = target / steps;
-    const interval = duration / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [inView, target, duration, prefersReduced]);
-
-  return (
-    <span ref={ref} aria-label={`${target}${suffix}`}>
-      {count}{suffix}
-    </span>
-  );
-};
 
 // ─── Testimonials data ──────────────────────────────────────────────────────
 const FALLBACK_TESTIMONIALS = [
@@ -89,9 +46,9 @@ function testimonialsFromCMS(raw: SanityTestimonial[]): TestimonialShape[] {
   }));
 }
 
-// Original Rebuilt Village asset (LA studio tour, April 2026). Overridden by
+// Original Rebuilt Village photo of the students at the Hollywood sign. Overridden by
 // siteSettings.heroImage in FireCMS when set.
-const DEFAULT_HERO_IMAGE = '/assets/hero/studio-tour-v1.jpg';
+const DEFAULT_HERO_IMAGE = '/assets/hero/hollywood-students.jpg';
 
 // ─── Home ───────────────────────────────────────────────────────────────────
 export const Home: React.FC = () => {
@@ -133,24 +90,22 @@ export const Home: React.FC = () => {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
         aria-labelledby="hero-heading"
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-svh md:min-h-[max(52rem,76vw,100svh)] flex flex-col justify-center overflow-hidden bg-black"
       >
-        <div className="absolute inset-0 bg-black">
+        <div className="absolute inset-0 bg-black" aria-hidden="true">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-75"
+            className="absolute top-[72px] inset-x-0 aspect-[2200/1670] md:inset-0 md:aspect-auto bg-cover bg-top opacity-90"
             style={{ backgroundImage: `url(${heroImage})` }}
-            aria-hidden="true"
-          />
-          {/* Cinematic letterbox */}
-          <div className="absolute top-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black md:hidden" />
+          </div>
           {/* Gradient scrim for hero text contrast */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/55 z-[5]" aria-hidden="true" />
           {/* Soft vignette behind the copy only, so faces at the edges stay visible */}
           <div className="absolute inset-0 z-[5] bg-[radial-gradient(ellipse_55%_50%_at_50%_58%,rgba(0,0,0,0.6),rgba(0,0,0,0)_100%)]" aria-hidden="true" />
         </div>
 
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <div className="relative z-10 text-center px-6 pt-[calc(70vw+4.5rem)] pb-12 md:pt-40 md:pb-64 max-w-5xl mx-auto">
           <motion.div
             initial={prefersReducedMotion ? {} : { y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -162,7 +117,7 @@ export const Home: React.FC = () => {
             <h1
               id="hero-heading"
               className="text-6xl md:text-8xl font-bold text-white mb-8 font-display tracking-tighter leading-none"
-              style={{ fontSize: 'clamp(4rem, 10vw, 10rem)' }}
+              style={{ fontSize: 'clamp(3rem, 10vw, 10rem)' }}
             >
               Life, <em className="text-primary not-italic">Framed.</em>
             </h1>
@@ -190,7 +145,7 @@ export const Home: React.FC = () => {
         >
           <div className="max-w-5xl mx-auto grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
             {[
-               { title: "Fund the Arts", sub: "100% Impact Rating", link: "/donate" },
+               { title: "Fund the Arts", sub: "Support Film Education", link: "/donate" },
                { title: "Enroll a Student", sub: "Ages 14-18", link: "/programs" },
                { title: "Attend Screening", sub: "Local Events", link: "/events" }
             ].map((path) => (
@@ -201,13 +156,6 @@ export const Home: React.FC = () => {
             ))}
           </div>
         </motion.div>
-      </section>
-
-      {/* ── Impact Dashboard ─────────────────────────────────────────────── */}
-      <section aria-labelledby="impact-heading" className="py-24 bg-surface-highlight">
-        <div className="max-w-6xl mx-auto px-6">
-          <ImpactDashboard />
-        </div>
       </section>
 
       {/* ── Mission / Video ──────────────────────────────────────────────── */}

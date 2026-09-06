@@ -31,32 +31,6 @@ const AccessibilityPage = lazy(() => import('./pages/Accessibility').then(m => (
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 
-const ImpactTicker = () => {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 50], [1, 0]);
-
-  const metrics = [
-    "150+ YOUTH TRAINED",
-    "501(c)(3) VERIFIED",
-    "100% PROGRAM ACCESSIBILITY",
-    "RADICAL TRANSPARENCY ACTIVE",
-    "50+ STORIES PRESERVED",
-    "DIRECT IMPACT RATIO: 85%"
-  ];
-
-  return (
-    <motion.div style={{ opacity }} className="impact-ticker h-8 flex items-center text-[12px] overflow-hidden sticky top-0 z-[60]" role="marquee" aria-label="Impact statistics">
-      <div className="flex whitespace-nowrap animate-marquee">
-        {[...metrics, ...metrics].map((text, i) => (
-          <span key={i} className="mx-8 font-mono font-bold tracking-[0.2em] text-brand-black" aria-hidden={i >= metrics.length}>
-            {text}
-          </span>
-        ))}
-      </div>
-    </motion.div>
-  );
-};
-
 const StickyDonateBar: React.FC<{ footerRef: React.RefObject<HTMLDivElement> }> = ({ footerRef }) => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [600, 800], [100, 0]);
@@ -328,12 +302,10 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <div className="min-h-screen bg-background text-text transition-colors duration-300 relative">
-          <ImpactTicker />
           <SkipLink />
           <ViewfinderNav />
 
-          <main id="main-content" tabIndex={-1} className="outline-none min-h-screen pt-9">
-            {/* pt-9 accounts for impact ticker height (~36px) above the fixed header */}
+          <main id="main-content" tabIndex={-1} className="outline-none min-h-screen">
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
                 <Route path="/" element={<Home />} />

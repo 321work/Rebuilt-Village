@@ -137,7 +137,7 @@ export const Home: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-45"
+            className="absolute inset-0 bg-cover bg-center opacity-75"
             style={{ backgroundImage: `url(${heroImage})` }}
             aria-hidden="true"
           />
@@ -145,7 +145,9 @@ export const Home: React.FC = () => {
           <div className="absolute top-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
           {/* Gradient scrim for hero text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/70 z-[5]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/55 z-[5]" aria-hidden="true" />
+          {/* Soft vignette behind the copy only, so faces at the edges stay visible */}
+          <div className="absolute inset-0 z-[5] bg-[radial-gradient(ellipse_55%_50%_at_50%_58%,rgba(0,0,0,0.6),rgba(0,0,0,0)_100%)]" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">

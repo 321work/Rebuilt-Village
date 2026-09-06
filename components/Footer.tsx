@@ -237,7 +237,7 @@ export const Footer: React.FC = () => {
               className="inline-flex items-center gap-3 mb-6 focus:outline-none focus:ring-2 focus:ring-primary/60 rounded group"
             >
               <img
-                src="/assets/brand/logo-icon-white.svg"
+                src="/assets/brand/logo-icon.svg"
                 alt=""
                 aria-hidden="true"
                 width={48}

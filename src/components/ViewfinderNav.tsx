@@ -346,7 +346,7 @@ export const ViewfinderNav: React.FC = () => {
             >
               {/* Actual logo image */}
               <img
-                src="/assets/brand/logo-icon-white.svg"
+                src="/assets/brand/logo-icon.svg"
                 alt="Rebuilt Village Logo"
                 width={56}
                 height={56}

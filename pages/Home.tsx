@@ -89,12 +89,16 @@ function testimonialsFromCMS(raw: SanityTestimonial[]): TestimonialShape[] {
   }));
 }
 
+// Original Rebuilt Village asset (LA studio tour, April 2026). Overridden by
+// siteSettings.heroImage in FireCMS when set.
+const DEFAULT_HERO_IMAGE = '/assets/hero/studio-tour-v1.jpg';
+
 // ─── Home ───────────────────────────────────────────────────────────────────
 export const Home: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [testimonials, setTestimonials] = useState<TestimonialShape[]>(FALLBACK_TESTIMONIALS);
-  const [heroImage, setHeroImage] = useState<string>('');
+  const [heroImage, setHeroImage] = useState<string>(DEFAULT_HERO_IMAGE);
 
   useEffect(() => {
     announceToScreenReader('Welcome to Rebuilt Village. Film education nonprofit based in Ocoee, Florida.');
@@ -133,15 +137,17 @@ export const Home: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-30"
-            style={{ backgroundImage: heroImage ? `url(${heroImage})` : undefined }}
+            className="absolute inset-0 bg-cover bg-center opacity-75"
+            style={{ backgroundImage: `url(${heroImage})` }}
             aria-hidden="true"
           />
           {/* Cinematic letterbox */}
           <div className="absolute top-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
           <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
           {/* Gradient scrim for hero text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-[5]" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/55 z-[5]" aria-hidden="true" />
+          {/* Soft vignette behind the copy only, so faces at the edges stay visible */}
+          <div className="absolute inset-0 z-[5] bg-[radial-gradient(ellipse_55%_50%_at_50%_58%,rgba(0,0,0,0.6),rgba(0,0,0,0)_100%)]" aria-hidden="true" />
         </div>
 
         <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">

@@ -346,9 +346,11 @@ export const ViewfinderNav: React.FC = () => {
             >
               {/* Actual logo image */}
               <img
-                src="/assets/brand/logo.png"
+                src="/assets/brand/logo-icon.svg"
                 alt="Rebuilt Village Logo"
-                className="h-12 md:h-14 w-auto object-contain bg-brand-black"
+                width={56}
+                height={56}
+                className="h-12 md:h-14 w-auto object-contain"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
               />
               {/* Text wordmark — shown alongside or as fallback */}
@@ -361,9 +363,6 @@ export const ViewfinderNav: React.FC = () => {
                   ].join(' ')}
                 >
                   Rebuilt Village
-                </span>
-                <span className="hidden sm:block font-mono text-[9px] text-text-muted/50 uppercase tracking-[0.25em] mt-1">
-                  Rebuilding Community Through Art
                 </span>
               </div>
             </Link>

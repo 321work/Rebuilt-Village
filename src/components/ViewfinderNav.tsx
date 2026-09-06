@@ -364,9 +364,6 @@ export const ViewfinderNav: React.FC = () => {
                 >
                   Rebuilt Village
                 </span>
-                <span className="hidden sm:block font-mono text-[9px] text-text-muted/50 uppercase tracking-[0.25em] mt-1">
-                  Rebuilding Community Through Art
-                </span>
               </div>
             </Link>
 

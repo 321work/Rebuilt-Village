@@ -222,7 +222,7 @@ export const Donate: React.FC = () => {
           Call For Producers
         </p>
         <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8 leading-none">
-          Plant Your<br />Seed
+          Plant the<br />Seed
         </h1>
         <div className="h-1 w-24 bg-primary/30 mx-auto mb-10" />
         <p className="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed font-light">

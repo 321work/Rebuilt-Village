@@ -47,7 +47,7 @@ function mapSanityProgram(p: SanityProgramFull): Program {
     details: p.details ?? p.description,
     who: p.ageGroup ?? 'All ages',
     when: p.schedule ?? 'See Events calendar',
-    where: p.location ?? 'John H. Jackson Community Center, Ocoee, FL',
+    where: p.location ?? 'John H. Jackson Community Center, Orlando, FL',
     cost: p.cost ?? 'Free',
     accentColor: style.accentColor,
     icon: style.icon,
@@ -69,7 +69,7 @@ const FALLBACK_PROGRAMS: Program[] = [
       'Students train on the same Blackmagic Cinema and RED cameras used on professional productions. Every day blends theory with hands-on work: camera operation, lighting design, color grading, and sound. The camp closes with a public premiere of student-produced short films.',
     who: 'Youth ages 14–18',
     when: 'July 13–24, 2026 · Weekdays, 9 AM – 3 PM',
-    where: 'John H. Jackson Community Center, Ocoee, FL',
+    where: 'John H. Jackson Community Center, Orlando, FL',
     cost: 'Free',
     accentColor: '#E5A916',
     icon: <Camera size={24} />,
@@ -93,7 +93,7 @@ const FALLBACK_PROGRAMS: Program[] = [
       'These workshops focus on the craft of capturing real stories — interviewing techniques, observational shooting, ethical storytelling, and basic post-production. Participants leave with the skills and confidence to document their own community.',
     who: 'All ages and experience levels',
     when: 'Ongoing — see Events calendar for upcoming dates',
-    where: 'John H. Jackson Community Center, Ocoee, FL',
+    where: 'John H. Jackson Community Center, Orlando, FL',
     cost: 'Free',
     accentColor: '#2DBFA0',
     icon: <Film size={24} />,
@@ -137,7 +137,7 @@ const FALLBACK_PROGRAMS: Program[] = [
 
 // ─── Partner institutions ─────────────────────────────────────────────────────
 const PARTNERS = [
-  { name: 'John H. Jackson Community Center', role: 'Primary programming venue', location: 'Ocoee, FL' },
+  { name: 'John H. Jackson Community Center', role: 'Primary programming venue', location: 'Orlando, FL' },
   { name: 'Dr. Phillips High School', role: 'Film-apalooza partner', location: 'Orlando, FL' },
   { name: 'Rebuilt Minds', role: 'Founding production partner', location: 'Orlando, FL' },
   { name: 'All The Line Studio', role: 'Guest instruction & equipment', location: 'Orlando, FL' },
@@ -148,7 +148,7 @@ const PARTNERS = [
 export const Programs: React.FC = () => {
   usePageMeta(
     'Programs — Rebuilt Village',
-    'Free professional film education programs for Ocoee youth ages 14–18. Summer camp, narrative preservation workshops, and director masterclasses.'
+    'Free professional film education programs for Orlando youth ages 14–18. Summer camp, narrative preservation workshops, and director masterclasses.'
   );
   const prefersReduced = useReducedMotion();
   const [programs, setPrograms] = useState<Program[]>(FALLBACK_PROGRAMS);

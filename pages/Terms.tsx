@@ -44,7 +44,7 @@ export const Terms: React.FC = () => {
                         <section className="mb-12">
                             <h2 className="text-white">About Rebuilt Village</h2>
                             <p>
-                                Rebuilt Village is a 501(c)(3) nonprofit organization dedicated to empowering youth through film education in Ocoee, Florida. Our mission is to provide access to professional filmmaking tools and mentorship.
+                                Rebuilt Village is a 501(c)(3) nonprofit organization dedicated to empowering youth through film education in Orlando, Florida. Our mission is to provide access to professional filmmaking tools and mentorship.
                             </p>
                         </section>
 
@@ -94,7 +94,7 @@ export const Terms: React.FC = () => {
                             <div className="bg-slate-900 border border-slate-700 p-8 rounded-lg">
                                 <p className="text-slate-300 font-mono text-[10px] uppercase tracking-widest leading-loose">
                                     <strong className="text-white">Rebuilt Village</strong><br />
-                                    Ocoee, FL 34761<br />
+                                    Orlando, FL<br />
                                     Email: info@rebuiltvillage.org
                                 </p>
                             </div>

@@ -85,15 +85,6 @@ const SOCIALS = [
   },
 ] as const;
 
-// ─── Impact stat bar ─────────────────────────────────────────────────────────
-const STATS = [
-  { value: '42+',  label: 'Youth Served'           },
-  { value: '2',    label: 'Events Sponsored'        },
-  { value: '107',  label: 'Community Members Reached' },
-  { value: '85%',  label: 'Funds to Programs'      },
-  { value: '100%', label: 'Free to Youth'          },
-] as const;
-
 // ─── Newsletter signup ────────────────────────────────────────────────────────
 const NewsletterSignup: React.FC = () => {
   const [email, setEmail]       = useState('');
@@ -193,37 +184,6 @@ export const Footer: React.FC = () => {
       role="contentinfo"
       className="bg-brand-black border-t border-primary/15"
     >
-      {/* ── Impact stat bar ──────────────────────────────────────────────── */}
-      <div className="border-b border-border/40 bg-brand-off-black">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <ul
-            className="flex flex-wrap justify-center gap-x-10 gap-y-4"
-            role="list"
-            aria-label="Impact statistics"
-          >
-            {STATS.map((stat, i) => (
-              <motion.li
-                key={stat.label}
-                initial={prefersReduced ? {} : { opacity: 0, y: 10 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-                className="flex items-center gap-3"
-              >
-                <span className="font-display font-bold text-xl text-primary tracking-wide" aria-label={stat.value}>
-                  {stat.value}
-                </span>
-                <span className="font-mono text-xs text-white/70 uppercase tracking-widest">
-                  {stat.label}
-                </span>
-                {i < STATS.length - 1 && (
-                  <span className="hidden sm:block w-px h-5 bg-border/40 ml-3" aria-hidden="true" />
-                )}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
       {/* ── Main footer body ─────────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
@@ -252,7 +212,7 @@ export const Footer: React.FC = () => {
                   Rebuilt Village
                 </span>
                 <span className="font-mono text-[9px] text-white/50 uppercase tracking-[0.25em] mt-1">
-                  Est. 2025 · Ocoee, FL
+                  Est. 2025 · Orlando, FL
                 </span>
               </div>
             </Link>
@@ -266,7 +226,7 @@ export const Footer: React.FC = () => {
             <div className="flex items-start gap-2 mb-8 text-white/70">
               <MapPin size={13} className="text-primary mt-0.5 shrink-0" aria-hidden="true" />
               <span className="font-mono text-[10px] uppercase tracking-widest leading-relaxed">
-                Ocoee, Florida 34761<br />Orange County
+                Orlando, Florida<br />Orange County
               </span>
             </div>
 
@@ -368,7 +328,7 @@ export const Footer: React.FC = () => {
                 Ready to make an impact?
               </p>
               <p className="font-mono text-[10px] text-white/70 uppercase tracking-widest">
-                Every gift is tax-deductible · 85¢ of every dollar funds programs
+                Support film education with a tax-deductible gift
               </p>
             </div>
             <Link

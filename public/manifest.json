@@ -1,7 +1,7 @@
 {
   "name": "Rebuilt Village",
   "short_name": "Rebuilt Village",
-  "description": "Film education nonprofit empowering Ocoee's youth through professional cinema training.",
+  "description": "Film education nonprofit empowering Orlando's youth through professional cinema training.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -35,14 +35,14 @@
     {
       "name": "Donate",
       "short_name": "Donate",
-      "description": "Support film education in Ocoee",
+      "description": "Support film education in Orlando",
       "url": "/donate",
       "icons": [{ "src": "/assets/brand/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Our Programs",
       "short_name": "Programs",
-      "description": "Film education programs for Ocoee youth",
+      "description": "Film education programs for Orlando youth",
       "url": "/programs",
       "icons": [{ "src": "/assets/brand/icon-192.png", "sizes": "192x192" }]
     }

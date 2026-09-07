@@ -31,7 +31,7 @@ const FALLBACK_EVENTS: Event[] = [
     month: 'APR',
     year: '2026',
     time: '10:00 AM – 2:00 PM',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     description:
       'Open to all community members. Hands-on training in camera operation, basic lighting, and storytelling fundamentals using Blackmagic Cinema cameras. No experience required — just bring your curiosity.',
     type: 'workshop',
@@ -66,7 +66,7 @@ const FALLBACK_EVENTS: Event[] = [
     month: 'JUL',
     year: '2026',
     time: 'July 13–24 · 9:00 AM – 3:00 PM (Weekdays)',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     description:
       'Our flagship two-week summer intensive for youth ages 14–18. Students gain hands-on experience with Blackmagic and RED cameras, lighting rigs, color grading labs, and sound design — then premiere their original short films at a closing screening open to family and community.',
     type: 'workshop',
@@ -83,7 +83,7 @@ const FALLBACK_EVENTS: Event[] = [
     month: 'NOV',
     year: '2026',
     time: '6:00 PM – 10:00 PM',
-    location: 'TBD · Ocoee / Orlando Area',
+    location: 'TBD · Orlando Area',
     description:
       'Rebuilt Village\'s first annual fundraising gala celebrating one year of impact. An evening of short film screenings, live entertainment, and a silent auction supporting youth program scholarships. Sponsorship packages available.',
     type: 'fundraiser',
@@ -101,9 +101,9 @@ const FALLBACK_EVENTS: Event[] = [
     month: 'JAN',
     year: '2026',
     time: '6:30 PM – 9:00 PM',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     description:
-      'Our first public event since founding in January 2025. We screened three short films produced through early programming and introduced Rebuilt Village to the broader Ocoee community. Over 107 attendees.',
+      'Our first public event since founding in January 2025. We screened three short films produced through early programming and introduced Rebuilt Village to the broader Orlando community.',
     type: 'screening',
     tags: ['Free', 'Community'],
   },
@@ -136,7 +136,7 @@ function isPastEvent(event: Event): boolean {
 export const Events: React.FC = () => {
   usePageMeta(
     'Events — Rebuilt Village',
-    'Screenings, workshops, festivals, and community events hosted by Rebuilt Village in Ocoee, Florida. Find upcoming film events and add them to your calendar.'
+    'Screenings, workshops, festivals, and community events hosted by Rebuilt Village in Orlando, Florida. Find upcoming film events and add them to your calendar.'
   );
   const [events, setEvents] = useState<Event[]>(FALLBACK_EVENTS);
 

@@ -131,7 +131,7 @@ export const createCheckoutSession = functions.onRequest(
                 product_data: {
                   name: productName,
                   description:
-                    'Supporting film education and community arts in Ocoee, FL. ' +
+                    'Supporting film education and community arts in Orlando, FL. ' +
                     'Tax-deductible 501(c)(3) contribution.',
                   images: ['https://rebuiltvillage.org/assets/brand/logo.svg'],
                 },

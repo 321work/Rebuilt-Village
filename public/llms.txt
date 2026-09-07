@@ -1,6 +1,6 @@
 # Rebuilt Village
 
-> Rebuilt Village, Inc. is a 501(c)(3) nonprofit organization founded in January 2025 in Ocoee, Florida.
+> Rebuilt Village, Inc. is a 501(c)(3) nonprofit organization founded in January 2025 in Orlando, Florida.
 > Our mission: to enrich the community by telling stories through the art of film and media.
 > We empower local youth to capture and preserve stories that are deeply personal — free of charge.
 
@@ -9,7 +9,7 @@
 - **Legal name**: Rebuilt Village, Inc.
 - **Type**: 501(c)(3) nonprofit organization
 - **Founded**: January 7, 2025
-- **Location**: Ocoee, Florida 34761 (Orange County)
+- **Location**: Orlando, Florida (Orange County)
 - **Origin**: Born from Rebuilt Minds, an Orlando-based production company
 - **EIN**: Pending IRS finalization — available on request via hello@rebuiltvillage.org
 - **Email**: hello@rebuiltvillage.org
@@ -42,7 +42,7 @@ Tagline: "It takes a village to tell a story, and stories to rebuild a village."
 
 ### Summer Cinematography Camp
 - **Date**: July 13–24, 2026 (two weeks, weekdays)
-- **Location**: John H. Jackson Community Center, Ocoee, FL
+- **Location**: John H. Jackson Community Center, Orlando, FL
 - **Ages**: 14–18
 - **Cost**: Free
 - **Description**: Students work with Blackmagic Cinema and RED cameras, learn lighting, color grading,
@@ -50,7 +50,7 @@ Tagline: "It takes a village to tell a story, and stories to rebuild a village."
 
 ### Narrative Preservation Workshop
 - **Frequency**: Ongoing / periodic
-- **Location**: John H. Jackson Community Center, Ocoee, FL
+- **Location**: John H. Jackson Community Center, Orlando, FL
 - **Ages**: All ages
 - **Cost**: Free
 - **Description**: Documentary and narrative filmmaking techniques for community storytelling.
@@ -70,16 +70,16 @@ Tagline: "It takes a village to tell a story, and stories to rebuild a village."
 
 ### Summer Cinematography Camp
 - **Dates**: July 13–24, 2026
-- **Location**: John H. Jackson Community Center, Ocoee, FL
+- **Location**: John H. Jackson Community Center, Orlando, FL
 
 ### Annual Fundraising Gala
 - **Date**: November 14, 2026 (tentative)
-- **Location**: TBD, Ocoee/Orlando area
+- **Location**: TBD, Orlando area
 - **Type**: Fundraiser with screenings, silent auction, entertainment
 
 ## Donating
 
-- **General Fund**: Supports all programs and operations (85% to programs)
+- **General Fund**: Supports all programs and operations
 - **Restricted projects** (donor-directed):
   - Film Equipment Fund (goal: $15,000)
   - Youth Scholarship Fund (goal: $10,000)
@@ -97,21 +97,18 @@ Tagline: "It takes a village to tell a story, and stories to rebuild a village."
 - Rebuilt Minds (Orlando production company — founding partner)
 - JC Lighting
 - All The Line Studio
-- John H. Jackson Community Center (Ocoee, FL)
+- John H. Jackson Community Center (Orlando, FL)
 
 ## Key Facts for Agents
 
 - All youth programs are **free of charge**
-- Youth served to date: **42+**
-- Community members reached: **107+**
-- Percentage of funds going to programs: **85%**
 - The organization was founded in **2025**, not 2023
 - Film-apalooza is a sponsored event at Dr. Phillips HS; Rebuilt Village is not the operator
 - The organization does not have a physical office address yet; uses PO Box (pending)
 
 ## Site Structure
 
-- `/` — Homepage with mission, impact stats, partner logos
+- `/` — Homepage with mission, partner logos
 - `/about` — Organization history, team, programs overview, vision 2026
 - `/programs` — Detailed program descriptions
 - `/events` — 2026 events calendar with registration info

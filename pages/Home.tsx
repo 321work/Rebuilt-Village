@@ -14,14 +14,14 @@ const FALLBACK_TESTIMONIALS = [
   {
     quote: 'Rebuilt Village gave me a camera and, more importantly, a reason to use it. I went from never touching film equipment to directing my first short in eight weeks.',
     name: 'Marcus Thompson',
-    role: 'Night at the Cinema ’ 24 · Student filmmaker, Ocoee HS',
+    role: 'Night at the Cinema ’ 24 · Student filmmaker, Central Florida',
     initials: 'MT',
     avatar: null,
   },
   {
     quote: "As a parent, I was blown away by how seriously the mentors took the kids. This isn't daycare \u2014 it's a real professional environment.",
     name: 'Diane Ramos',
-    role: 'Parent of program participant \u00b7 Ocoee, FL',
+    role: 'Parent of program participant \u00b7 Orlando, FL',
     initials: 'DR',
     avatar: null,
   },
@@ -58,7 +58,7 @@ export const Home: React.FC = () => {
   const [heroImage, setHeroImage] = useState<string>(DEFAULT_HERO_IMAGE);
 
   useEffect(() => {
-    announceToScreenReader('Welcome to Rebuilt Village. Film education nonprofit based in Ocoee, Florida.');
+    announceToScreenReader('Welcome to Rebuilt Village. Film education nonprofit based in Orlando, Florida.');
   }, []);
 
   // Load CMS data
@@ -73,7 +73,7 @@ export const Home: React.FC = () => {
 
   usePageMeta(
     'Life, Framed. — Rebuilt Village',
-    'Rebuilt Village empowers Ocoee youth through free professional film education. We train the next generation of storytellers. 501(c)(3) nonprofit.'
+    'Rebuilt Village empowers Orlando youth through free professional film education. We train the next generation of storytellers. 501(c)(3) nonprofit.'
   );
 
   // Auto-rotate testimonials
@@ -112,7 +112,7 @@ export const Home: React.FC = () => {
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-primary font-mono tracking-[0.4em] text-[10px] mb-6 font-bold uppercase">
-              Est. 2025 &nbsp;·&nbsp; Ocoee, FL &nbsp;·&nbsp; 501(c)(3)
+              Est. 2025 &nbsp;·&nbsp; Orlando, FL &nbsp;·&nbsp; 501(c)(3)
             </p>
             <h1
               id="hero-heading"
@@ -171,7 +171,7 @@ export const Home: React.FC = () => {
             <p className="text-lg text-text-muted mb-6 leading-relaxed">
               We believe film is the ultimate medium for community restoration. By providing
               professional-grade tools and mentorship, we bridge the gap between neighbors and
-              preserve the living history of Ocoee.
+              preserve the living history of Orlando.
             </p>
             <ul className="space-y-3 mb-10" role="list">
               {[
@@ -282,7 +282,7 @@ export const Home: React.FC = () => {
               {
                 tag: 'Community · All Ages',
                 title: 'Narrative Preservation',
-                desc: 'A documentary workshop helping Ocoee families capture and preserve their personal histories before they\'re lost to time.',
+                desc: 'A documentary workshop helping Orlando families capture and preserve their personal histories before they\'re lost to time.',
                 dot: 'bg-amber-500',
               },
               {
@@ -323,7 +323,7 @@ export const Home: React.FC = () => {
             Every Frame Starts<br />with Your Gift
           </h2>
           <p className="text-lg text-text-muted mb-10 leading-relaxed">
-            100% of youth program costs are covered by community donors. Your donation is fully tax-deductible.
+            Community donations support film education for youth. Your donation is fully tax-deductible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/donate">
@@ -334,7 +334,7 @@ export const Home: React.FC = () => {
             </Link>
           </div>
           <p className="mt-6 text-xs font-mono text-text-muted/60 uppercase tracking-widest">
-            501(c)(3) · Ocoee, FL · Born from Rebuilt Minds
+            501(c)(3) · Orlando, FL · Born from Rebuilt Minds
           </p>
         </div>
       </section>

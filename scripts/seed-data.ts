@@ -32,7 +32,7 @@ export const SEED_EVENTS: Array<EventDoc & { _docId: string }> = [
     month: 'APR',
     year: '2026',
     time: '10:00 AM – 2:00 PM',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     description:
       'Open to all community members. Hands-on training in camera operation, basic lighting, and storytelling fundamentals using Blackmagic Cinema cameras. No experience required — just bring your curiosity.',
     type: 'workshop',
@@ -67,7 +67,7 @@ export const SEED_EVENTS: Array<EventDoc & { _docId: string }> = [
     month: 'JUL',
     year: '2026',
     time: 'July 13–24 · 9:00 AM – 3:00 PM (Weekdays)',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     description:
       'Our flagship two-week summer intensive for youth ages 14–18. Students gain hands-on experience with Blackmagic and RED cameras, lighting rigs, color grading labs, and sound design — then premiere their original short films at a closing screening open to family and community.',
     type: 'workshop',
@@ -84,7 +84,7 @@ export const SEED_EVENTS: Array<EventDoc & { _docId: string }> = [
     month: 'NOV',
     year: '2026',
     time: '6:00 PM – 10:00 PM',
-    location: 'TBD · Ocoee / Orlando Area',
+    location: 'TBD · Orlando Area',
     description:
       "Rebuilt Village's first annual fundraising gala celebrating one year of impact. An evening of short film screenings, live entertainment, and a silent auction supporting youth program scholarships. Sponsorship packages available.",
     type: 'fundraiser',
@@ -100,9 +100,9 @@ export const SEED_EVENTS: Array<EventDoc & { _docId: string }> = [
     month: 'JAN',
     year: '2026',
     time: '6:30 PM – 9:00 PM',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     description:
-      'Our first public event since founding in January 2025. We screened three short films produced through early programming and introduced Rebuilt Village to the broader Ocoee community. Over 107 attendees.',
+      'Our first public event since founding in January 2025. We screened three short films produced through early programming and introduced Rebuilt Village to the broader Orlando community.',
     type: 'screening',
     tags: ['Free', 'Community'],
   },
@@ -309,7 +309,7 @@ export const SEED_PROGRAMS: Array<ProgramDoc & { _docId: string }> = [
     category: 'summer-camp',
     ageGroup: 'Youth ages 14–18',
     schedule: 'July 13–24, 2026 · Weekdays, 9 AM – 3 PM',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     cost: 'Free',
     highlights: [
       'Blackmagic & RED camera training',
@@ -335,7 +335,7 @@ export const SEED_PROGRAMS: Array<ProgramDoc & { _docId: string }> = [
     category: 'storytelling',
     ageGroup: 'All ages and experience levels',
     schedule: 'Ongoing — see Events calendar for upcoming dates',
-    location: 'John H. Jackson Community Center, Ocoee, FL',
+    location: 'John H. Jackson Community Center, Orlando, FL',
     cost: 'Free',
     highlights: [
       'Documentary storytelling techniques',
@@ -391,7 +391,7 @@ export const SEED_PROGRAMS: Array<ProgramDoc & { _docId: string }> = [
 export const SEED_POSTS: Array<PostDoc & { _docId: string }> = [
   {
     _docId: 'award',
-    title: 'Student Film "Echoes of Ocoee" Wins Regional Award',
+    title: 'Student Film "Echoes of Orlando" Wins Regional Award',
     slug: 'award',
     excerpt:
       'A Rebuilt Village student film earned recognition at a regional film competition, marking a milestone for the program and its first cohort of student filmmakers.',

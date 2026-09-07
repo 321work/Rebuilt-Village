@@ -98,7 +98,7 @@ function taxReceiptHtml(params: {
         </div>
 
         <p style="color: #9a9a8e; font-size: 14px; line-height: 1.8; margin-bottom: 24px;">
-          Your contribution directly funds film education, equipment access, and mentorship for youth in Ocoee, Florida.
+          Your contribution directly funds film education, equipment access, and mentorship for youth in Orlando, Florida.
           No goods or services were provided in exchange for this donation.
         </p>
 
@@ -110,7 +110,7 @@ function taxReceiptHtml(params: {
         <hr style="border: none; border-top: 1px solid #2a2a2a; margin-bottom: 32px;">
 
         <p style="color: #555; font-size: 11px; line-height: 1.7;">
-          Rebuilt Village, Inc. &nbsp;&middot;&nbsp; 501(c)(3) &nbsp;&middot;&nbsp; Ocoee, FL 34761<br>
+          Rebuilt Village, Inc. &nbsp;&middot;&nbsp; 501(c)(3) &nbsp;&middot;&nbsp; Orlando, FL<br>
           <a href="https://rebuiltvillage.org" style="color: #555;">rebuiltvillage.org</a> &nbsp;&middot;&nbsp;
           <a href="mailto:hello@rebuiltvillage.org" style="color: #555;">hello@rebuiltvillage.org</a>
         </p>

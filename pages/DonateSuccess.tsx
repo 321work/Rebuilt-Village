@@ -28,8 +28,8 @@ export const DonateSuccess: React.FC = () => {
   const tier = amountDollars ? donorTierForAmount(amountDollars) : null;
 
   const shareText = projectLabel
-    ? `I just supported the ${projectLabel} at Rebuilt Village — a nonprofit bringing film education to youth in Ocoee, FL. Join me!`
-    : 'I just supported Rebuilt Village, a nonprofit bringing film education to youth in Ocoee, FL. Join me in supporting the next generation of storytellers.';
+    ? `I just supported the ${projectLabel} at Rebuilt Village — a nonprofit bringing film education to youth in Orlando, FL. Join me!`
+    : 'I just supported Rebuilt Village, a nonprofit bringing film education to youth in Orlando, FL. Join me in supporting the next generation of storytellers.';
   const shareUrl = 'https://rebuiltvillage.org/donate';
 
   const handleShare = async () => {
@@ -99,7 +99,7 @@ export const DonateSuccess: React.FC = () => {
         <p className="text-lg text-text-muted leading-relaxed mb-4 max-w-lg mx-auto">
           {projectLabel
             ? `Your gift is now growing the ${projectLabel} at Rebuilt Village. `
-            : 'Your gift is now working for youth in Ocoee. '}
+            : 'Your gift is now working for youth in Orlando. '}
           A tax receipt has been sent to your email — please keep it for your records.
         </p>
 

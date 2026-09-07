@@ -114,7 +114,7 @@ export const About: React.FC = () => {
         </h1>
         <div className="h-1 w-24 bg-primary/30 mx-auto mb-10" />
         <p className="text-xl text-text-muted max-w-3xl mx-auto leading-relaxed font-light">
-          Founded in January 2025 in Ocoee, Florida — born from the Orlando production company{' '}
+          Founded in January 2025 in Orlando, Florida — born from the Orlando production company{' '}
           <span className="text-primary">Rebuilt Minds</span> — with a simple belief:{' '}
           talent is universal, but opportunity is not.
         </p>
@@ -141,14 +141,13 @@ export const About: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-16 items-start mb-32">
             <div className="relative group overflow-hidden border border-border p-2">
               <img
-                src="/assets/brand/team-action.png"
-                alt="Rebuilt Village team working with students"
-                width={800}
-                height={600}
+                src="/assets/hero/studio-students.jpg"
+                alt="Rebuilt Village students learning in a film studio beneath overhead production lights"
+                width={1350}
+                height={1800}
                 loading="lazy"
                 decoding="async"
-                className="w-full h-full object-cover grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-1000 transform group-hover:scale-[1.02]"
-                style={{ willChange: 'transform' }}
+                className="w-full h-auto"
               />
               {/* Film strip decoration */}
               <div className="absolute top-0 left-0 w-8 h-full bg-surface/20 flex flex-col justify-around py-4 border-r border-border">
@@ -264,7 +263,7 @@ export const About: React.FC = () => {
                   <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-4 shrink-0" />
                   <div>
                     <span className="font-semibold text-text">Dedicated Studio Space:</span>{' '}
-                    Secure a permanent hub for operations, classes, and film production in the Ocoee area —
+                    Secure a permanent hub for operations, classes, and film production in the Orlando area —
                     a home base where creativity flourishes without constraints.
                   </div>
                 </li>
@@ -315,7 +314,7 @@ export const About: React.FC = () => {
                     <span className="font-mono text-xs" style={{ color: '#2DBFA0' }}>(Summer 2026)</span>
                     {': '}
                     The inaugural Rebuilt Village Summer Camp — youth programs integrating film, theatre,
-                    and visual art at John H. Jackson Community Center in Ocoee. A space where young
+                    and visual art at John H. Jackson Community Center in Orlando. A space where young
                     voices learn to frame their own stories.
                   </div>
                 </li>
@@ -341,7 +340,7 @@ export const About: React.FC = () => {
                     {': '}
                     An evening dedicated to generating vital funds for legacy projects and long-term
                     sustainability. Bringing together supporters, artists, and community leaders to
-                    invest in the future of storytelling in Ocoee.
+                    invest in the future of storytelling in Orlando.
                   </div>
                 </li>
               </ul>

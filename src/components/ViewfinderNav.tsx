@@ -326,8 +326,7 @@ export const ViewfinderNav: React.FC = () => {
       <header
         role="banner"
         className={[
-          // Slide from top-8 (below ticker) to top-0 (ticker gone) as user scrolls
-          scrolled ? 'fixed top-0 left-0 right-0 z-50' : 'fixed top-8 left-0 right-0 z-50',
+          'fixed top-0 left-0 right-0 z-50',
           'transition-all duration-500 motion-reduce:transition-none border-t border-primary/15',
           transparent
             ? 'bg-transparent border-b border-transparent'

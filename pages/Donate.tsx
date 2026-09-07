@@ -9,7 +9,6 @@ import {
   Users,
 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { useProjectBalances } from '../services/projectBalancesService';
 import { getDonorProjects } from '../services/sanityService';
 import { Link, useSearchParams } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
@@ -27,7 +26,6 @@ interface DonorTier {
   amount: number;
   label: string;
   color: string;
-  impact: string;
   popular?: boolean;
 }
 
@@ -35,11 +33,8 @@ interface RestrictedProject {
   id: string;
   title: string;
   description: string;
-  goal: number;         // dollars
-  raisedSeed: number;   // hardcoded fallback (dollars) used if Firestore unreachable
   deadline: string;
   color: string;
-  impact: (amount: number) => string;
 }
 
 /* ─── Donor Tiers (tree metaphor from brand.ts) ──────────────────────────── */
@@ -50,21 +45,18 @@ const TIERS: DonorTier[] = [
     amount: 25,
     label: 'Branch Builder',
     color: BRAND.colors.teal,
-    impact: 'Camera rental for one student production day',
   },
   {
     key: 'trunk',
     amount: 50,
     label: 'Trunk Supporter',
     color: BRAND.colors.amber,
-    impact: 'Enrolls 5 youth in monthly programming',
   },
   {
     key: 'canopy',
     amount: 100,
     label: 'Canopy Creator',
     color: BRAND.colors.gold,
-    impact: 'Sponsors a full community screening event',
     popular: true,
   },
   {
@@ -72,21 +64,18 @@ const TIERS: DonorTier[] = [
     amount: 250,
     label: 'Root Sustainer',
     color: BRAND.colors.purple,
-    impact: 'Full summer camp scholarship for one youth',
   },
   {
     key: 'grove',
     amount: 500,
     label: 'Grove Grower',
     color: BRAND.colors.blue,
-    impact: 'Professional lighting kit for a 2-week production',
   },
   {
     key: 'forest',
     amount: 1000,
     label: 'Forest Builder',
     color: BRAND.colors.crimson,
-    impact: 'Complete equipment grant for a student short film',
   },
 ];
 
@@ -99,92 +88,45 @@ const RESTRICTED_PROJECTS: RestrictedProject[] = [
     title: 'Film Equipment Fund',
     description:
       'Professional cinema cameras, lighting rigs, and audio gear so students can tell their stories with broadcast-grade tools.',
-    goal: 15000,
-    raisedSeed: 0,
     deadline: 'Dec 2026',
     color: BRAND.colors.green,
-    impact: (amt) =>
-      amt >= 500
-        ? 'Full lens kit rental for a student production'
-        : amt >= 100
-        ? `${Math.floor(amt / 25)} camera rental days for students`
-        : `Covers ${Math.round((amt / 15000) * 100)}% of daily equipment costs`,
+
   },
   {
     id: 'youth-scholarship-fund',
     title: 'Youth Scholarship Fund',
     description:
       'Full tuition coverage for youth who cannot afford our programs. No student is ever turned away due to financial need.',
-    goal: 10000,
-    raisedSeed: 0,
     deadline: 'Rolling',
     color: BRAND.colors.teal,
-    impact: (amt) =>
-      amt >= 250
-        ? '1 full annual scholarship for a youth filmmaker'
-        : `${Math.floor(amt / 50)} months of free enrollment`,
+
   },
   {
     id: 'summer-camp-launch',
     title: 'Summer Camp Launch',
     description:
-      'Fund our inaugural 2-week summer camp serving 30+ youth in Ocoee this July — hands-on Blackmagic and RED camera training.',
-    goal: 25000,
-    raisedSeed: 0,
+      'Fund our inaugural 2-week summer camp for youth in Orlando this July — hands-on Blackmagic and RED camera training.',
     deadline: 'Jul 2026',
     color: BRAND.colors.amber,
-    impact: (amt) =>
-      amt >= 417
-        ? `${Math.floor(amt / 417)} full camper spots funded`
-        : `${Math.round((amt / 25000) * 60)} youth days of camp`,
+
   },
   {
     id: 'film-apalooza-2026',
     title: 'Film-apalooza at Dr. Phillips',
     description:
       'Rebuilt Village sponsors the 3-day film festival at Dr. Phillips High School — May 15–17, 2026. Your gift funds student internships, vendor support, and awards.',
-    goal: 8000,
-    raisedSeed: 0,
     deadline: 'May 15, 2026',
     color: BRAND.colors.crimson,
-    impact: (amt) =>
-      amt >= 1000
-        ? 'Title sponsor — your name on all festival materials'
-        : amt >= 250
-        ? 'Funds one full screening program sponsorship'
-        : `Covers ${Math.round((amt / 8000) * 100)}% of venue and A/V costs`,
+
   },
 ];
-
-/* ─── Impact Calculator ──────────────────────────────────────────────────── */
-
-function generalImpact(amount: number): string {
-  if (amount >= 1000) return 'Complete equipment grant for a student short film';
-  if (amount >= 500)  return 'Professional lighting kit for a 2-week production';
-  if (amount >= 250)  return 'Full summer camp scholarship for one youth';
-  if (amount >= 100)  return 'A full community screening event';
-  if (amount >= 50)   return '5 youth enrolled in monthly programming';
-  if (amount >= 25)   return 'Camera rental for one student production day';
-  if (amount >= 10)   return '1 hour of professional instruction time';
-  if (amount > 0)     return `${Math.floor(amount * 6)} minutes of professional instruction`;
-  return '';
-}
-
-function annualImpact(monthly: number): string {
-  const annual = monthly * 12;
-  if (annual >= 1200) return '12 student equipment grants per year';
-  if (annual >= 600)  return '2 lighting kits per semester';
-  if (annual >= 300)  return '3 full youth scholarships';
-  if (annual >= 120)  return '12 community screenings funded';
-  return `${Math.floor((annual / 50) * 5)} youth enrolled per year`;
-}
 
 /* ─── Component ──────────────────────────────────────────────────────────── */
 
 export const Donate: React.FC = () => {
   usePageMeta(
     'Donate — Rebuilt Village',
-    'Support free film education for Ocoee youth. Your tax-deductible gift goes directly to programs. 85¢ of every dollar funds students.'
+    'Support free film education for Orlando youth. Your tax-deductible gift supports film education and mentorship.'
   );
   const [searchParams]                        = useSearchParams();
   const cancelled                             = searchParams.get('cancelled') === 'true';
@@ -208,11 +150,8 @@ export const Donate: React.FC = () => {
           id: p._id,
           title: p.title,
           description: p.description,
-          goal: p.goalAmount ?? 0,
-          raisedSeed: p.raisedAmount ?? 0,
           deadline: '',
           color: BRAND.colors.teal,
-          impact: (amt: number) => p.description ? `${generalImpact(amt)} toward ${p.title}` : generalImpact(amt),
         }));
         setProjects(mapped);
         setProjectId(mapped[0].id);
@@ -220,25 +159,10 @@ export const Donate: React.FC = () => {
     }).catch(() => { /* keep RESTRICTED_PROJECTS */ });
   }, []);
 
-  // Live Firestore balances — polls every 60s; falls back to raisedSeed if unreachable
-  const { balances: liveBalances } = useProjectBalances(60_000);
-
-  // Merge live balance (cents → dollars) with static seed
-  function getRaised(project: RestrictedProject): number {
-    const live = liveBalances[project.id];
-    if (live) return Math.round(live.raised / 100);
-    return project.raisedSeed;
-  }
-
   const selectedProject = projects.find((p) => p.id === projectId) ?? projects[0];
   const displayAmount   = customAmount ? parseFloat(customAmount) || 0 : amount;
   const selectedCents   = Math.round(displayAmount * 100);
   const donorTier       = displayAmount > 0 ? donorTierForAmount(displayAmount) : null;
-
-  const impactText =
-    fundType === 'restricted'
-      ? displayAmount > 0 ? selectedProject.impact(displayAmount) : ''
-      : generalImpact(displayAmount);
 
   const handlePresetSelect = (val: number) => {
     setAmount(val);
@@ -298,12 +222,12 @@ export const Donate: React.FC = () => {
           Call For Producers
         </p>
         <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8 leading-none">
-          Plant Your<br />Seed
+          Plant the<br />Seed
         </h1>
         <div className="h-1 w-24 bg-primary/30 mx-auto mb-10" />
         <p className="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed font-light">
           Your investment grows the next generation of visual storytellers.
-          Every contribution is tax-deductible and directly benefits youth in Ocoee, Florida.
+          Every contribution is tax-deductible and directly benefits youth in Orlando, Florida.
         </p>
         <div className="mt-8 flex items-center justify-center gap-2 text-text-muted">
           <Users size={14} className="text-primary" aria-hidden="true" />
@@ -412,7 +336,7 @@ export const Donate: React.FC = () => {
                   </p>
                   {displayAmount > 0 && (
                     <p className="text-[10px] font-mono text-primary/70 mt-2 uppercase tracking-widest">
-                      That's ${(displayAmount * 12).toLocaleString()}/year — {annualImpact(displayAmount)}
+                      That's ${(displayAmount * 12).toLocaleString()}/year
                     </p>
                   )}
                 </div>
@@ -427,8 +351,6 @@ export const Donate: React.FC = () => {
                 </p>
                 <div className="space-y-3" role="group" aria-label="Restricted donation projects">
                   {projects.map((project) => {
-                    const raised     = getRaised(project);
-                    const pct        = Math.min(100, Math.round((raised / project.goal) * 100));
                     const isSelected = projectId === project.id;
                     return (
                       <motion.button
@@ -464,34 +386,6 @@ export const Donate: React.FC = () => {
                               {project.title}
                             </div>
                           </div>
-                          <div className="text-right shrink-0">
-                            <div
-                              className="text-xs font-mono font-bold"
-                              style={{ color: project.color }}
-                            >
-                              ${raised.toLocaleString()}
-                            </div>
-                            <div className="text-[9px] font-mono text-text-muted/60 uppercase tracking-widest">
-                              of ${(project.goal / 1000).toFixed(0)}k goal
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-1.5 bg-border rounded-full overflow-hidden shadow-inner">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${pct}%` }}
-                            transition={{ duration: 1, ease: "easeOut" }}
-                            className="h-full rounded-full"
-                            style={{ backgroundColor: project.color }}
-                            role="progressbar"
-                            aria-valuenow={pct}
-                            aria-valuemin={0}
-                            aria-valuemax={100}
-                            aria-label={`${project.title}: ${pct}% funded`}
-                          />
-                        </div>
-                        <div className="mt-1.5 text-[9px] font-mono text-text-muted/60 uppercase tracking-widest">
-                          {pct}% funded
                         </div>
                       </motion.button>
                     );
@@ -547,9 +441,6 @@ export const Donate: React.FC = () => {
                       >
                         ${tier.amount}
                       </div>
-                      <div className="text-[10px] text-text-muted leading-tight hidden sm:block">
-                        {tier.impact}
-                      </div>
                     </motion.button>
                   );
                 })}
@@ -593,17 +484,6 @@ export const Donate: React.FC = () => {
                   </p>
                 )}
               </div>
-
-              {/* Impact calculator */}
-              {impactText && displayAmount > 0 && (
-                <div className="mb-6 p-4 border border-primary/20 bg-primary/5" aria-live="polite">
-                  <p className="text-xs font-mono text-primary uppercase tracking-widest mb-1">Your Impact</p>
-                  <p className="text-sm text-text-muted">
-                    ${displayAmount.toLocaleString()} {frequency === 'monthly' ? '/month ' : ''}={' '}
-                    {impactText}
-                  </p>
-                </div>
-              )}
 
               {/* Tribute toggle */}
               <div className="mb-6 border-t border-border pt-6">
@@ -720,68 +600,9 @@ export const Donate: React.FC = () => {
                 <p className="text-sm text-text-muted leading-relaxed mb-5">
                   {selectedProject.description}
                 </p>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-xs font-mono text-text-muted">
-                    <span>Raised</span>
-                    <span style={{ color: selectedProject.color }}>
-                      ${getRaised(selectedProject).toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="h-2 bg-border rounded-full overflow-hidden">
-                    <div
-                      className="h-full rounded-full transition-all duration-700"
-                      style={{
-                        width: `${Math.min(100, Math.round((getRaised(selectedProject) / selectedProject.goal) * 100))}%`,
-                        backgroundColor: selectedProject.color,
-                      }}
-                    />
-                  </div>
-                  <div className="flex justify-between text-[9px] font-mono text-text-muted uppercase tracking-widest">
-                    <span>
-                      {Math.min(100, Math.round((getRaised(selectedProject) / selectedProject.goal) * 100))}% funded
-                    </span>
-                    <span>Goal: ${selectedProject.goal.toLocaleString()}</span>
-                  </div>
-                </div>
                 <p className="mt-4 text-[10px] font-mono text-text-muted/60 uppercase tracking-widest">
                   Deadline: {selectedProject.deadline}
                 </p>
-              </div>
-            )}
-
-            {/* Fund allocation (general fund only) */}
-            {fundType === 'general' && (
-              <div>
-                <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-6 font-bold opacity-60">
-                  Where Your Gift Goes
-                </p>
-                <div className="space-y-5">
-                  {[
-                    { pct: 60, label: 'Direct program delivery — equipment, workshops, mentors', color: BRAND.colors.green },
-                    { pct: 25, label: 'Scholarships and financial aid for youth participants',    color: BRAND.colors.teal  },
-                    { pct: 10, label: 'Community events and public screenings',                   color: BRAND.colors.amber },
-                    { pct: 5,  label: 'Administrative and operational overhead',                  color: BRAND.colors.blue  },
-                  ].map((row) => (
-                    <div key={row.pct}>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-text-muted">{row.label}</span>
-                        <span
-                          className="text-sm font-serif italic ml-3 shrink-0"
-                          style={{ color: row.color }}
-                        >
-                          {row.pct}%
-                        </span>
-                      </div>
-                      <div className="h-px bg-border relative">
-                        <div
-                          className="absolute top-0 left-0 h-full"
-                          style={{ width: `${row.pct}%`, backgroundColor: row.color }}
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             )}
 
@@ -793,7 +614,7 @@ export const Donate: React.FC = () => {
               {[
                 { label: '501(c)(3) Status', value: 'Verified',              link: null },
                 { label: 'EIN',             value: 'On file — request via contact', link: null },
-                { label: 'Founded',         value: 'January 2025, Ocoee, FL', link: null },
+                { label: 'Founded',         value: 'January 2025, Orlando, FL', link: null },
                 { label: 'Financial Docs',  value: 'View Documents',         link: '/documents' },
               ].map((row) => (
                 <div

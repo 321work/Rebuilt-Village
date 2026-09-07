@@ -70,14 +70,14 @@ export const sendEmail = functions.onRequest(
               <h1 style="font-size: 32px; font-style: italic; color: #f5f5f0; margin-bottom: 16px;">You're in.</h1>
               <p style="color: #9a9a8e; font-size: 16px; line-height: 1.7; margin-bottom: 24px;">
                 Welcome to <strong style="color: #f5f5f0;">The Call Sheet</strong> — our newsletter for casting calls,
-                screening announcements, and community stories from Ocoee.
+                screening announcements, and community stories from Orlando.
               </p>
               <p style="color: #9a9a8e; font-size: 14px; line-height: 1.7;">
                 Expect to hear from us when it matters — never noise.
               </p>
               <hr style="border: none; border-top: 1px solid #2a2a2a; margin: 32px 0;">
               <p style="color: #555; font-size: 12px;">
-                Rebuilt Village · 501(c)(3) · Ocoee, FL ·
+                Rebuilt Village · 501(c)(3) · Orlando, FL ·
                 <a href="https://rebuiltvillage.org/privacy" style="color: #555;">Privacy Policy</a>
               </p>
             </div>
@@ -132,7 +132,7 @@ export const sendEmail = functions.onRequest(
               </p>
               <hr style="border: none; border-top: 1px solid #2a2a2a; margin: 32px 0;">
               <p style="color: #555; font-size: 12px;">
-                Rebuilt Village · 501(c)(3) · Ocoee, FL
+                Rebuilt Village · 501(c)(3) · Orlando, FL
               </p>
             </div>
           `,

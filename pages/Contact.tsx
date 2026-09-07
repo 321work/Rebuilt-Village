@@ -30,7 +30,7 @@ const INFO_CARDS = [
   {
     icon: <MapPin size={18} />,
     heading: 'Location',
-    value: 'Ocoee, Florida',
+    value: 'Orlando, Florida',
     href: null,
     note: 'Programs at John H. Jackson Community Center',
   },

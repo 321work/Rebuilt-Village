@@ -1,70 +1,27 @@
-import { motion, useInView, useReducedMotion } from 'framer-motion';
-import React, { useEffect, useRef, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Button } from '../components/Button';
 import { announceToScreenReader } from '../src/utils/a11y';
-import { ImpactDashboard } from '../components/ImpactDashboard';
 import { VideoPlayer } from '../components/VideoPlayer';
 import { getSiteSettings, getTestimonials } from '../services/sanityService';
 import type { SanityTestimonial } from '../services/sanityService';
 import { urlFor } from '../services/sanityClient';
-
-// ─── Animated counter ───────────────────────────────────────────────────────
-interface CounterProps {
-  target: number;
-  suffix?: string;
-  duration?: number;
-}
-
-const AnimatedCounter: React.FC<CounterProps> = ({ target, suffix = '', duration = 2000 }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
-  const prefersReduced = useReducedMotion();
-
-  useEffect(() => {
-    if (!inView) return;
-    if (prefersReduced) { setCount(target); return; }
-
-    const steps = 60;
-    const increment = target / steps;
-    const interval = duration / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, interval);
-
-    return () => clearInterval(timer);
-  }, [inView, target, duration, prefersReduced]);
-
-  return (
-    <span ref={ref} aria-label={`${target}${suffix}`}>
-      {count}{suffix}
-    </span>
-  );
-};
 
 // ─── Testimonials data ──────────────────────────────────────────────────────
 const FALLBACK_TESTIMONIALS = [
   {
     quote: 'Rebuilt Village gave me a camera and, more importantly, a reason to use it. I went from never touching film equipment to directing my first short in eight weeks.',
     name: 'Marcus Thompson',
-    role: 'Night at the Cinema ’ 24 · Student filmmaker, Ocoee HS',
+    role: 'Night at the Cinema ’ 24 · Student filmmaker, Central Florida',
     initials: 'MT',
     avatar: null,
   },
   {
     quote: "As a parent, I was blown away by how seriously the mentors took the kids. This isn't daycare \u2014 it's a real professional environment.",
     name: 'Diane Ramos',
-    role: 'Parent of program participant \u00b7 Ocoee, FL',
+    role: 'Parent of program participant \u00b7 Orlando, FL',
     initials: 'DR',
     avatar: null,
   },
@@ -89,9 +46,9 @@ function testimonialsFromCMS(raw: SanityTestimonial[]): TestimonialShape[] {
   }));
 }
 
-// Original Rebuilt Village asset (LA studio tour, April 2026). Overridden by
+// Original Rebuilt Village photo of the students at the Hollywood sign. Overridden by
 // siteSettings.heroImage in FireCMS when set.
-const DEFAULT_HERO_IMAGE = '/assets/hero/studio-tour-v1.jpg';
+const DEFAULT_HERO_IMAGE = '/assets/hero/hollywood-students.jpg';
 
 // ─── Home ───────────────────────────────────────────────────────────────────
 export const Home: React.FC = () => {
@@ -101,7 +58,7 @@ export const Home: React.FC = () => {
   const [heroImage, setHeroImage] = useState<string>(DEFAULT_HERO_IMAGE);
 
   useEffect(() => {
-    announceToScreenReader('Welcome to Rebuilt Village. Film education nonprofit based in Ocoee, Florida.');
+    announceToScreenReader('Welcome to Rebuilt Village. Film education nonprofit based in Orlando, Florida.');
   }, []);
 
   // Load CMS data
@@ -116,7 +73,7 @@ export const Home: React.FC = () => {
 
   usePageMeta(
     'Life, Framed. — Rebuilt Village',
-    'Rebuilt Village empowers Ocoee youth through free professional film education. We train the next generation of storytellers. 501(c)(3) nonprofit.'
+    'Rebuilt Village empowers Orlando youth through free professional film education. We train the next generation of storytellers. 501(c)(3) nonprofit.'
   );
 
   // Auto-rotate testimonials
@@ -133,36 +90,34 @@ export const Home: React.FC = () => {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section
         aria-labelledby="hero-heading"
-        className="relative h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-svh md:min-h-[max(52rem,76vw,100svh)] flex flex-col justify-center overflow-hidden bg-black"
       >
-        <div className="absolute inset-0 bg-black">
+        <div className="absolute inset-0 bg-black" aria-hidden="true">
           <div
-            className="absolute inset-0 bg-cover bg-center opacity-75"
+            className="absolute top-[72px] inset-x-0 aspect-[2200/1670] md:inset-0 md:aspect-auto bg-cover bg-top opacity-90"
             style={{ backgroundImage: `url(${heroImage})` }}
-            aria-hidden="true"
-          />
-          {/* Cinematic letterbox */}
-          <div className="absolute top-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
-          <div className="absolute bottom-0 left-0 right-0 h-16 bg-black z-10" aria-hidden="true" />
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black md:hidden" />
+          </div>
           {/* Gradient scrim for hero text contrast */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/55 z-[5]" aria-hidden="true" />
           {/* Soft vignette behind the copy only, so faces at the edges stay visible */}
           <div className="absolute inset-0 z-[5] bg-[radial-gradient(ellipse_55%_50%_at_50%_58%,rgba(0,0,0,0.6),rgba(0,0,0,0)_100%)]" aria-hidden="true" />
         </div>
 
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+        <div className="relative z-10 text-center px-6 pt-[calc(70vw+4.5rem)] pb-12 md:pt-40 md:pb-64 max-w-5xl mx-auto">
           <motion.div
             initial={prefersReducedMotion ? {} : { y: 60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-primary font-mono tracking-[0.4em] text-[10px] mb-6 font-bold uppercase">
-              Est. 2025 &nbsp;·&nbsp; Ocoee, FL &nbsp;·&nbsp; 501(c)(3)
+              Est. 2025 &nbsp;·&nbsp; Orlando, FL &nbsp;·&nbsp; 501(c)(3)
             </p>
             <h1
               id="hero-heading"
               className="text-6xl md:text-8xl font-bold text-white mb-8 font-display tracking-tighter leading-none"
-              style={{ fontSize: 'clamp(4rem, 10vw, 10rem)' }}
+              style={{ fontSize: 'clamp(3rem, 10vw, 10rem)' }}
             >
               Life, <em className="text-primary not-italic">Framed.</em>
             </h1>
@@ -190,7 +145,7 @@ export const Home: React.FC = () => {
         >
           <div className="max-w-5xl mx-auto grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
             {[
-               { title: "Fund the Arts", sub: "100% Impact Rating", link: "/donate" },
+               { title: "Fund the Arts", sub: "Support Film Education", link: "/donate" },
                { title: "Enroll a Student", sub: "Ages 14-18", link: "/programs" },
                { title: "Attend Screening", sub: "Local Events", link: "/events" }
             ].map((path) => (
@@ -201,13 +156,6 @@ export const Home: React.FC = () => {
             ))}
           </div>
         </motion.div>
-      </section>
-
-      {/* ── Impact Dashboard ─────────────────────────────────────────────── */}
-      <section aria-labelledby="impact-heading" className="py-24 bg-surface-highlight">
-        <div className="max-w-6xl mx-auto px-6">
-          <ImpactDashboard />
-        </div>
       </section>
 
       {/* ── Mission / Video ──────────────────────────────────────────────── */}
@@ -223,7 +171,7 @@ export const Home: React.FC = () => {
             <p className="text-lg text-text-muted mb-6 leading-relaxed">
               We believe film is the ultimate medium for community restoration. By providing
               professional-grade tools and mentorship, we bridge the gap between neighbors and
-              preserve the living history of Ocoee.
+              preserve the living history of Orlando.
             </p>
             <ul className="space-y-3 mb-10" role="list">
               {[
@@ -334,7 +282,7 @@ export const Home: React.FC = () => {
               {
                 tag: 'Community · All Ages',
                 title: 'Narrative Preservation',
-                desc: 'A documentary workshop helping Ocoee families capture and preserve their personal histories before they\'re lost to time.',
+                desc: 'A documentary workshop helping Orlando families capture and preserve their personal histories before they\'re lost to time.',
                 dot: 'bg-amber-500',
               },
               {
@@ -375,7 +323,7 @@ export const Home: React.FC = () => {
             Every Frame Starts<br />with Your Gift
           </h2>
           <p className="text-lg text-text-muted mb-10 leading-relaxed">
-            100% of youth program costs are covered by community donors. Your donation is fully tax-deductible.
+            Community donations support film education for youth. Your donation is fully tax-deductible.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/donate">
@@ -386,7 +334,7 @@ export const Home: React.FC = () => {
             </Link>
           </div>
           <p className="mt-6 text-xs font-mono text-text-muted/60 uppercase tracking-widest">
-            501(c)(3) · Ocoee, FL · Born from Rebuilt Minds
+            501(c)(3) · Orlando, FL · Born from Rebuilt Minds
           </p>
         </div>
       </section>

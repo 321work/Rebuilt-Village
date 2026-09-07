@@ -92,7 +92,7 @@ export const Privacy: React.FC = () => {
                             <div className="bg-slate-900 border border-slate-700 p-8 rounded-lg">
                                 <p className="text-slate-300 font-mono text-[10px] uppercase tracking-widest leading-loose">
                                     <strong className="text-white">Rebuilt Village</strong><br />
-                                    Ocoee, FL 34761<br />
+                                    Orlando, FL<br />
                                     Email: info@rebuiltvillage.org
                                 </p>
                             </div>

@@ -19,7 +19,7 @@ export const Blog: React.FC = () => {
   const fallbackPosts = [
     {
       _id: '1',
-      title: 'Student Film "Echoes of Ocoee" Wins Regional Award',
+      title: 'Student Film "Echoes of Orlando" Wins Regional Award',
       publishedAt: '2023-10-12',
       author: 'Sarah Jenkins',
       mainImage: 'https://picsum.photos/seed/award/800/500',

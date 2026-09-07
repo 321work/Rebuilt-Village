@@ -23,7 +23,7 @@ const FAQS: FAQItem[] = [
     question: 'What is Rebuilt Village?',
     answer: (
       <>
-        Rebuilt Village, Inc. is a 501(c)(3) nonprofit organization founded in January 2025 in Ocoee, Florida.
+        Rebuilt Village, Inc. is a 501(c)(3) nonprofit organization founded in January 2025 in Orlando, Florida.
         Our mission is to enrich the community by telling stories through the art of film and media — empowering
         local youth to capture and preserve narratives that are deeply personal. We were born from{' '}
         <a href="https://rebuiltminds.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
@@ -69,7 +69,7 @@ const FAQS: FAQItem[] = [
     category: 'organization',
     question: 'Where is Rebuilt Village located?',
     answer:
-      'We are based in Ocoee, Florida (Orange County). Our primary programming partner is the John H. Jackson Community Center in Ocoee. We also partner with Dr. Phillips High School in Orlando for annual events.',
+      'We are based in Orlando, Florida (Orange County). Our primary programming partner is the John H. Jackson Community Center in Orlando. We also partner with Dr. Phillips High School in Orlando for annual events.',
   },
 
   // ── Programs ──────────────────────────────────────────────────────────────
@@ -90,7 +90,7 @@ const FAQS: FAQItem[] = [
     category: 'programs',
     question: 'What is the Summer Cinematography Camp?',
     answer:
-      'Our flagship program. Two weeks of full-day training (9 AM–3 PM, weekdays) at John H. Jackson Community Center in Ocoee. Students work with Blackmagic Cinema and RED cameras, learn lighting and color grading, and premiere original short films at a closing community screening. The program is free for all accepted students. The 2026 session runs July 13–24.',
+      'Our flagship program. Two weeks of full-day training (9 AM–3 PM, weekdays) at John H. Jackson Community Center in Orlando. Students work with Blackmagic Cinema and RED cameras, learn lighting and color grading, and premiere original short films at a closing community screening. The program is free for all accepted students. The 2026 session runs July 13–24.',
   },
   {
     category: 'programs',
@@ -115,7 +115,7 @@ const FAQS: FAQItem[] = [
         social media. In the meantime, you can{' '}
         <Link to="/contact" className="text-primary hover:underline">contact us</Link>{' '}
         to express interest and be notified when applications open. All youth programs are free and
-        open to Ocoee-area youth ages 14–18.
+        open to Orlando-area youth ages 14–18.
       </>
     ),
   },
@@ -150,7 +150,7 @@ const FAQS: FAQItem[] = [
     category: 'donate',
     question: 'How is my donation used?',
     answer:
-      '85% of all funds go directly to programs — equipment, facility costs, instructor stipends, and student materials. The remaining 15% covers operational costs. You can give to the General Operating Fund or direct your gift to a specific restricted project: the Film Equipment Fund, Youth Scholarship Fund, Summer Camp Launch, or Film-apalooza sponsorship.',
+      'Donations support film education, equipment, mentorship, student materials, and organizational operations. You can give to the General Operating Fund or direct your gift to a specific restricted project: the Film Equipment Fund, Youth Scholarship Fund, Summer Camp Launch, or Film-apalooza sponsorship.',
   },
   {
     category: 'donate',

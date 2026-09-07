@@ -144,7 +144,11 @@ export const Events: React.FC = () => {
     getEvents()
       .then((sanityEvents) => {
         if (sanityEvents.length > 0) {
-          setEvents(sanityEvents);
+          // Existing CMS copy still contains this unverified attendance claim.
+          setEvents(sanityEvents.map((event) => ({
+            ...event,
+            description: event.description.replace(/\s*Over 107 attendees\./gi, ''),
+          })));
         }
         // If Sanity returns empty (Studio not yet populated), keep fallback data
       })

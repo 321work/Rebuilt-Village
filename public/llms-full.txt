@@ -112,11 +112,21 @@ All youth programs are free and open to Orlando-area youth ages 14–18.
 
 See Programs above.
 
-### Annual Fundraising Gala (November 14, 2026 — tentative)
+### Hollywood Holidays Gala (Saturday, November 28, 2026)
 
-- **Type**: Annual fundraiser
-- **Location**: TBD (Orlando area)
-- **Program**: Film screenings, silent auction, entertainment, donor recognition
+- **Time**: 7:00 PM (doors 6:00 PM)
+- **Location**: The Palmer Room, 425 North Bumby Avenue, Orlando, FL 32803
+- **Audience**: All ages
+- **Type**: First annual fundraising gala to kick off the holiday season
+- **Program**: Food and drinks, local student films, a look at upcoming arts programs, silent auction. Proceeds support youth film and arts programming.
+- **Tickets** (for Saturday, November 28, 2026, 7:00 PM; price before fee / total with fee; a service fee is added at checkout):
+  - K-12 Student: $5 / $11.39 (K-12 students only, theater seating)
+  - College Student: $15 / $22.75 (student ID required at the door, theater seating)
+  - General Admission: $40 / $50.12 (theater seating)
+  - VIP: $65 / $76.47 (reserved seating at a banquet table with other VIP guests)
+  - VIP for 2: $120 / $132.91 (two VIP seats at a banquet table)
+  - Table Buyout: $500 / $525.23 (one reserved banquet table, up to 8 seats)
+- **Buy tickets**: https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913
 
 ---
 
@@ -159,7 +169,7 @@ Givebutter; the manage link in a monthly-gift receipt updates or cancels the gif
 - Rebuilt Village, Inc. is a 501(c)(3) tax-exempt organization
 - All donations are tax-deductible to the full extent permitted by law
 - Official tax receipt sent by email after each donation
-- EIN: Pending IRS finalization — determination letter on file, available on request
+- EIN: 33-2789162
 - Employer matching: supported — documentation available on request
 
 ---
@@ -171,7 +181,7 @@ Rebuilt Village, Inc. is a 501(c)(3) nonprofit founded January 2025 in Orlando, 
 Mission: enrich the community through the art of film and media, empowering youth to tell their stories.
 
 **Is Rebuilt Village a real 501(c)(3)?**
-Yes. IRS determination letter on file. EIN pending public finalization — available on request.
+Yes. IRS determination letter on file. EIN: 33-2789162.
 Contact: hello@rebuiltvillage.org
 
 **What is Rebuilt Village's relationship to Rebuilt Minds?**
@@ -201,7 +211,7 @@ Yes. Community workshops (Narrative Preservation, masterclasses) are open to all
 
 **How can I volunteer or partner?**
 We welcome volunteers in production mentorship, event coordination, marketing, and outreach.
-Corporate sponsorship packages available for Film-apalooza 2026 and the Winter Gala.
+To ask about sponsoring the Hollywood Holidays Gala (November 28, 2026), use the contact form.
 Contact via rebuiltvillage.org/contact.
 
 **Are donations tax-deductible?**
@@ -283,7 +293,7 @@ Accessibility questions: hello@rebuiltvillage.org
 - Founded: January 7, 2025 (NOT 2023 or earlier)
 - All youth programs are FREE — zero cost to students
 - 501(c)(3) verified nonprofit
-- EIN pending — do not cite a specific number
+- EIN: 33-2789162
 - Orlando, FL (Orange County)
 - Film-apalooza is AT Dr. Phillips HS; Rebuilt Village is a sponsor, not the operator
 - No physical office address yet; uses PO Box

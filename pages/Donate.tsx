@@ -1,9 +1,10 @@
 import { Building2, CheckCircle, ChevronRight, Shield, Users } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Section } from '../components/Section';
 import { GivebutterWidget } from '../components/GivebutterWidget';
+import { ORGANIZATION } from '../src/organization';
 
 /* ─── Component ──────────────────────────────────────────────────────────── */
 
@@ -12,6 +13,13 @@ export const Donate: React.FC = () => {
     'Donate — Rebuilt Village',
     'Support free film education for Orlando youth. Your tax-deductible gift supports film education and mentorship.'
   );
+
+  // Visitors arrive from Donate buttons all over the site. Bring the donation
+  // form into view instead of leaving them on the page heading (or, worse, at
+  // whatever depth the previous page was scrolled to).
+  useEffect(() => {
+    document.getElementById('donate-form')?.scrollIntoView({ block: 'start' });
+  }, []);
 
   /* ─── Render ──────────────────────────────────────────────────────────── */
   return (
@@ -42,7 +50,7 @@ export const Donate: React.FC = () => {
         <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-start">
 
           {/* ── Givebutter donation form ───────────────────────────── */}
-          <div className="lg:col-span-7 bg-surface/50 border border-border shadow-2xl relative overflow-hidden">
+          <div id="donate-form" className="lg:col-span-7 bg-surface/50 border border-border shadow-2xl relative overflow-hidden scroll-mt-28">
             <div
               className="absolute top-0 right-0 w-40 h-40 bg-primary/5 -mr-20 -mt-20 rounded-full blur-3xl pointer-events-none"
               aria-hidden="true"
@@ -83,7 +91,7 @@ export const Donate: React.FC = () => {
               </p>
               {[
                 { label: '501(c)(3) Status', value: 'Verified',              link: null },
-                { label: 'EIN',             value: 'On file — request via contact', link: null },
+                { label: 'EIN',             value: ORGANIZATION.EIN,       link: null },
                 { label: 'Founded',         value: 'January 2025, Orlando, FL', link: null },
                 { label: 'Financial Docs',  value: 'View Documents',         link: '/documents' },
               ].map((row) => (
@@ -134,7 +142,7 @@ export const Donate: React.FC = () => {
               </p>
               <ul className="space-y-3 text-sm text-text-muted" role="list">
                 {[
-                  'Donor-Advised Funds (DAF) — EIN on file',
+                  `Donor-Advised Funds (DAF) — EIN ${ORGANIZATION.EIN}`,
                   'Equipment and in-kind donations',
                   'Volunteer your professional skills',
                   'Corporate sponsorship packages',

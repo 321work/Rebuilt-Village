@@ -11,7 +11,7 @@
 - **Founded**: January 7, 2025
 - **Location**: Orlando, Florida (Orange County)
 - **Origin**: Born from Rebuilt Minds, an Orlando-based production company
-- **EIN**: Pending IRS finalization — available on request via hello@rebuiltvillage.org
+- **EIN**: 33-2789162
 - **Email**: hello@rebuiltvillage.org
 - **Website**: https://rebuiltvillage.org
 - **Instagram**: @rebuiltvillage
@@ -72,10 +72,19 @@ Tagline: "It takes a village to tell a story, and stories to rebuild a village."
 - **Dates**: July 13–24, 2026
 - **Location**: John H. Jackson Community Center, Orlando, FL
 
-### Annual Fundraising Gala
-- **Date**: November 14, 2026 (tentative)
-- **Location**: TBD, Orlando area
-- **Type**: Fundraiser with screenings, silent auction, entertainment
+### Hollywood Holidays Gala
+- **Date**: Saturday, November 28, 2026, 7:00 PM (doors 6:00 PM)
+- **Location**: The Palmer Room, 425 North Bumby Avenue, Orlando, FL 32803
+- **Audience**: All ages
+- **Type**: First annual fundraising gala to kick off the holiday season: food and drinks, local student films, a look at upcoming arts programs, silent auction. Proceeds support youth film and arts programming.
+- **Tickets** (for Saturday, November 28, 2026, 7:00 PM; price before fee / total with fee; a service fee is added at checkout):
+  - K-12 Student: $5 / $11.39 (K-12 students only, theater seating)
+  - College Student: $15 / $22.75 (student ID required at the door, theater seating)
+  - General Admission: $40 / $50.12 (theater seating)
+  - VIP: $65 / $76.47 (reserved seating at a banquet table with other VIP guests)
+  - VIP for 2: $120 / $132.91 (two VIP seats at a banquet table)
+  - Table Buyout: $500 / $525.23 (one reserved banquet table, up to 8 seats)
+- **Buy tickets**: https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913
 
 ## Donating
 

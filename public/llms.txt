@@ -86,9 +86,8 @@ Tagline: "It takes a village to tell a story, and stories to rebuild a village."
   - Summer Camp Launch (goal: $25,000)
   - Film-apalooza at Dr. Phillips (goal: $8,000)
 - **Frequencies**: One-time or monthly recurring
-- **Platform**: Stripe Checkout (PCI-compliant, no card data stored on our servers)
+- **Platform**: Givebutter (no card data stored on our servers)
 - **Tax receipts**: Emailed automatically after each donation
-- **Tribute gifts**: Honor/memorial donations accepted
 - **Employer matching**: Supported — documentation available on request
 
 ## Partners

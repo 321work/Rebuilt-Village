@@ -53,8 +53,7 @@ const NAV_COLUMNS = [
     color: '#C9A84C', // brand gold — fundraising
     links: [
       { label: 'Donate Now',          path: '/donate'  },
-      { label: 'General Fund',        path: '/donate'  },
-      { label: 'Restricted Projects', path: '/donate'  },
+      { label: 'Give Monthly',        path: '/donate'  },
       { label: 'Corporate Sponsors',  path: '/contact' },
       { label: 'Employer Matching',   path: '/contact' },
     ],

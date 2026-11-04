@@ -17,6 +17,10 @@ const TYPE_STYLE: Record<Event['type'], { color: string; label: string }> = {
   fundraiser:  { color: '#7C3AED', label: 'Fundraiser' },
 };
 
+// Gala tickets are sold on OpenDate, not on this site.
+const GALA_TICKETS_URL =
+  'https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913?utm_source=ig&utm_medium=social&utm_content=link_in_bio';
+
 // ─── Fallback events (hardcoded) ─────────────────────────────────────────────
 // Used when Sanity has no events yet or is unreachable. Jess/Amanda can manage
 // events via Sanity Studio once it's deployed to studio.rebuiltvillage.org.
@@ -76,19 +80,20 @@ const FALLBACK_EVENTS: Event[] = [
   },
 
   {
-    id: 'winter-gala-2026',
-    title: 'Annual Fundraising Gala',
-    date: '2026-11-14',
-    day: '14',
+    id: 'hollywood-holidays-gala-2026',
+    title: 'Hollywood Holidays Gala',
+    date: '2026-11-28',
+    day: '28',
     month: 'NOV',
     year: '2026',
-    time: '6:00 PM – 10:00 PM',
-    location: 'TBD · Orlando Area',
+    time: '7:00 PM (Doors 6:00 PM)',
+    location: 'The Palmer Room, 425 N Bumby Ave, Orlando, FL 32803',
     description:
-      'Rebuilt Village\'s first annual fundraising gala celebrating one year of impact. An evening of short film screenings, live entertainment, and a silent auction supporting youth program scholarships. Sponsorship packages available.',
+      'Rebuilt Village\'s first annual fundraising gala, held to kick off the holiday season. Enjoy food and drinks, see local student films, learn about our upcoming arts programs, and bid in the silent auction. Proceeds support youth film and arts programming.',
     type: 'fundraiser',
-    registrationUrl: '/contact',
-    tags: ['Fundraiser', '21+', 'Sponsorships Available'],
+    featured: true,
+    registrationUrl: GALA_TICKETS_URL,
+    tags: ['Silent Auction', 'Student Films'],
   },
 
   // ── PAST ──────────────────────────────────────────────────────────────────
@@ -351,17 +356,31 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
 
             {!past && event.registrationUrl && (
               event.registrationUrl.startsWith('http') ? (
-                <a
-                  href={event.registrationUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0"
-                  aria-label={`Register for ${event.title}`}
-                >
-                  <Button variant="outline" size="sm" className="border-border hover:border-primary flex items-center gap-2">
-                    Register <ExternalLink size={12} />
-                  </Button>
-                </a>
+                event.type === 'fundraiser' ? (
+                  <a
+                    href={event.registrationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 inline-flex items-center justify-center gap-2 h-11 px-7 bg-brand-crimson text-white font-mono text-xs font-bold uppercase tracking-widest transition-all duration-300 hover:bg-brand-crimson/85 hover:shadow-lg hover:shadow-brand-crimson/40 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-crimson/70 focus:ring-offset-2 focus:ring-offset-background"
+                    aria-label={`Get tickets for ${event.title} (opens in a new tab)`}
+                  >
+                    <Ticket size={14} aria-hidden="true" />
+                    Get Tickets
+                    <ExternalLink size={12} aria-hidden="true" />
+                  </a>
+                ) : (
+                  <a
+                    href={event.registrationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0"
+                    aria-label={`Register for ${event.title}`}
+                  >
+                    <Button variant="outline" size="sm" className="border-border hover:border-primary flex items-center gap-2">
+                      Register <ExternalLink size={12} />
+                    </Button>
+                  </a>
+                )
               ) : (
                 <Link to={event.registrationUrl} className="shrink-0">
                   <Button variant="outline" size="sm" className="border-border hover:border-primary">

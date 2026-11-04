@@ -160,7 +160,7 @@ const FAQS: FAQItem[] = [
         Yes — and monthly donors are some of our most impactful supporters. You can choose a monthly
         frequency on the{' '}
         <Link to="/donate" className="text-primary hover:underline">Donate page</Link>.
-        Monthly gifts are processed via Stripe and can be cancelled at any time by contacting us.
+        Monthly gifts are processed securely by Givebutter. Use the manage link in your monthly-gift receipt to update or cancel, or contact us and we will help.
       </>
     ),
   },

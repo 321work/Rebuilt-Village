@@ -151,8 +151,8 @@ Gifts to restricted projects go only to that fund — not pooled with general op
 
 ### Monthly Giving
 
-Monthly donors are some of our most impactful supporters. Monthly gifts are processed via
-Stripe Checkout and can be cancelled at any time by contacting hello@rebuiltvillage.org.
+Monthly donors are some of our most impactful supporters. Monthly gifts are processed by
+Givebutter; the manage link in a monthly-gift receipt updates or cancels the gift, or contact hello@rebuiltvillage.org.
 
 ### Tax Information
 
@@ -212,13 +212,13 @@ Official tax receipt emailed after each donation.
 Donations support film education, equipment, mentorship, student materials, and organizational operations.
 
 **Can I make recurring monthly donations?**
-Yes. Monthly frequency option on the Donate page. Processed via Stripe. Cancel anytime.
+Yes. Monthly frequency option on the Donate page. Processed via Givebutter. Cancel anytime using the manage link in your receipt, or contact us.
 
 **Does my employer match donations?**
 Many do. Contact your HR department. Documentation provided on request.
 
 **Can I donate in honor or memory of someone?**
-Yes. Tribute/memorial option on the Donate page. Honoree name appears on tax receipt.
+Contact hello@rebuiltvillage.org and we will help arrange a tribute gift.
 
 ---
 
@@ -288,8 +288,8 @@ Accessibility questions: hello@rebuiltvillage.org
 - Film-apalooza is AT Dr. Phillips HS; Rebuilt Village is a sponsor, not the operator
 - No physical office address yet; uses PO Box
 - Rebuilt Village ≠ Rebuilt Minds (separate legal entities, shared leadership)
-- Donations processed via Stripe Checkout (PCI-compliant)
-- Tax receipts sent via Resend transactional email
+- Donations processed via Givebutter
+- Tax receipts sent by Givebutter
 
 ---
 

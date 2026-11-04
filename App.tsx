@@ -1,13 +1,16 @@
 import { Check } from 'lucide-react';
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import { Button } from './components/Button';
 import { CookieConsentBanner as CookieConsent } from './components/CookieConsent';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Footer } from './components/Footer';
+import { GalaTicketButton } from './components/GalaTicketButton';
 import { LoadingSpinner } from './components/LoadingSpinner';
+import { ScrollToTop } from './components/ScrollToTop';
 import { useToggle } from './hooks/useToggle';
 import { urlFor } from './services/sanityClient';
+import { GALA, useGalaPromo } from './src/gala';
 import { ViewfinderNav } from './src/components/ViewfinderNav';
 import { ThemeProvider } from './src/contexts/ThemeContext';
 
@@ -36,6 +39,7 @@ const StickyDonateBar: React.FC<{ footerRef: React.RefObject<HTMLDivElement> }> 
   const y = useTransform(scrollY, [600, 800], [100, 0]);
   const opacity = useTransform(scrollY, [600, 800], [0, 1]);
   const [footerVisible, setFooterVisible] = useState(false);
+  const promo = useGalaPromo();
 
   useEffect(() => {
     const el = footerRef.current;
@@ -47,6 +51,9 @@ const StickyDonateBar: React.FC<{ footerRef: React.RefObject<HTMLDivElement> }> 
 
   if (footerVisible) return null;
 
+  // While the gala is coming up the bar promotes it and keeps a Donate button.
+  // It does not rotate between messages; auto-changing text is hard to read and
+  // fails WCAG 2.2.2 for people who need more time.
   return (
     <motion.div
       style={{ y, opacity }}
@@ -54,13 +61,24 @@ const StickyDonateBar: React.FC<{ footerRef: React.RefObject<HTMLDivElement> }> 
     >
       <div className="flex items-center gap-4">
         <span className="w-2 h-2 rounded-full bg-brand-black animate-pulse" />
-        <p className="font-serif italic font-bold">Every frame starts with your gift.</p>
+        <p className="font-serif italic font-bold">
+          {promo.active
+            ? `${GALA.TITLE} · ${GALA.DATE_SHORT}${promo.countdown ? ` · ${promo.countdown}` : ''}`
+            : 'Every frame starts with your gift.'}
+        </p>
       </div>
-      <Link to="/donate">
-        <Button size="sm" className="bg-brand-black text-white hover:bg-black w-full sm:w-auto shadow-xl">
-          Donate Now
-        </Button>
-      </Link>
+      <div className="flex items-center gap-3 w-full sm:w-auto">
+        {promo.active && (
+          <GalaTicketButton placement="sticky-bar" size="sm" className="flex-1 sm:flex-none shadow-xl focus:ring-offset-primary">
+            Get Tickets
+          </GalaTicketButton>
+        )}
+        <Link to="/donate" className={promo.active ? 'flex-1 sm:flex-none' : 'w-full sm:w-auto'}>
+          <Button size="sm" className="!bg-brand-black !text-white hover:!bg-black w-full sm:w-auto shadow-xl">
+            {promo.active ? 'Donate' : 'Donate Now'}
+          </Button>
+        </Link>
+      </div>
     </motion.div>
   );
 };
@@ -296,6 +314,11 @@ const Contact = () => {
 export default function App() {
   const [filmGrainEnabled, toggleFilmGrain] = useToggle(true);
   const footerRef = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  const promo = useGalaPromo();
+  // The gala bar is fixed above the header, so pages (other than the full-bleed
+  // home hero) need 32px of extra room while it shows.
+  const roomForGalaBar = promo.active && pathname !== '/';
 
   // Main layout wrapped with accessibility features
   return (
@@ -303,9 +326,10 @@ export default function App() {
       <ThemeProvider>
         <div className="min-h-screen bg-background text-text transition-colors duration-300 relative">
           <SkipLink />
+          <ScrollToTop />
           <ViewfinderNav />
 
-          <main id="main-content" tabIndex={-1} className="outline-none min-h-screen">
+          <main id="main-content" tabIndex={-1} className={`outline-none min-h-screen${roomForGalaBar ? ' pt-8' : ''}`}>
             <Suspense fallback={<LoadingSpinner />}>
               <Routes>
                 <Route path="/" element={<Home />} />

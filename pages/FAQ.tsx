@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Section } from '../components/Section';
 import { getFaqs } from '../services/sanityService';
+import { GALA } from '../src/gala';
+import { ORGANIZATION } from '../src/organization';
 
 // ─── FAQ data ─────────────────────────────────────────────────────────────────
 // Keep this in sync with the FAQPage JSON-LD block in index.html
@@ -43,7 +45,7 @@ const FAQS: FAQItem[] = [
         <a href="mailto:hello@rebuiltvillage.org" className="text-primary hover:underline">
           hello@rebuiltvillage.org
         </a>
-        . Our EIN will be listed publicly once the IRS determination is finalized.
+        . Our EIN is {ORGANIZATION.EIN}.
       </>
     ),
   },
@@ -134,7 +136,7 @@ const FAQS: FAQItem[] = [
         Organizations interested in sponsorship or partnership — including event co-sponsorship and
         in-kind equipment donations — should reach out via our{' '}
         <Link to="/contact" className="text-primary hover:underline">contact form</Link>.
-        Corporate sponsorship packages are available for Film-apalooza 2026 and the Winter Gala.
+        {`To ask about sponsoring the ${GALA.TITLE} (${GALA.DATE_SHORT}), use the same contact form.`}
       </>
     ),
   },

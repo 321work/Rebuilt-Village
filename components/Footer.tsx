@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ORGANIZATION } from '../src/organization';
 
 // ─── Nav column definitions ───────────────────────────────────────────────────
 const NAV_COLUMNS = [
@@ -367,7 +368,7 @@ export const Footer: React.FC = () => {
               </p>
               <span className="hidden sm:block w-px h-3 bg-border/40" aria-hidden="true" />
               <p className="font-mono text-[9px] text-white/50 uppercase tracking-widest">
-                EIN: 93-XXXXXXX
+                EIN: {ORGANIZATION.EIN}
               </p>
             </div>
 

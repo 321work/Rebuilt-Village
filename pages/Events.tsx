@@ -7,6 +7,7 @@ import { Button } from '../components/Button';
 import { Section } from '../components/Section';
 import { Event } from '../types';
 import { getEvents } from '../services/sanityService';
+import { GALA, GALA_TICKET_TIERS, formatDollars } from '../src/gala';
 
 // ─── Accent color map (inline styles to avoid undefined CSS var bugs) ────────
 const TYPE_STYLE: Record<Event['type'], { color: string; label: string }> = {
@@ -17,27 +18,28 @@ const TYPE_STYLE: Record<Event['type'], { color: string; label: string }> = {
   fundraiser:  { color: '#7C3AED', label: 'Fundraiser' },
 };
 
-// Gala tickets are sold on OpenDate, not on this site.
-const GALA_TICKETS_URL =
-  'https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913?utm_source=ig&utm_medium=social&utm_content=link_in_bio';
+// Gala tickets are sold on OpenDate, not on this site. This card keeps the
+// Instagram-tagged link the team supplied; other placements use galaTicketsUrl().
+const GALA_TICKETS_URL = `${GALA.TICKETS_URL}?utm_source=ig&utm_medium=social&utm_content=link_in_bio`;
+const GALA_LOWEST_PRICE = Math.min(...GALA_TICKET_TIERS.map((t) => t.price));
 
 // Always shown, even when the CMS returns events. The CMS still holds the
 // superseded placeholder gala, so CMS fundraiser galas are replaced by this entry.
 const GALA_EVENT: Event = {
   id: 'hollywood-holidays-gala-2026',
-  title: 'Hollywood Holidays Gala',
-  date: '2026-11-28',
+  title: GALA.TITLE,
+  date: GALA.DATE_ISO,
   day: '28',
   month: 'NOV',
   year: '2026',
-  time: '7:00 PM (Doors 6:00 PM)',
-  location: 'The Palmer Room, 425 N Bumby Ave, Orlando, FL 32803',
+  time: `${GALA.TIME_LABEL} (${GALA.DOORS_LABEL})`,
+  location: `${GALA.VENUE}, ${GALA.ADDRESS}`,
   description:
-    'Rebuilt Village\'s first annual fundraising gala, held to kick off the holiday season. Enjoy food and drinks, see local student films, learn about our upcoming arts programs, and bid in the silent auction. Proceeds support youth film and arts programming.',
+    `Rebuilt Village's first annual fundraising gala, held to kick off the holiday season. Enjoy food and drinks, see local student films, learn about our upcoming arts programs, and bid in the silent auction. Proceeds support youth film and arts programming. Tickets start at ${formatDollars(GALA_LOWEST_PRICE)} for K-12 students; a service fee is added at checkout.`,
   type: 'fundraiser',
   featured: true,
   registrationUrl: GALA_TICKETS_URL,
-  tags: ['Silent Auction', 'Student Films'],
+  tags: [GALA.AUDIENCE, 'Silent Auction', 'Student Films'],
 };
 
 function withPinnedGala(list: Event[]): Event[] {

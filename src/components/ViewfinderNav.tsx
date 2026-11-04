@@ -1,7 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Heart, Menu, Monitor, Moon, Sun, X } from 'lucide-react';
+import { Heart, Menu, Monitor, Moon, Sun, Ticket, X } from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { GalaAnnouncementBar } from '../../components/GalaAnnouncementBar';
+import { GalaTicketButton } from '../../components/GalaTicketButton';
+import { GALA, useGalaPromo } from '../gala';
 import { useTheme } from '../contexts/ThemeContext';
 import { announceToScreenReader, trapFocus } from '../utils/a11y';
 
@@ -120,6 +123,7 @@ interface DrawerProps {
 const MobileDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, currentPath }) => {
   const drawerRef   = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
+  const promo = useGalaPromo();
 
   useEffect(() => {
     if (isOpen && drawerRef.current) {
@@ -237,6 +241,13 @@ const MobileDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, currentPath }) =
                 <CompactThemeToggle />
               </div>
 
+              {/* Gala tickets */}
+              {promo.active && (
+                <GalaTicketButton placement="mobile-menu" size="lg" className="w-full !h-auto py-4 text-xs">
+                  {`Gala Tickets · ${GALA.DATE_SHORT}`}
+                </GalaTicketButton>
+              )}
+
               {/* Donate CTA */}
               <Link
                 to="/donate"
@@ -299,6 +310,7 @@ export const ViewfinderNav: React.FC = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location                    = useLocation();
   const hamburgerRef                = useRef<HTMLButtonElement>(null);
+  const promo                       = useGalaPromo();
 
   useEffect(() => {
     // Threshold matches the ImpactTicker fade range (0–50px) so the nav
@@ -318,15 +330,20 @@ export const ViewfinderNav: React.FC = () => {
   // On hero page the nav starts transparent, then darkens on scroll
   const isHeroPage  = location.pathname === '/';
   const transparent = isHeroPage && !scrolled;
+  // The gala strip (32px) sits above the header until the page is scrolled.
+  const barShowing = promo.active && !scrolled;
 
   return (
     <>
       <ViewfinderCursor />
 
+      {promo.active && <GalaAnnouncementBar visible={barShowing} countdown={promo.countdown} />}
+
       <header
         role="banner"
         className={[
-          'fixed top-0 left-0 right-0 z-50',
+          'fixed left-0 right-0 z-50',
+          barShowing ? 'top-8' : 'top-0',
           'transition-all duration-500 motion-reduce:transition-none border-t border-primary/15',
           transparent
             ? 'bg-transparent border-b border-transparent'
@@ -415,6 +432,25 @@ export const ViewfinderNav: React.FC = () => {
               <div className="hidden md:block">
                 <CompactThemeToggle />
               </div>
+
+              {/* Gala — desktop (large screens only; the strip above covers smaller ones) */}
+              {promo.active && (
+                <Link
+                  to="/events"
+                  aria-label={`${GALA.TITLE}, ${GALA.DATE_SHORT}. See event details`}
+                  className={[
+                    'hidden lg:inline-flex items-center gap-2 whitespace-nowrap',
+                    'px-4 py-2.5',
+                    'font-mono text-[11px] font-bold uppercase tracking-widest',
+                    'bg-brand-crimson text-white',
+                    'hover:bg-brand-crimson/85 transition-colors duration-300',
+                    'focus:outline-none focus:ring-2 focus:ring-brand-crimson/70 focus:ring-offset-2 focus:ring-offset-[#0A0A0A]',
+                  ].join(' ')}
+                >
+                  <Ticket size={12} aria-hidden="true" />
+                  {`Gala · ${GALA.DATE_SHORT}`}
+                </Link>
+              )}
 
               {/* Donate — desktop */}
               <Link

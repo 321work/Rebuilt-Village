@@ -7,6 +7,7 @@ import { Card } from '../components/Card';
 import { Section } from '../components/Section';
 import { getTeamMembers } from '../services/sanityService';
 import { urlFor } from '../services/sanityClient';
+import { GALA } from '../src/gala';
 
 /* ─── Team data ──────────────────────────────────────────────────────────── */
 
@@ -335,12 +336,11 @@ export const About: React.FC = () => {
                 <li className="flex items-start text-text-muted">
                   <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-4 shrink-0" />
                   <div>
-                    <span className="font-semibold text-text">Rebuilt Village Gala</span>{' '}
-                    <span className="text-primary font-mono text-xs">(Winter 2026)</span>
-                    {': '}
-                    An evening dedicated to generating vital funds for legacy projects and long-term
-                    sustainability. Bringing together supporters, artists, and community leaders to
-                    invest in the future of storytelling in Orlando.
+                    <span className="font-semibold text-text">{GALA.TITLE}</span>{' '}
+                    <span className="text-primary font-mono text-xs">{`(${GALA.DATE_LABEL})`}</span>
+                    {': Our first annual fundraising gala, held to kick off the holiday season with food and drinks, local student films, a look at our upcoming arts programs, and a silent auction. Proceeds support youth film and arts programming. '}
+                    <Link to="/events" className="text-primary hover:underline">See event details and tickets</Link>
+                    {'.'}
                   </div>
                 </li>
               </ul>

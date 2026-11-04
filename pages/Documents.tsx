@@ -4,6 +4,7 @@ import { Section } from '../components/Section';
 import { FileText, Download, ExternalLink, Calendar, ShieldCheck } from 'lucide-react';
 import { Button } from '../components/Button';
 import { getDocuments } from '../services/sanityService';
+import { ORGANIZATION } from '../src/organization';
 
 interface Document {
     _id?: string;
@@ -146,7 +147,7 @@ export const Documents: React.FC = () => {
                             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
                                 <div className="bg-black border border-slate-800 p-6 flex flex-col justify-center">
                                     <div className="font-mono text-[10px] text-primary mb-2 uppercase tracking-widest opacity-60">Tax ID (EIN)</div>
-                                    <div className="text-white font-serif italic text-xl">PROCESSED</div>
+                                    <div className="text-white font-serif italic text-xl">{ORGANIZATION.EIN}</div>
                                 </div>
                                 <div className="bg-black border border-slate-800 p-6 flex flex-col justify-center">
                                     <div className="font-mono text-[10px] text-primary mb-2 uppercase tracking-widest opacity-60">Status</div>

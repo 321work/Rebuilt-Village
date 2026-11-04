@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Button } from '../components/Button';
+import { GalaBand } from '../components/GalaBand';
+import { GalaTicketButton } from '../components/GalaTicketButton';
+import { GALA, useGalaPromo } from '../src/gala';
 import { announceToScreenReader } from '../src/utils/a11y';
 import { VideoPlayer } from '../components/VideoPlayer';
 import { getSiteSettings, getTestimonials } from '../services/sanityService';
@@ -53,6 +56,7 @@ const DEFAULT_HERO_IMAGE = '/assets/hero/hollywood-students.jpg';
 // ─── Home ───────────────────────────────────────────────────────────────────
 export const Home: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
+  const promo = useGalaPromo();
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [testimonials, setTestimonials] = useState<TestimonialShape[]>(FALLBACK_TESTIMONIALS);
   const [heroImage, setHeroImage] = useState<string>(DEFAULT_HERO_IMAGE);
@@ -132,6 +136,11 @@ export const Home: React.FC = () => {
                   Make an Impact
                 </Button>
               </Link>
+              {promo.active && (
+                <GalaTicketButton placement="hero" size="lg" className="w-full sm:w-auto">
+                  {`Gala Tickets · ${GALA.DATE_SHORT}`}
+                </GalaTicketButton>
+              )}
             </div>
           </motion.div>
         </div>
@@ -312,6 +321,9 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* ── Gala ─────────────────────────────────────────────────────────── */}
+      <GalaBand />
 
       {/* ── Donate CTA ───────────────────────────────────────────────────── */}
       <section aria-labelledby="donate-cta-heading" className="py-24 bg-primary/5 border-t border-primary/10">

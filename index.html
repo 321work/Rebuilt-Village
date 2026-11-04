@@ -87,7 +87,7 @@
       "addressCountry": "US"
     },
     "foundingDate": "2025-01-07",
-    "taxID": "",
+    "taxID": "33-2789162",
     "nonprofitStatus": "Nonprofit501c3",
     "contactPoint": {
       "@type": "ContactPoint",
@@ -212,68 +212,94 @@
   }
   </script>
 
-  <!-- Structured Data: Upcoming Events -->
+  <!-- Structured Data: Upcoming Events (Hollywood Holidays Gala; keep in step with src/gala.ts) -->
   <script type="application/ld+json">
-  [
-    {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      "name": "Film-apalooza at Dr. Phillips",
-      "description": "A three-day community film festival featuring screenings, filmmaker panels, hands-on workshops, and an awards ceremony. Rebuilt Village is a proud sponsor.",
-      "startDate": "2026-05-15T09:00:00-04:00",
-      "endDate": "2026-05-17T22:00:00-04:00",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "location": {
-        "@type": "Place",
-        "name": "Dr. Phillips High School",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Orlando",
-          "addressRegion": "FL",
-          "addressCountry": "US"
-        }
-      },
-      "organizer": {
-        "@type": "Organization",
-        "name": "Rebuilt Village",
-        "url": "https://rebuiltvillage.org"
-      },
-      "isAccessibleForFree": true,
-      "url": "https://rebuiltvillage.org/events"
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Hollywood Holidays Gala by Rebuilt Village",
+    "description": "Rebuilt Village's first annual fundraising gala, held to kick off the holiday season. Food and drinks, local student films, a look at upcoming arts programs, and a silent auction. Proceeds support youth film and arts programming. All ages.",
+    "startDate": "2026-11-28T19:00:00-05:00",
+    "doorTime": "18:00",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+      "@type": "Place",
+      "name": "The Palmer Room",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "425 North Bumby Avenue",
+        "addressLocality": "Orlando",
+        "addressRegion": "FL",
+        "postalCode": "32803",
+        "addressCountry": "US"
+      }
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "Event",
-      "name": "Summer Cinematography Camp 2026",
-      "description": "Two-week intensive filmmaking camp for youth ages 14–18. Students work with professional cameras, learn lighting and color grading, and premiere original short films. Free for all accepted students.",
-      "startDate": "2026-07-13T09:00:00-04:00",
-      "endDate": "2026-07-24T15:00:00-04:00",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "location": {
-        "@type": "Place",
-        "name": "John H. Jackson Community Center",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Orlando",
-          "addressRegion": "FL",
-          "addressCountry": "US"
-        }
+    "image": "https://rebuiltvillage.org/assets/brand/og-image.png",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Rebuilt Village",
+      "url": "https://rebuiltvillage.org"
+    },
+    "isAccessibleForFree": false,
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "K-12 Student",
+        "description": "K-12 students only. Theater seating. Includes service fee.",
+        "price": "11.39",
+        "priceCurrency": "USD",
+        "url": "https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913",
+        "availability": "https://schema.org/InStock"
       },
-      "organizer": {
-        "@type": "Organization",
-        "name": "Rebuilt Village",
-        "url": "https://rebuiltvillage.org"
+      {
+        "@type": "Offer",
+        "name": "College Student",
+        "description": "Student ID required at the door. Theater seating. Includes service fee.",
+        "price": "22.75",
+        "priceCurrency": "USD",
+        "url": "https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913",
+        "availability": "https://schema.org/InStock"
       },
-      "audience": {
-        "@type": "Audience",
-        "audienceType": "Youth ages 14–18"
+      {
+        "@type": "Offer",
+        "name": "General Admission",
+        "description": "Theater seating. Includes service fee.",
+        "price": "50.12",
+        "priceCurrency": "USD",
+        "url": "https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913",
+        "availability": "https://schema.org/InStock"
       },
-      "isAccessibleForFree": true,
-      "url": "https://rebuiltvillage.org/events"
-    }
-  ]
+      {
+        "@type": "Offer",
+        "name": "VIP",
+        "description": "Reserved seating at a banquet table with other VIP guests. Includes service fee.",
+        "price": "76.47",
+        "priceCurrency": "USD",
+        "url": "https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "name": "VIP for 2",
+        "description": "Two VIP seats at a banquet table with other VIP guests. Includes service fee.",
+        "price": "132.91",
+        "priceCurrency": "USD",
+        "url": "https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913",
+        "availability": "https://schema.org/InStock"
+      },
+      {
+        "@type": "Offer",
+        "name": "Table Buyout",
+        "description": "One reserved banquet table, up to 8 seats. Includes service fee.",
+        "price": "525.23",
+        "priceCurrency": "USD",
+        "url": "https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913",
+        "availability": "https://schema.org/InStock"
+      }
+    ],
+    "url": "https://rebuiltvillage.org/events"
+  }
   </script>
 
   <!-- Structured Data: WebSite (enables Google Sitelinks Search Box) -->

@@ -106,6 +106,12 @@ async function prerender() {
 
     page.on('pageerror', (err) => console.warn(`  [page error] ${err.message}`));
 
+    // Tell the app it is being prerendered. The snapshot below is taken after
+    // effects have run, so effect-driven, visitor-specific text (for example the
+    // gala countdown in src/gala.ts) must be skipped or it is baked into the
+    // static HTML and no longer matches the first client render (React #418).
+    await page.evaluateOnNewDocument(() => { window.__PRERENDER__ = true; });
+
     try {
       // networkidle0 never fires with Firebase (persistent WebSocket connections).
       // Load the page, then wait a fixed 3s for React + Firestore hydration.

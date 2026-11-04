@@ -21,6 +21,30 @@ const TYPE_STYLE: Record<Event['type'], { color: string; label: string }> = {
 const GALA_TICKETS_URL =
   'https://app.opendate.io/e/hollywood-holidays-gala-by-rebuilt-village-november-28-2026-750913?utm_source=ig&utm_medium=social&utm_content=link_in_bio';
 
+// Always shown, even when the CMS returns events. The CMS still holds the
+// superseded placeholder gala, so CMS fundraiser galas are replaced by this entry.
+const GALA_EVENT: Event = {
+  id: 'hollywood-holidays-gala-2026',
+  title: 'Hollywood Holidays Gala',
+  date: '2026-11-28',
+  day: '28',
+  month: 'NOV',
+  year: '2026',
+  time: '7:00 PM (Doors 6:00 PM)',
+  location: 'The Palmer Room, 425 N Bumby Ave, Orlando, FL 32803',
+  description:
+    'Rebuilt Village\'s first annual fundraising gala, held to kick off the holiday season. Enjoy food and drinks, see local student films, learn about our upcoming arts programs, and bid in the silent auction. Proceeds support youth film and arts programming.',
+  type: 'fundraiser',
+  featured: true,
+  registrationUrl: GALA_TICKETS_URL,
+  tags: ['Silent Auction', 'Student Films'],
+};
+
+function withPinnedGala(list: Event[]): Event[] {
+  const others = list.filter((e) => !(e.type === 'fundraiser' && /gala/i.test(e.title)));
+  return [...others, GALA_EVENT].sort((a, b) => a.date.localeCompare(b.date));
+}
+
 // ─── Fallback events (hardcoded) ─────────────────────────────────────────────
 // Used when Sanity has no events yet or is unreachable. Jess/Amanda can manage
 // events via Sanity Studio once it's deployed to studio.rebuiltvillage.org.
@@ -79,22 +103,7 @@ const FALLBACK_EVENTS: Event[] = [
     tags: ['Ages 14–18', 'Free to Students', '2 Weeks'],
   },
 
-  {
-    id: 'hollywood-holidays-gala-2026',
-    title: 'Hollywood Holidays Gala',
-    date: '2026-11-28',
-    day: '28',
-    month: 'NOV',
-    year: '2026',
-    time: '7:00 PM (Doors 6:00 PM)',
-    location: 'The Palmer Room, 425 N Bumby Ave, Orlando, FL 32803',
-    description:
-      'Rebuilt Village\'s first annual fundraising gala, held to kick off the holiday season. Enjoy food and drinks, see local student films, learn about our upcoming arts programs, and bid in the silent auction. Proceeds support youth film and arts programming.',
-    type: 'fundraiser',
-    featured: true,
-    registrationUrl: GALA_TICKETS_URL,
-    tags: ['Silent Auction', 'Student Films'],
-  },
+  GALA_EVENT,
 
   // ── PAST ──────────────────────────────────────────────────────────────────
 
@@ -150,10 +159,10 @@ export const Events: React.FC = () => {
       .then((sanityEvents) => {
         if (sanityEvents.length > 0) {
           // Existing CMS copy still contains this unverified attendance claim.
-          setEvents(sanityEvents.map((event) => ({
+          setEvents(withPinnedGala(sanityEvents.map((event) => ({
             ...event,
             description: event.description.replace(/\s*Over 107 attendees\./gi, ''),
-          })));
+          }))));
         }
         // If Sanity returns empty (Studio not yet populated), keep fallback data
       })

@@ -62,12 +62,12 @@ export const DonateSuccess: React.FC = () => {
         {/* Animated check icon */}
         <div className="flex justify-center mb-10">
           <div className="w-24 h-24 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center">
-            <CheckCircle size={44} className="text-primary" aria-hidden="true" />
+            <CheckCircle size={44} className="text-primary-text" aria-hidden="true" />
           </div>
         </div>
 
         {/* Overline */}
-        <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60">
+        <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold">
           Donation Confirmed
         </p>
 
@@ -111,7 +111,7 @@ export const DonateSuccess: React.FC = () => {
 
         {/* Share */}
         <div className="bg-surface border border-border p-8 mb-10">
-          <p className="font-mono text-[10px] text-primary uppercase tracking-widest mb-4">
+          <p className="font-mono text-[10px] text-primary-text uppercase tracking-widest mb-4">
             Spread the Word
           </p>
           <p className="text-sm text-text-muted mb-6 leading-relaxed">
@@ -119,7 +119,7 @@ export const DonateSuccess: React.FC = () => {
           </p>
           <button
             onClick={handleShare}
-            className="w-full py-4 font-mono text-xs uppercase tracking-widest border border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
+            className="w-full py-4 font-mono text-xs uppercase tracking-widest border border-primary text-primary-text hover:bg-primary hover:text-primary-foreground transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
           >
             <Heart size={14} aria-hidden="true" />
             {shared ? 'Copied to clipboard!' : 'Share your support'}
@@ -141,7 +141,7 @@ export const DonateSuccess: React.FC = () => {
               <p className="text-[10px] font-mono text-text-muted uppercase tracking-widest mb-2">
                 {item.label}
               </p>
-              <p className="text-sm text-text group-hover:text-primary transition-colors flex items-center gap-1">
+              <p className="text-sm text-text group-hover:text-primary-text transition-colors flex items-center gap-1">
                 {item.cta} <ExternalLink size={10} aria-hidden="true" />
               </p>
             </Link>
@@ -159,7 +159,7 @@ export const DonateSuccess: React.FC = () => {
             </p>
             <Link
               to="/donate"
-              className="inline-flex items-center gap-2 text-xs font-mono text-primary hover:underline uppercase tracking-widest"
+              className="inline-flex items-center gap-2 text-xs font-mono text-primary-text hover:underline uppercase tracking-widest"
             >
               Fund another project →
             </Link>
@@ -168,7 +168,7 @@ export const DonateSuccess: React.FC = () => {
 
         <Link
           to="/"
-          className="text-xs font-mono text-text-muted hover:text-primary uppercase tracking-widest transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
+          className="text-xs font-mono text-text-muted hover:text-primary-text uppercase tracking-widest transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
         >
           ← Back to Home
         </Link>

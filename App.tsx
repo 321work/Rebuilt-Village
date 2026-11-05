@@ -30,6 +30,7 @@ const FAQ = lazy(() => import('./pages/FAQ').then(m => ({ default: m.FAQ })));
 const ProgramsPage = lazy(() => import('./pages/Programs').then(m => ({ default: m.Programs })));
 const ContactPage = lazy(() => import('./pages/Contact').then(m => ({ default: m.Contact })));
 const AccessibilityPage = lazy(() => import('./pages/Accessibility').then(m => ({ default: m.Accessibility })));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
@@ -40,6 +41,10 @@ const StickyDonateBar: React.FC<{ footerRef: React.RefObject<HTMLDivElement> }> 
   const opacity = useTransform(scrollY, [600, 800], [0, 1]);
   const [footerVisible, setFooterVisible] = useState(false);
   const promo = useGalaPromo();
+  const { pathname } = useLocation();
+  // The donation page already has the form in front of the visitor; a second
+  // Donate button and gala tickets there are a distraction mid-gift.
+  const onDonatePage = pathname === '/donate' || pathname.startsWith('/donate/');
 
   useEffect(() => {
     const el = footerRef.current;
@@ -49,7 +54,7 @@ const StickyDonateBar: React.FC<{ footerRef: React.RefObject<HTMLDivElement> }> 
     return () => obs.disconnect();
   }, [footerRef]);
 
-  if (footerVisible) return null;
+  if (footerVisible || onDonatePage) return null;
 
   // While the gala is coming up the bar promotes it and keeps a Donate button.
   // It does not rotate between messages; auto-changing text is hard to read and
@@ -347,6 +352,7 @@ export default function App() {
                 <Route path="/board" element={<Board />} />
                 <Route path="/documents" element={<Documents />} />
                 <Route path="/accessibility" element={<AccessibilityPage />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
           </main>

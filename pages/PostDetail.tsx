@@ -76,7 +76,7 @@ export const PostDetail: React.FC = () => {
 
                 <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
                     <div className="container mx-auto">
-                        <Link to="/blog" className="inline-flex items-center text-primary text-xs font-mono uppercase tracking-[0.2em] mb-8 hover:text-white transition-colors group">
+                        <Link to="/blog" className="inline-flex items-center text-primary-text text-xs font-mono uppercase tracking-[0.2em] mb-8 hover:text-white transition-colors group">
                             <ArrowLeft size={14} className="mr-2 transform group-hover:-translate-x-1 transition-transform" />
                             Back to Journal
                         </Link>
@@ -85,15 +85,15 @@ export const PostDetail: React.FC = () => {
                         </h1>
                         <div className="flex flex-wrap items-center gap-6 text-slate-400 font-mono text-[10px] uppercase tracking-widest">
                             <div className="flex items-center">
-                                <User size={14} className="mr-2 text-primary" />
+                                <User size={14} className="mr-2 text-primary-text" />
                                 {post.author}
                             </div>
                             <div className="flex items-center">
-                                <Calendar size={14} className="mr-2 text-primary" />
+                                <Calendar size={14} className="mr-2 text-primary-text" />
                                 {formatDate(post.publishedAt)}
                             </div>
                             <div className="flex items-center">
-                                <Clock size={14} className="mr-2 text-primary" />
+                                <Clock size={14} className="mr-2 text-primary-text" />
                                 {Math.ceil((post.body || '').length / 1000)} min read
                             </div>
                         </div>
@@ -107,7 +107,7 @@ export const PostDetail: React.FC = () => {
                     <div className="max-w-3xl mx-auto">
                         <div className="prose prose-invert prose-slate lg:prose-lg font-light leading-relaxed 
                                       prose-headings:font-serif prose-headings:italic prose-headings:font-normal
-                                      prose-a:text-primary prose-strong:text-white prose-blockquote:border-primary
+                                      prose-a:text-primary-text prose-strong:text-white prose-blockquote:border-primary
                                       prose-blockquote:bg-slate-900/50 prose-blockquote:p-6 prose-blockquote:rounded-lg
                                       prose-img:rounded-xl prose-img:border prose-img:border-slate-800">
                             {post.body ? (

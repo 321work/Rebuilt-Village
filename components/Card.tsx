@@ -27,11 +27,11 @@ export const Card: React.FC<CardProps> = ({ image, title, subtitle, children, cl
       )}
       <div className="pt-2">
         {subtitle && (
-          <p className="font-mono text-xs text-primary mb-2 tracking-widest border-l-2 border-primary pl-2">
+          <p className="font-mono text-xs text-primary-text mb-2 tracking-widest border-l-2 border-primary pl-2">
             {subtitle}
           </p>
         )}
-        <h3 className="text-2xl font-serif italic text-text mb-3 group-hover:text-primary transition-colors">{title}</h3>
+        <h3 className="text-2xl font-serif italic text-text mb-3 group-hover:text-primary-text transition-colors">{title}</h3>
         <div className="text-text-muted font-light leading-relaxed">
           {children}
         </div>

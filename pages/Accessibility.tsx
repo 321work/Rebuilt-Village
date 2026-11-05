@@ -18,7 +18,7 @@ export const Accessibility: React.FC = () => {
             {/* ── Hero ───────────────────────────────────────────────────────── */}
             <Section bg="black" className="pt-32">
                 <div className="text-center">
-                    <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+                    <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
                         Inclusive Design
                     </p>
                     <h1
@@ -48,7 +48,7 @@ export const Accessibility: React.FC = () => {
                                 href="https://www.w3.org/TR/WCAG21/"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
+                                className="text-primary-text hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
                             >
                                 Web Content Accessibility Guidelines (WCAG) 2.1
                             </a>{' '}
@@ -68,8 +68,8 @@ export const Accessibility: React.FC = () => {
                             </p>
                             <p>
                                 All interactive elements carry descriptive labels. Decorative images use empty alt
-                                attributes or <code className="text-primary font-mono text-sm">aria-hidden="true"</code>.
-                                Motion animations respect the <code className="text-primary font-mono text-sm">prefers-reduced-motion</code>{' '}
+                                attributes or <code className="text-primary-text font-mono text-sm">aria-hidden="true"</code>.
+                                Motion animations respect the <code className="text-primary-text font-mono text-sm">prefers-reduced-motion</code>{' '}
                                 media query — all translation and scale animations are disabled for users who have
                                 enabled that system preference.
                             </p>
@@ -127,7 +127,7 @@ export const Accessibility: React.FC = () => {
                                     Email:{' '}
                                     <a
                                         href="mailto:hello@rebuiltvillage.org"
-                                        className="text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
+                                        className="text-primary-text hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
                                     >
                                         hello@rebuiltvillage.org
                                     </a>
@@ -148,7 +148,7 @@ export const Accessibility: React.FC = () => {
                                 href="https://www.hhs.gov/civil-rights/filing-a-complaint/index.html"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
+                                className="text-primary-text hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
                             >
                                 U.S. Department of Health & Human Services Office for Civil Rights
                             </a>{' '}

@@ -13,7 +13,8 @@ const NAV_LINKS = [
   { path: '/about',    label: 'About'    },
   { path: '/programs', label: 'Programs' },
   { path: '/events',   label: 'Events'   },
-  { path: '/blog',     label: 'Blog'     },
+  // Blog link is hidden until the first story is published (pages/Blog.tsx
+  // still routes at /blog). Add { path: '/blog', label: 'Blog' } back then.
   { path: '/contact',  label: 'Contact'  },
 ] as const;
 
@@ -187,7 +188,7 @@ const MobileDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, currentPath }) =
               <button
                 onClick={onClose}
                 aria-label="Close navigation menu"
-                className="p-2 text-text-muted hover:text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary/60 rounded"
+                className="p-2 text-[#D6CFBF] hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary/60 rounded"
               >
                 <X size={18} aria-hidden="true" />
               </button>
@@ -216,7 +217,7 @@ const MobileDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, currentPath }) =
                           'font-mono text-xs uppercase tracking-widest',
                           'border-b border-border/40 transition-all duration-200',
                           'focus:outline-none focus:ring-2 focus:ring-primary/60',
-                          isActive ? 'text-primary' : 'text-text-muted hover:text-text hover:bg-surface/40',
+                          isActive ? 'text-primary' : 'text-[#D6CFBF] hover:text-white hover:bg-white/10',
                         ].join(' ')}
                       >
                         {isActive && (
@@ -237,7 +238,7 @@ const MobileDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, currentPath }) =
             <div className="p-6 space-y-4 border-t border-border">
               {/* Theme toggle in drawer */}
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] text-text-muted uppercase tracking-widest">Theme</span>
+                <span className="font-mono text-[10px] text-[#D6CFBF] uppercase tracking-widest">Theme</span>
                 <CompactThemeToggle />
               </div>
 
@@ -265,7 +266,7 @@ const MobileDrawer: React.FC<DrawerProps> = ({ isOpen, onClose, currentPath }) =
                 Donate Now
               </Link>
 
-              <p className="text-center text-[9px] font-mono text-text-muted/40 uppercase tracking-widest">
+              <p className="text-center text-[9px] font-mono text-[#D6CFBF]/70 uppercase tracking-widest">
                 501(c)(3) · Tax Deductible
               </p>
             </div>
@@ -404,7 +405,7 @@ export const ViewfinderNav: React.FC = () => {
                             ? 'text-primary'
                             : transparent
                               ? 'text-white/65 hover:text-white dark:text-white/65 dark:hover:text-white drop-shadow-md'
-                              : 'text-text-muted hover:text-text',
+                              : 'text-[#D6CFBF] hover:text-white',
                         ].join(' ')}
                       >
                         {link.label}
@@ -482,7 +483,7 @@ export const ViewfinderNav: React.FC = () => {
                   'md:hidden p-2 rounded',
                   'transition-colors duration-200',
                   'focus:outline-none focus:ring-2 focus:ring-primary/60',
-                  transparent ? 'text-white/80 hover:text-white' : 'text-text-muted hover:text-text',
+                  transparent ? 'text-white/80 hover:text-white' : 'text-[#D6CFBF] hover:text-white',
                 ].join(' ')}
               >
                 <Menu size={20} aria-hidden="true" />

@@ -14,6 +14,8 @@ export default {
         primary: {
           DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
           foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
+          // Gold for small TEXT: darker in light mode so it passes 4.5:1.
+          text: 'rgb(var(--primary-text) / <alpha-value>)',
         },
         background: {
           DEFAULT: 'rgb(var(--background) / <alpha-value>)',
@@ -38,6 +40,7 @@ export default {
 
           // Art-form accent colors (each maps to a tree branch)
           teal:    '#2DBFA0', // community growth / left leaves
+          'teal-text': 'rgb(var(--accent-teal-text) / <alpha-value>)', // teal for small text
           green:   '#4A9E52', // film reel / education
           crimson: '#C0392B', // theater masks / drama
           purple:  '#7B2FBE', // creative expression

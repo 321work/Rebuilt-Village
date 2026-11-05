@@ -28,7 +28,7 @@ const FAQS: FAQItem[] = [
         Rebuilt Village, Inc. is a 501(c)(3) nonprofit organization founded in January 2025 in Orlando, Florida.
         Our mission is to enrich the community by telling stories through the art of film and media — empowering
         local youth to capture and preserve narratives that are deeply personal. We were born from{' '}
-        <a href="https://rebuiltminds.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+        <a href="https://rebuiltminds.com" target="_blank" rel="noopener noreferrer" className="text-primary-text hover:underline">
           Rebuilt Minds
         </a>
         , an Orlando-based production company.
@@ -42,7 +42,7 @@ const FAQS: FAQItem[] = [
       <>
         Yes. Rebuilt Village, Inc. is a recognized 501(c)(3) tax-exempt nonprofit organization. Our IRS
         determination letter is on file and available upon request — contact us at{' '}
-        <a href="mailto:hello@rebuiltvillage.org" className="text-primary hover:underline">
+        <a href="mailto:hello@rebuiltvillage.org" className="text-primary-text hover:underline">
           hello@rebuiltvillage.org
         </a>
         . Our EIN is {ORGANIZATION.EIN}.
@@ -60,10 +60,9 @@ const FAQS: FAQItem[] = [
     question: 'Who runs Rebuilt Village?',
     answer: (
       <>
-        Rebuilt Village is governed by a volunteer board of directors and led by Executive Director Tony Golden.
-        Our current leadership team includes Steve Kohn (President), Amanda Baez (VP), Kenya Fulton (Treasurer),
-        Jess Ayala (Secretary), and board members Aaron Tanyhill and Karen Rugerio. Learn more on our{' '}
-        <Link to="/about" className="text-primary hover:underline">About page</Link>.
+        Rebuilt Village is governed by a volunteer board of directors and led by Executive Director Anthony Golden.
+        You can meet the full team on our{' '}
+        <Link to="/about" className="text-primary-text hover:underline">About page</Link>.
       </>
     ),
   },
@@ -84,7 +83,7 @@ const FAQS: FAQItem[] = [
         John H. Jackson Community Center), ongoing Narrative Preservation Workshops open to all community
         members, and periodic masterclasses on topics like lighting, grip, and directing. All youth programs
         are completely free. See our{' '}
-        <Link to="/programs" className="text-primary hover:underline">Programs page</Link> for details.
+        <Link to="/programs" className="text-primary-text hover:underline">Programs page</Link> for details.
       </>
     ),
   },
@@ -92,19 +91,19 @@ const FAQS: FAQItem[] = [
     category: 'programs',
     question: 'What is the Summer Cinematography Camp?',
     answer:
-      'Our flagship program. Two weeks of full-day training (9 AM–3 PM, weekdays) at John H. Jackson Community Center in Orlando. Students work with Blackmagic Cinema and RED cameras, learn lighting and color grading, and premiere original short films at a closing community screening. The program is free for all accepted students. The 2026 session runs July 13–24.',
+      'Our flagship program. Two weeks of full-day training (9 AM–3 PM, weekdays) at John H. Jackson Community Center in Orlando. Students work with Blackmagic Cinema and RED cameras, learn lighting and color grading, and premiere original short films at a closing community screening. The program is free for all accepted students. Our inaugural camp is being planned for summer 2027; dates will be announced.',
   },
   {
     category: 'programs',
     question: 'What is Film-apalooza?',
     answer:
-      'Film-apalooza is a three-day community film festival held at Dr. Phillips High School in Orlando (May 15–17, 2026). It features community screenings, filmmaker panels, hands-on workshops, and an awards ceremony. Rebuilt Village is a proud sponsor and co-organizer. The event is open to all ages.',
+      'Film-apalooza was a three-day community film festival held at Dr. Phillips High School in Orlando (May 15–17, 2026). It featured community screenings, filmmaker panels, hands-on workshops, and an awards ceremony. Rebuilt Village sponsored the event.',
   },
   {
     category: 'programs',
     question: 'What equipment do students use?',
     answer:
-      "Students train on professional-grade Blackmagic Cinema cameras, RED cameras, and full lighting and grip setups — the same tools used on professional productions. Rebuilt Village's Film Equipment Fund supports ongoing gear acquisition. Students do not need to own equipment to participate.",
+      "Students train on professional-grade Blackmagic Cinema cameras, RED cameras, and full lighting and grip setups — the same tools used on professional productions. Donations and in-kind gifts help us add and maintain equipment. Students do not need to own equipment to participate.",
   },
 
   // ── Participate ───────────────────────────────────────────────────────────
@@ -113,9 +112,9 @@ const FAQS: FAQItem[] = [
     question: 'How do I enroll my child in a program?',
     answer: (
       <>
-        Enrollment information for the 2026 Summer Camp will be announced via our events calendar and
-        social media. In the meantime, you can{' '}
-        <Link to="/contact" className="text-primary hover:underline">contact us</Link>{' '}
+        Enrollment information for the 2027 Summer Camp will be announced via our events calendar and
+        social media once dates are set. In the meantime, you can{' '}
+        <Link to="/contact" className="text-primary-text hover:underline">contact us</Link>{' '}
         to express interest and be notified when applications open. All youth programs are free and
         open to Orlando-area youth ages 14–18.
       </>
@@ -135,8 +134,8 @@ const FAQS: FAQItem[] = [
         We welcome volunteers in production mentorship, event coordination, marketing, and community outreach.
         Organizations interested in sponsorship or partnership — including event co-sponsorship and
         in-kind equipment donations — should reach out via our{' '}
-        <Link to="/contact" className="text-primary hover:underline">contact form</Link>.
-        {`To ask about sponsoring the ${GALA.TITLE} (${GALA.DATE_SHORT}), use the same contact form.`}
+        <Link to="/contact" className="text-primary-text hover:underline">contact form</Link>.
+        {` To ask about sponsoring the ${GALA.TITLE} (${GALA.DATE_SHORT}), use the same contact form.`}
       </>
     ),
   },
@@ -152,7 +151,7 @@ const FAQS: FAQItem[] = [
     category: 'donate',
     question: 'How is my donation used?',
     answer:
-      'Donations support film education, equipment, mentorship, student materials, and organizational operations. You can give to the General Operating Fund or direct your gift to a specific restricted project: the Film Equipment Fund, Youth Scholarship Fund, Summer Camp Launch, or Film-apalooza sponsorship.',
+      'Donations support film education, equipment, mentorship, student materials, and organizational operations.',
   },
   {
     category: 'donate',
@@ -161,7 +160,7 @@ const FAQS: FAQItem[] = [
       <>
         Yes — and monthly donors are some of our most impactful supporters. You can choose a monthly
         frequency on the{' '}
-        <Link to="/donate" className="text-primary hover:underline">Donate page</Link>.
+        <Link to="/donate" className="text-primary-text hover:underline">Donate page</Link>.
         Monthly gifts are processed securely by Givebutter. Use the manage link in your monthly-gift receipt to update or cancel, or contact us and we will help.
       </>
     ),
@@ -177,10 +176,10 @@ const FAQS: FAQItem[] = [
     question: 'Can I make a donation in honor or memory of someone?',
     answer: (
       <>
-        Yes. On the{' '}
-        <Link to="/donate" className="text-primary hover:underline">Donate page</Link>
-        {' '}you can add a tribute or memorial note. The honoree's name will appear on your
-        official tax receipt.
+        Yes. Please{' '}
+        <Link to="/contact" className="text-primary-text hover:underline">contact us</Link>
+        {' '}or email hello@rebuiltvillage.org and we will help you arrange a gift in honor or
+        memory of someone.
       </>
     ),
   },
@@ -221,14 +220,14 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ item, index, isOpen, onTo
         className="w-full flex items-center justify-between gap-6 p-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-inset"
       >
         <span className={`font-serif italic text-xl leading-snug transition-colors duration-200 ${
-          isOpen ? 'text-primary' : 'text-text'
+          isOpen ? 'text-primary-text' : 'text-text'
         }`}>
           {item.question}
         </span>
         <ChevronDown
           size={18}
           aria-hidden="true"
-          className={`shrink-0 text-primary transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
+          className={`shrink-0 text-primary-text transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
         />
       </button>
 
@@ -282,7 +281,7 @@ export const FAQ: React.FC = () => {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <Section bg="black" className="pt-32">
         <div className="text-center">
-          <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
             Scene Notes
           </p>
           <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">
@@ -292,7 +291,7 @@ export const FAQ: React.FC = () => {
           <p className="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed font-light">
             Everything you need to know about our programs, events, and how to give.
             Can't find your answer?{' '}
-            <Link to="/contact" className="text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded">
+            <Link to="/contact" className="text-primary-text hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded">
               Ask us directly.
             </Link>
           </p>
@@ -353,13 +352,13 @@ export const FAQ: React.FC = () => {
 
           {/* ── Still have questions ──────────────────────────────────────── */}
           <div className="mt-20 text-center border border-dashed border-border p-12 bg-surface-highlight">
-            <Mail size={28} className="text-primary mx-auto mb-5" aria-hidden="true" />
+            <Mail size={28} className="text-primary-text mx-auto mb-5" aria-hidden="true" />
             <h3 className="text-text font-serif italic text-2xl mb-4">Still have a question?</h3>
             <p className="text-text-muted text-sm font-light mb-8 max-w-sm mx-auto leading-relaxed">
               Our team typically responds within one business day.
             </p>
             <Link to="/contact">
-              <button className="font-mono text-[10px] uppercase tracking-widest px-8 py-3 border border-primary text-primary hover:bg-primary hover:text-black transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60">
+              <button className="font-mono text-[10px] uppercase tracking-widest px-8 py-3 border border-primary text-primary-text hover:bg-primary hover:text-black transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60">
                 Contact Us
               </button>
             </Link>

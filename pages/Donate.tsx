@@ -26,7 +26,7 @@ export const Donate: React.FC = () => {
     <>
       {/* ── Hero ──────────────────────────────────────────────────────── */}
       <Section bg="black" className="pt-32 pb-16 text-center">
-        <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+        <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
           Call For Producers
         </p>
         <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8 leading-none">
@@ -38,7 +38,7 @@ export const Donate: React.FC = () => {
           Every contribution is tax-deductible and directly benefits youth in Orlando, Florida.
         </p>
         <div className="mt-8 flex items-center justify-center gap-2 text-text-muted">
-          <Users size={14} className="text-primary" aria-hidden="true" />
+          <Users size={14} className="text-primary-text" aria-hidden="true" />
           <span className="font-mono text-[10px] uppercase tracking-widest">
             Join our growing community of supporters
           </span>
@@ -57,7 +57,7 @@ export const Donate: React.FC = () => {
             />
 
             <div className="relative p-6 md:p-12">
-              <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60 text-center">
+              <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold text-center">
                 Your Gift. Their Next Chapter.
               </p>
               <div className="max-w-md mx-auto">
@@ -70,11 +70,11 @@ export const Donate: React.FC = () => {
 
               <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
                 <div className="flex items-center gap-2 text-[10px] font-mono text-text-muted uppercase tracking-widest">
-                  <Shield size={12} className="text-primary" aria-hidden="true" />
+                  <Shield size={12} className="text-primary-text" aria-hidden="true" />
                   Secured by Givebutter
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-mono text-text-muted uppercase tracking-widest">
-                  <CheckCircle size={12} className="text-primary" aria-hidden="true" />
+                  <CheckCircle size={12} className="text-primary-text" aria-hidden="true" />
                   Tax-deductible 501(c)(3)
                 </div>
               </div>
@@ -84,9 +84,29 @@ export const Donate: React.FC = () => {
           {/* ── Sidebar ────────────────────────────────────────────── */}
           <aside className="lg:col-span-5 space-y-10" aria-label="Donation details">
 
+            {/* What a gift supports (facts already stated on the Programs page) */}
+            <div className="border border-border p-6">
+              <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] font-bold mb-4">
+                What Your Gift Supports
+              </p>
+              <ul className="space-y-3 text-sm text-text-muted leading-relaxed" role="list">
+                {[
+                  'Free film education for Orlando youth ages 14–18',
+                  'Professional cameras, lighting, and sound gear that students train on',
+                  'Mentorship from working filmmakers',
+                  'Community screenings and workshops open to everyone',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <CheckCircle size={14} className="text-primary-text shrink-0 mt-1" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
             {/* Transparency panel */}
             <div className="border border-border p-6 space-y-4">
-              <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] font-bold opacity-60">
+              <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] font-bold">
                 Transparency
               </p>
               {[
@@ -105,7 +125,7 @@ export const Donate: React.FC = () => {
                   {row.link ? (
                     <Link
                       to={row.link}
-                      className="text-xs font-mono text-primary hover:underline uppercase tracking-widest"
+                      className="text-xs font-mono text-primary-text hover:underline uppercase tracking-widest"
                     >
                       {row.value}
                     </Link>
@@ -118,7 +138,7 @@ export const Donate: React.FC = () => {
 
             {/* Employer match callout */}
             <div className="border border-border p-5 flex gap-4 items-start">
-              <Building2 size={20} className="text-primary shrink-0 mt-0.5" aria-hidden="true" />
+              <Building2 size={20} className="text-primary-text shrink-0 mt-0.5" aria-hidden="true" />
               <div>
                 <p className="font-mono text-[10px] text-text uppercase tracking-widest mb-1 font-bold">
                   Double Your Impact
@@ -128,7 +148,7 @@ export const Donate: React.FC = () => {
                 </p>
                 <Link
                   to="/contact"
-                  className="text-[10px] font-mono text-primary hover:underline uppercase tracking-widest"
+                  className="text-[10px] font-mono text-primary-text hover:underline uppercase tracking-widest"
                 >
                   Ask us about matching →
                 </Link>
@@ -155,7 +175,7 @@ export const Donate: React.FC = () => {
               </ul>
               <Link
                 to="/contact"
-                className="mt-4 inline-flex items-center gap-1 text-xs font-mono text-primary hover:underline uppercase tracking-widest"
+                className="mt-4 inline-flex items-center gap-1 text-xs font-mono text-primary-text hover:underline uppercase tracking-widest"
               >
                 Contact us about partnership <ChevronRight size={12} />
               </Link>

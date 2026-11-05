@@ -16,18 +16,6 @@ export const Blog: React.FC = () => {
   const [posts, setPosts] = useState<SanityPost[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fallbackPosts = [
-    {
-      _id: '1',
-      title: 'Student Film "Echoes of Orlando" Wins Regional Award',
-      publishedAt: '2023-10-12',
-      author: 'Sarah Jenkins',
-      mainImage: 'https://picsum.photos/seed/award/800/500',
-      category: 'News',
-      slug: { current: 'award' }
-    }
-  ];
-
   useEffect(() => {
     async function fetchPosts() {
       try {
@@ -55,7 +43,7 @@ export const Blog: React.FC = () => {
   return (
     <>
       <Section bg="black" className="pt-32 pb-16 text-center">
-        <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+        <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
           From the Studio
         </p>
         <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8 leading-none">The Clapperboard</h1>
@@ -105,9 +93,20 @@ export const Blog: React.FC = () => {
               </Card>
             ))}
             {!loading && posts.length === 0 && (
-              <div className="col-span-full text-center py-20 border-2 border-dashed border-border rounded-xl">
-                <p className="text-text-muted font-mono uppercase tracking-widest mb-4 italic text-sm">No stories found in the archives</p>
-                <p className="text-text-muted/60 text-xs italic">Connect Sanity CMS to publish stories.</p>
+              <div className="col-span-full text-center py-20 px-6 border-2 border-dashed border-border rounded-xl">
+                <h2 className="font-serif italic text-3xl text-text mb-4">Stories are on the way</h2>
+                <p className="text-text-muted max-w-md mx-auto leading-relaxed mb-8">
+                  We have not published any stories yet. In the meantime, see what is coming up or
+                  get in touch.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link to="/events">
+                    <Button variant="outline" size="md" className="w-full sm:w-auto">See upcoming events</Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button variant="outline" size="md" className="w-full sm:w-auto">Contact us</Button>
+                  </Link>
+                </div>
               </div>
             )}
           </div>

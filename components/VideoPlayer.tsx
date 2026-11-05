@@ -83,7 +83,6 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
             {/* Title Tag */}
             <div className="absolute top-4 left-4 z-10">
-                <div className="font-mono text-[9px] text-white/40 uppercase tracking-[0.3em] italic mb-1">Preview Scrutiny</div>
                 <div className="font-serif italic text-white text-sm tracking-wide">{title}</div>
             </div>
 
@@ -149,7 +148,6 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest" aria-hidden="true">GCS Primary Node</span>
                         <button
                             onClick={handleFullscreen}
                             aria-label="Enter fullscreen"

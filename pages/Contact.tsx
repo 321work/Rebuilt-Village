@@ -81,7 +81,7 @@ export const Contact: React.FC = () => {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <Section bg="black" className="pt-32">
         <div className="text-center">
-          <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
             Production Office
           </p>
           <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">
@@ -111,13 +111,13 @@ export const Contact: React.FC = () => {
                 className="border border-border p-6 bg-surface/30"
               >
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-primary" aria-hidden="true">{icon}</span>
+                  <span className="text-primary-text" aria-hidden="true">{icon}</span>
                   <p className="font-mono text-[10px] uppercase tracking-widest text-text-muted">{heading}</p>
                 </div>
                 {href ? (
                   <a
                     href={href}
-                    className="font-serif italic text-text text-lg hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
+                    className="font-serif italic text-text text-lg hover:text-primary-text transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded"
                   >
                     {value}
                   </a>
@@ -138,7 +138,7 @@ export const Contact: React.FC = () => {
                   <li key={value}>
                     <button
                       onClick={() => setFormData((prev) => ({ ...prev, subject: value }))}
-                      className="font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded flex items-center gap-2"
+                      className="font-mono text-[10px] uppercase tracking-widest text-text-muted hover:text-primary-text transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded flex items-center gap-2"
                     >
                       <span className="w-1 h-1 rounded-full bg-primary shrink-0" aria-hidden="true" />
                       {label}
@@ -159,7 +159,7 @@ export const Contact: React.FC = () => {
                 className="border border-border bg-surface/30 p-12 text-center space-y-5"
               >
                 <div className="w-12 h-12 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center mx-auto">
-                  <Check size={24} className="text-primary" aria-hidden="true" />
+                  <Check size={24} className="text-primary-text" aria-hidden="true" />
                 </div>
                 <h3 className="text-2xl font-serif italic text-text">Message received.</h3>
                 <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest">
@@ -182,7 +182,7 @@ export const Contact: React.FC = () => {
                 {/* Name + Email */}
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="contact-name" className="block font-mono text-[10px] text-primary uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-name" className="block font-mono text-[10px] text-primary-text uppercase tracking-widest mb-2">
                       Name <span aria-hidden="true">*</span>
                     </label>
                     <input
@@ -197,7 +197,7 @@ export const Contact: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="block font-mono text-[10px] text-primary uppercase tracking-widest mb-2">
+                    <label htmlFor="contact-email" className="block font-mono text-[10px] text-primary-text uppercase tracking-widest mb-2">
                       Email <span aria-hidden="true">*</span>
                     </label>
                     <input
@@ -215,7 +215,7 @@ export const Contact: React.FC = () => {
 
                 {/* Subject */}
                 <div>
-                  <label htmlFor="contact-subject" className="block font-mono text-[10px] text-primary uppercase tracking-widest mb-2">
+                  <label htmlFor="contact-subject" className="block font-mono text-[10px] text-primary-text uppercase tracking-widest mb-2">
                     Subject
                   </label>
                   <select
@@ -232,7 +232,7 @@ export const Contact: React.FC = () => {
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="contact-message" className="block font-mono text-[10px] text-primary uppercase tracking-widest mb-2">
+                  <label htmlFor="contact-message" className="block font-mono text-[10px] text-primary-text uppercase tracking-widest mb-2">
                     Message <span aria-hidden="true">*</span>
                   </label>
                   <textarea

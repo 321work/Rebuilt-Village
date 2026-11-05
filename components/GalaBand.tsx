@@ -44,7 +44,7 @@ export const GalaBand: React.FC = () => {
           <ul className="space-y-3 mb-10" role="list">
             {details.map(({ icon: Icon, text }) => (
               <li key={text} className="flex items-start gap-3 text-text">
-                <Icon size={16} className="text-primary shrink-0 mt-1" aria-hidden="true" />
+                <Icon size={16} className="text-primary-text shrink-0 mt-1" aria-hidden="true" />
                 <span className="font-mono text-xs uppercase tracking-widest leading-relaxed">{text}</span>
               </li>
             ))}
@@ -64,7 +64,7 @@ export const GalaBand: React.FC = () => {
 
         {/* Ticket tiers, dated */}
         <div className="border border-border bg-background p-6 md:p-8">
-          <h3 className="font-mono text-[10px] text-primary uppercase tracking-[0.3em] font-bold mb-1">
+          <h3 className="font-mono text-[10px] text-primary-text uppercase tracking-[0.3em] font-bold mb-1">
             Tickets
           </h3>
           <p className="text-text font-serif italic text-xl mb-6">

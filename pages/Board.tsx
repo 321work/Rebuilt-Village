@@ -16,13 +16,13 @@ interface BoardMember {
     email?: string;
 }
 
-// ─── Fallback: real board members from verified Drive docs ────────────────────
-// Replace with Sanity entries via studio.rebuiltvillage.org when headshots ready.
+// ─── Fallback: matches the active board in the CMS (boardMembers) ─────────────
+// Used for the first paint and if the CMS is unreachable. Keep it in step with the CMS.
 const FALLBACK_BOARD: BoardMember[] = [
     {
         name: 'Steve Kohn',
         title: 'President',
-        bio: 'Steve co-founded Rebuilt Village with Tony and oversees organizational strategy, board governance, and long-term vision for film education in Central Florida.',
+        bio: 'Steve oversees organizational strategy, board governance, and long-term vision for film education in Central Florida.',
         imageUrl: '/assets/brand/placeholder-team.png',
     },
     {
@@ -32,21 +32,9 @@ const FALLBACK_BOARD: BoardMember[] = [
         imageUrl: '/assets/brand/placeholder-team.png',
     },
     {
-        name: 'Kenya Fulton',
-        title: 'Treasurer',
-        bio: 'Kenya manages Rebuilt Village\'s financial stewardship and ensures every donor dollar is invested with transparency and accountability.',
-        imageUrl: '/assets/brand/placeholder-team.png',
-    },
-    {
-        name: 'Jess Ayala',
+        name: 'Jessica Ayala',
         title: 'Secretary',
-        bio: 'Jess keeps the organization organized and accountable — managing meeting records, board documentation, and organizational communications.',
-        imageUrl: '/assets/brand/placeholder-team.png',
-    },
-    {
-        name: 'Aaron Tanyhill',
-        title: 'Board Member',
-        bio: 'Aaron brings creative vision and community voice to Rebuilt Village\'s mission, helping shape programs and messaging that resonate with the people they serve.',
+        bio: 'Jessica keeps the organization organized and accountable — managing meeting records, board documentation, and organizational communications.',
         imageUrl: '/assets/brand/placeholder-team.png',
     },
     {
@@ -56,9 +44,21 @@ const FALLBACK_BOARD: BoardMember[] = [
         imageUrl: '/assets/brand/placeholder-team.png',
     },
     {
-        name: 'Tony Golden',
+        name: 'Franny Titus',
+        title: 'Board Member',
+        bio: 'Franny is a Florida-based creative, performer, and content creator with a background in acting, production, and storytelling, currently expanding purpose-driven projects that inspire others.',
+        imageUrl: '/assets/brand/placeholder-team.png',
+    },
+    {
+        name: 'Shauna Golden',
+        title: 'Board Member',
+        bio: 'Shauna brings a blend of theatrical artistry and logistical precision to the team, drawing on her background as an actress and an experienced stage manager.',
+        imageUrl: '/assets/brand/placeholder-team.png',
+    },
+    {
+        name: 'Anthony Golden',
         title: 'Executive Director',
-        bio: 'Tony leads Rebuilt Village\'s day-to-day operations and programming, bringing deep film production experience to build real pathways for the next generation of Orlando storytellers.',
+        bio: 'Anthony founded Rebuilt Village and leads the day-to-day operations and programming, bringing deep film production experience to build real pathways for the next generation of Orlando storytellers.',
         imageUrl: '/assets/brand/placeholder-team.png',
     },
 ];
@@ -98,7 +98,7 @@ export const Board: React.FC = () => {
         <>
             <Section bg="black" className="pt-32">
                 <div className="text-center">
-                    <div className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+                    <div className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
                         Executive Committee
                     </div>
                     <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">
@@ -131,10 +131,10 @@ export const Board: React.FC = () => {
 
                                 {/* Info */}
                                 <div>
-                                    <div className="font-mono text-[9px] text-primary mb-3 uppercase tracking-[0.2em] font-bold">
+                                    <div className="font-mono text-[9px] text-primary-text mb-3 uppercase tracking-[0.2em] font-bold">
                                         {member.title}
                                     </div>
-                                    <h3 className="text-3xl font-serif italic text-text mb-4 leading-tight group-hover:text-primary transition-colors">
+                                    <h3 className="text-3xl font-serif italic text-text mb-4 leading-tight group-hover:text-primary-text transition-colors">
                                         {member.name}
                                     </h3>
                                     <p className="text-text-muted text-sm leading-relaxed mb-8 font-light">

@@ -110,10 +110,14 @@ export const Home: React.FC = () => {
         </div>
 
         <div className="relative z-10 text-center px-6 pt-[calc(70vw+4.5rem)] pb-12 md:pt-40 md:pb-64 max-w-5xl mx-auto">
+          {/* The copy is visible in the prerendered HTML: only a small slide-up
+              is animated, never opacity, so the headline and buttons are readable
+              before the JavaScript loads (a slow phone connection used to show an
+              empty hero for several seconds). */}
           <motion.div
-            initial={prefersReducedMotion ? {} : { y: 60, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            initial={prefersReducedMotion ? {} : { y: 24 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-primary font-mono tracking-[0.4em] text-[10px] mb-6 font-bold uppercase">
               Est. 2025 &nbsp;·&nbsp; Orlando, FL &nbsp;·&nbsp; 501(c)(3)
@@ -171,11 +175,11 @@ export const Home: React.FC = () => {
       <section aria-labelledby="mission-heading" className="py-28 bg-background">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60">
+            <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold">
               The Vision
             </p>
             <h2 id="mission-heading" className="text-4xl md:text-5xl font-bold text-text mb-6 font-display tracking-tight">
-              The Art of <em className="text-primary not-italic">Connecting.</em>
+              The Art of <em className="text-primary-text not-italic">Connecting.</em>
             </h2>
             <p className="text-lg text-text-muted mb-6 leading-relaxed">
               We believe film is the ultimate medium for community restoration. By providing
@@ -213,7 +217,7 @@ export const Home: React.FC = () => {
       {/* ── Testimonials ─────────────────────────────────────────────────── */}
       <section aria-labelledby="testimonials-heading" className="py-24 bg-surface-highlight">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold">
             Community Voices
           </p>
           <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-serif italic text-text mb-16">
@@ -238,10 +242,10 @@ export const Home: React.FC = () => {
                     className="w-9 h-9 rounded-full bg-primary/20 border border-primary flex items-center justify-center flex-shrink-0"
                     aria-hidden="true"
                   >
-                    <span className="text-primary text-xs font-mono font-bold">{t.initials}</span>
+                    <span className="text-primary-text text-xs font-mono font-bold">{t.initials}</span>
                   </div>
                   <div>
-                    <strong className="block text-sm font-mono uppercase tracking-widest text-primary">{t.name}</strong>
+                    <strong className="block text-sm font-mono uppercase tracking-widest text-primary-text">{t.name}</strong>
                     <cite className="text-xs text-text-muted not-italic">{t.role}</cite>
                   </div>
                 </footer>
@@ -270,7 +274,7 @@ export const Home: React.FC = () => {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
-              <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60">Current Season</p>
+              <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold">Current Season</p>
               <h2 id="programs-preview-heading" className="text-4xl md:text-5xl font-bold text-text font-display tracking-tight">
                 Our Programs
               </h2>
@@ -309,11 +313,11 @@ export const Home: React.FC = () => {
                   <span className={`w-2 h-2 rounded-full shrink-0 ${prog.dot}`} aria-hidden="true" />
                   <span className="text-[10px] font-mono text-text-muted uppercase tracking-widest">{prog.tag}</span>
                 </div>
-                <h3 className="text-2xl font-serif italic text-text mb-3 leading-tight group-hover:text-primary transition-colors duration-300">
+                <h3 className="text-2xl font-serif italic text-text mb-3 leading-tight group-hover:text-primary-text transition-colors duration-300">
                   {prog.title}
                 </h3>
                 <p className="text-sm text-text-muted leading-relaxed mb-6">{prog.desc}</p>
-                <Link to="/programs" className="text-[10px] font-mono text-primary uppercase tracking-widest hover:underline">
+                <Link to="/programs" className="text-[10px] font-mono text-primary-text uppercase tracking-widest hover:underline">
                   Program Details →
                 </Link>
               </article>
@@ -328,7 +332,7 @@ export const Home: React.FC = () => {
       {/* ── Donate CTA ───────────────────────────────────────────────────── */}
       <section aria-labelledby="donate-cta-heading" className="py-24 bg-primary/5 border-t border-primary/10">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold">
             Make It Happen
           </p>
           <h2 id="donate-cta-heading" className="text-4xl md:text-5xl font-serif italic text-text mb-6">
@@ -345,7 +349,7 @@ export const Home: React.FC = () => {
               <Button variant="outline" size="lg" className="w-full sm:w-auto focus:ring-4 focus:ring-primary/50">Partner With Us</Button>
             </Link>
           </div>
-          <p className="mt-6 text-xs font-mono text-text-muted/60 uppercase tracking-widest">
+          <p className="mt-6 text-xs font-mono text-text-muted uppercase tracking-widest">
             501(c)(3) · Orlando, FL · Born from Rebuilt Minds
           </p>
         </div>
@@ -354,10 +358,10 @@ export const Home: React.FC = () => {
       {/* ── Partner / Sponsor bar ────────────────────────────────────────── */}
       <section aria-labelledby="sponsors-heading" className="py-16 bg-surface border-t border-border">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 id="sponsors-heading" className="text-center font-mono text-[10px] text-text-muted uppercase tracking-[0.4em] mb-10 opacity-40">
+          <h2 id="sponsors-heading" className="text-center font-mono text-[10px] text-text-muted uppercase tracking-[0.4em] mb-10">
             Supporters &amp; Community Partners
           </h2>
-          <div className="flex flex-wrap items-center justify-center gap-10 opacity-50">
+          <div className="flex flex-wrap items-center justify-center gap-10 opacity-90">
             {[
               'Dr. Phillips High School',
               'Rebuilt Minds',

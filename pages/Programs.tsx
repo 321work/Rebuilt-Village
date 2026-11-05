@@ -68,7 +68,7 @@ const FALLBACK_PROGRAMS: Program[] = [
     details:
       'Students train on the same Blackmagic Cinema and RED cameras used on professional productions. Every day blends theory with hands-on work: camera operation, lighting design, color grading, and sound. The camp closes with a public premiere of student-produced short films.',
     who: 'Youth ages 14–18',
-    when: 'July 13–24, 2026 · Weekdays, 9 AM – 3 PM',
+    when: 'Summer 2027 · Dates to be announced',
     where: 'John H. Jackson Community Center, Orlando, FL',
     cost: 'Free',
     accentColor: '#E5A916',
@@ -169,7 +169,7 @@ export const Programs: React.FC = () => {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <Section bg="black" className="pt-32">
         <div className="text-center">
-          <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
             Current Season
           </p>
           <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">
@@ -196,7 +196,7 @@ export const Programs: React.FC = () => {
       <Section bg="dark">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-14">
-            <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+            <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
               Community Infrastructure
             </p>
             <h2 className="text-3xl md:text-4xl font-serif italic text-text">
@@ -214,7 +214,7 @@ export const Programs: React.FC = () => {
                 className="border border-border p-6 bg-surface/30 hover:border-primary/40 transition-colors"
               >
                 <div className="flex items-start gap-3">
-                  <MapPin size={14} className="text-primary mt-0.5 shrink-0" />
+                  <MapPin size={14} className="text-primary-text mt-0.5 shrink-0" />
                   <div>
                     <p className="text-text font-serif italic text-lg leading-snug mb-1">{p.name}</p>
                     <p className="font-mono text-[10px] text-text-muted uppercase tracking-widest mb-1">{p.role}</p>
@@ -230,15 +230,15 @@ export const Programs: React.FC = () => {
       {/* ── Apply / Enroll CTA ────────────────────────────────────────────── */}
       <Section bg="black">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-mono text-[10px] text-primary mb-6 uppercase tracking-[0.4em] font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text mb-6 uppercase tracking-[0.4em] font-bold">
             Ready to join?
           </p>
           <h2 className="text-4xl font-serif italic text-text mb-6">
-            Applications open for Summer Camp 2026
+            Summer Camp 2027 is coming
           </h2>
           <p className="text-text-muted font-light leading-relaxed mb-10 max-w-xl mx-auto">
-            The Summer Cinematography Camp runs July 13–24, 2026 at John H. Jackson Community Center.
-            Seats are limited — express interest now and we'll notify you when enrollment opens.
+            We are planning the next Summer Cinematography Camp for summer 2027. Dates are not set
+            yet. Express interest and we'll let you know when they are announced and enrollment opens.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/contact">
@@ -312,12 +312,12 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ program, index }) => {
               { icon: <MapPin size={13} />, value: program.where },
             ].map(({ icon, value }) => (
               <div key={value} className="flex items-start gap-3 text-text-muted font-mono text-[10px] uppercase tracking-wider">
-                <span className="text-primary mt-0.5 shrink-0" aria-hidden="true">{icon}</span>
+                <span className="text-primary-text mt-0.5 shrink-0" aria-hidden="true">{icon}</span>
                 {value}
               </div>
             ))}
             <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-wider">
-              <span className="text-primary shrink-0" aria-hidden="true"><Camera size={13} /></span>
+              <span className="text-primary-text shrink-0" aria-hidden="true"><Camera size={13} /></span>
               <span style={{ color: program.accentColor }}>Cost: {program.cost}</span>
             </div>
           </div>

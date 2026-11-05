@@ -19,8 +19,13 @@
     --text:               26  22  14;   /* near-black with warmth */
     --text-muted:         90  84  72;   /* warm medium gray */
 
-    /* Primary: Brand Gold ─ #C9A84C ─ WCAG AAA on --background */
+    /* Primary: Brand Gold ─ #C9A84C. Fine as a fill (black text on it is 9.2:1)
+       but only 2.1:1 as TEXT on the cream background, so small gold text uses
+       --primary-text (a darker gold, about 5.2:1 on cream) via text-primary-text. */
     --primary:           201 168  76;
+    --primary-text:      130  98  16;
+    --accent-teal-text:   14 124 102;   /* teal as TEXT on cream (4.7:1) */
+    --accent-purple-text: 109  40 217;  /* purple as TEXT on cream (6.6:1) */
     --primary-foreground:  10  10  10;  /* black text on gold — 9.2:1 contrast */
     --border:            218 210 194;
 
@@ -43,6 +48,9 @@
     --text-muted:         195 188 170;  /* lighter warm gray       */
 
     --primary:           201 168  76;   /* gold unchanged          */
+    --primary-text:      201 168  76;   /* gold on dark is 9:1     */
+    --accent-teal-text:   45 191 160;
+    --accent-purple-text: 167 139 250;
     --primary-foreground:  10  10  10;
     --border:              48  44  36;  /* dark warm border        */
   }

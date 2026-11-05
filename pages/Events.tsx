@@ -8,14 +8,18 @@ import { Section } from '../components/Section';
 import { Event } from '../types';
 import { getEvents } from '../services/sanityService';
 import { GALA, GALA_TICKET_TIERS, formatDollars } from '../src/gala';
+import { sanitizeEvents } from '../src/events';
 
 // ─── Accent color map (inline styles to avoid undefined CSS var bugs) ────────
-const TYPE_STYLE: Record<Event['type'], { color: string; label: string }> = {
-  festival:    { color: '#E5A916', label: 'Festival'   },
-  workshop:    { color: '#E5A916', label: 'Workshop'   },
-  screening:   { color: '#2DBFA0', label: 'Screening'  },
-  community:   { color: '#2DBFA0', label: 'Community'  },
-  fundraiser:  { color: '#7C3AED', label: 'Fundraiser' },
+// `color` is for fills and borders. `text` is for small text on the page
+// background: the raw gold and teal are only about 2:1 on cream, so text uses
+// the darker light-mode tokens defined in src/index.css.
+const TYPE_STYLE: Record<Event['type'], { color: string; text: string; label: string }> = {
+  festival:    { color: '#E5A916', text: 'rgb(var(--primary-text))',       label: 'Festival'   },
+  workshop:    { color: '#E5A916', text: 'rgb(var(--primary-text))',       label: 'Workshop'   },
+  screening:   { color: '#2DBFA0', text: 'rgb(var(--accent-teal-text))',   label: 'Screening'  },
+  community:   { color: '#2DBFA0', text: 'rgb(var(--accent-teal-text))',   label: 'Community'  },
+  fundraiser:  { color: '#7C3AED', text: 'rgb(var(--accent-purple-text))', label: 'Fundraiser' },
 };
 
 // Gala tickets are sold on OpenDate, not on this site. This card keeps the
@@ -48,24 +52,61 @@ function withPinnedGala(list: Event[]): Event[] {
 }
 
 // ─── Fallback events (hardcoded) ─────────────────────────────────────────────
-// Used when Sanity has no events yet or is unreachable. Jess/Amanda can manage
-// events via Sanity Studio once it's deployed to studio.rebuiltvillage.org.
+// Shown on the first paint and if the CMS is unreachable. Keep in step with the
+// events in the CMS (FireCMS → Events).
 const FALLBACK_EVENTS: Event[] = [
   // ── UPCOMING ──────────────────────────────────────────────────────────────
 
+  GALA_EVENT,
+
   {
-    id: 'workshop-spring-2026',
+    id: 'workshop-spring-2027',
     title: 'Spring Cinematography Workshop',
-    date: '2026-04-05',
+    date: '2027-04-05',
     day: '05',
     month: 'APR',
-    year: '2026',
+    year: '2027',
     time: '10:00 AM – 2:00 PM',
-    location: 'John H. Jackson Community Center, Orlando, FL',
+    location: 'TBA',
     description:
       'Open to all community members. Hands-on training in camera operation, basic lighting, and storytelling fundamentals using Blackmagic Cinema cameras. No experience required — just bring your curiosity.',
     type: 'workshop',
     tags: ['All Ages', 'Free'],
+  },
+
+  {
+    id: 'summer-camp-2027',
+    title: 'Summer Cinematography Camp',
+    date: '2027-07-01',
+    day: 'TBA',
+    month: 'SUMMER',
+    year: '2027',
+    time: 'Dates to be announced',
+    location: 'TBA',
+    description:
+      'Our flagship two-week summer intensive for youth ages 14–18. Students gain hands-on experience with Blackmagic and RED cameras, lighting rigs, color grading labs, and sound design — then premiere their original short films at a closing screening open to family and community.',
+    type: 'workshop',
+    featured: false,
+    registrationUrl: '/programs',
+    tags: ['Ages 14–18', 'Free to Students', '2 Weeks'],
+    datesTba: true,
+  },
+
+  // ── PAST ──────────────────────────────────────────────────────────────────
+
+  {
+    id: 'films-on-the-field-2025',
+    title: 'Inaugural Films on the Field',
+    date: '2025-10-17',
+    day: '17',
+    month: 'OCT',
+    year: '2025',
+    time: '6:30 PM – 9:00 PM',
+    location: 'Dr. Phillips High School, Orlando, FL',
+    description:
+      'Our first student film night with Dr. Phillips High School. We screened many short films produced through early programming and introduced Rebuilt Village to the broader Orlando community.',
+    type: 'screening',
+    tags: ['Free', 'Community'],
   },
 
   {
@@ -79,64 +120,10 @@ const FALLBACK_EVENTS: Event[] = [
     time: 'May 15–17 · 9:00 AM – 10:00 PM',
     location: 'Dr. Phillips High School, Orlando, FL',
     description:
-      'A three-day community film festival celebrating emerging local voices. Rebuilt Village is a proud sponsor of this event alongside our partners in the Florida film community. Day 1: Opening night screenings. Day 2: Filmmaker panels and hands-on workshops. Day 3: Awards ceremony and closing reception.',
+      'A three-day community film festival celebrating emerging local voices. Rebuilt Village sponsored the event alongside our partners in the Florida film community. Day 1: Opening night screenings. Day 2: Filmmaker panels and hands-on workshops. Day 3: Awards ceremony and closing reception.',
     type: 'festival',
-    featured: true,
     sponsoredBy: 'Rebuilt Village',
-    registrationUrl: '/contact',
     tags: ['Multi-Day', 'All Ages', 'Awards'],
-  },
-
-  {
-    id: 'summer-camp-2026',
-    title: 'Summer Cinematography Camp',
-    date: '2026-07-13',
-    dateEnd: '2026-07-24',
-    day: '13',
-    month: 'JUL',
-    year: '2026',
-    time: 'July 13–24 · 9:00 AM – 3:00 PM (Weekdays)',
-    location: 'John H. Jackson Community Center, Orlando, FL',
-    description:
-      'Our flagship two-week summer intensive for youth ages 14–18. Students gain hands-on experience with Blackmagic and RED cameras, lighting rigs, color grading labs, and sound design — then premiere their original short films at a closing screening open to family and community.',
-    type: 'workshop',
-    featured: false,
-    registrationUrl: '/programs',
-    tags: ['Ages 14–18', 'Free to Students', '2 Weeks'],
-  },
-
-  GALA_EVENT,
-
-  // ── PAST ──────────────────────────────────────────────────────────────────
-
-  {
-    id: 'inaugural-screening-2026',
-    title: 'Inaugural Community Screening Night',
-    date: '2026-01-25',
-    day: '25',
-    month: 'JAN',
-    year: '2026',
-    time: '6:30 PM – 9:00 PM',
-    location: 'John H. Jackson Community Center, Orlando, FL',
-    description:
-      'Our first public event since founding in January 2025. We screened three short films produced through early programming and introduced Rebuilt Village to the broader Orlando community.',
-    type: 'screening',
-    tags: ['Free', 'Community'],
-  },
-
-  {
-    id: 'donor-preview-2026',
-    title: 'Equipment Showcase & Donor Preview',
-    date: '2026-02-08',
-    day: '08',
-    month: 'FEB',
-    year: '2026',
-    time: '2:00 PM – 5:00 PM',
-    location: 'Rebuilt Minds Studio, Orlando, FL',
-    description:
-      'An invitation-only preview for supporters and prospective donors. Attendees got a firsthand look at the camera inventory, met the board, and heard the vision for the Film Equipment Fund and 2026 programming season.',
-    type: 'community',
-    tags: ['Invite Only', 'Donors'],
   },
 ];
 
@@ -160,11 +147,9 @@ export const Events: React.FC = () => {
     getEvents()
       .then((sanityEvents) => {
         if (sanityEvents.length > 0) {
-          // Existing CMS copy still contains this unverified attendance claim.
-          setEvents(withPinnedGala(sanityEvents.map((event) => ({
-            ...event,
-            description: event.description.replace(/\s*Over 107 attendees\./gi, ''),
-          }))));
+          // The CMS is edited by hand; sanitizeEvents() drops placeholder end
+          // dates, derives day/month/year from the real date, and fixes copy.
+          setEvents(withPinnedGala(sanitizeEvents(sanityEvents)));
         }
         // If Sanity returns empty (Studio not yet populated), keep fallback data
       })
@@ -174,7 +159,8 @@ export const Events: React.FC = () => {
   }, []);
 
   const upcoming = events.filter((e) => !isPastEvent(e));
-  const past     = events.filter((e) => isPastEvent(e));
+  // Most recent first.
+  const past     = events.filter((e) => isPastEvent(e)).sort((a, b) => b.date.localeCompare(a.date));
 
   return (
     <article aria-label="Rebuilt Village events calendar">
@@ -182,7 +168,7 @@ export const Events: React.FC = () => {
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <Section bg="black" className="pt-32">
         <div className="text-center">
-          <p className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+          <p className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
             Call Sheet
           </p>
           <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">
@@ -190,7 +176,7 @@ export const Events: React.FC = () => {
           </h1>
           <div className="h-1 w-24 bg-primary/30 mx-auto mb-10" />
           <p className="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed font-light">
-            Workshops, screenings, and community gatherings. Mark your calendar for the 2026 production season.
+            Workshops, screenings, and community gatherings. Mark your calendar for what is coming up.
           </p>
         </div>
       </Section>
@@ -200,9 +186,9 @@ export const Events: React.FC = () => {
         <div className="max-w-4xl mx-auto">
 
           <div className="flex items-center gap-4 mb-12">
-            <Calendar size={16} className="text-primary" aria-hidden="true" />
-            <h2 className="font-mono text-[11px] text-primary uppercase tracking-[0.4em] font-bold">
-              Upcoming · 2026
+            <Calendar size={16} className="text-primary-text" aria-hidden="true" />
+            <h2 className="font-mono text-[11px] text-primary-text uppercase tracking-[0.4em] font-bold">
+              Upcoming
             </h2>
             <div className="flex-1 h-px bg-border" />
           </div>
@@ -222,7 +208,7 @@ export const Events: React.FC = () => {
 
             <div className="flex items-center gap-4 mb-12">
               <div className="flex-1 h-px bg-border" />
-              <h2 className="font-mono text-[11px] text-text-muted/50 uppercase tracking-[0.4em] font-bold">
+              <h2 className="font-mono text-[11px] text-text-muted uppercase tracking-[0.4em] font-bold">
                 Past Events
               </h2>
               <div className="flex-1 h-px bg-border" />
@@ -272,6 +258,9 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
   const prefersReduced = useReducedMotion();
   const typeStyle  = TYPE_STYLE[event.type] ?? TYPE_STYLE.community;
   const accentHex  = event.accentColor ?? typeStyle.color;
+  const textColor  = event.accentColor ?? typeStyle.text;
+  // Black on gold and teal, white on the purple fundraiser badge.
+  const badgeText  = !event.accentColor && event.type === 'fundraiser' ? '#FFFFFF' : '#000000';
   const isFeatured = event.featured && !past;
 
   return (
@@ -291,7 +280,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
       {isFeatured && (
         <div
           className="absolute top-0 left-0 px-3 py-1 font-mono text-[9px] uppercase tracking-widest text-black font-bold"
-          style={{ backgroundColor: accentHex }}
+          style={{ backgroundColor: accentHex, color: badgeText }}
           aria-label="Featured event"
         >
           Featured Event
@@ -304,11 +293,11 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
         <div className="flex flex-col items-center justify-start shrink-0 w-24 pt-1">
           <span
             className="font-mono text-[10px] uppercase tracking-[0.3em] mb-2"
-            style={{ color: accentHex }}
+            style={{ color: textColor }}
           >
             {event.month}
           </span>
-          <span className="text-5xl font-serif italic text-text leading-none">
+          <span className={`${event.datesTba ? 'text-4xl' : 'text-5xl'} font-serif italic text-text leading-none`}>
             {event.day}
           </span>
           {event.dateEnd && (
@@ -331,7 +320,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
           <div className="flex flex-wrap items-center gap-2 mb-4">
             <span
               className="font-mono text-[9px] px-2 py-0.5 border uppercase tracking-widest"
-              style={{ borderColor: `${accentHex}80`, color: accentHex }}
+              style={{ borderColor: `${accentHex}80`, color: textColor }}
             >
               {typeStyle.label}
             </span>
@@ -359,7 +348,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-5">
             <h3
               className={`text-3xl font-serif italic transition-colors duration-300 ${
-                past ? 'text-text/60' : 'text-text group-hover:text-primary'
+                past ? 'text-text/60' : 'text-text group-hover:text-primary-text'
               }`}
             >
               {event.title}
@@ -405,11 +394,11 @@ const EventCard: React.FC<EventCardProps> = ({ event, index, past = false }) => 
           {/* Meta row */}
           <div className="flex flex-wrap gap-6 mb-5">
             <div className="flex items-center text-text-muted font-mono text-[10px] uppercase tracking-widest">
-              <Clock size={13} className="mr-2 text-primary shrink-0" aria-hidden="true" />
+              <Clock size={13} className="mr-2 text-primary-text shrink-0" aria-hidden="true" />
               {event.time}
             </div>
             <div className="flex items-center text-text-muted font-mono text-[10px] uppercase tracking-widest">
-              <MapPin size={13} className="mr-2 text-primary shrink-0" aria-hidden="true" />
+              <MapPin size={13} className="mr-2 text-primary-text shrink-0" aria-hidden="true" />
               {event.location}
             </div>
           </div>

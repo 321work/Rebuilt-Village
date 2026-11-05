@@ -44,7 +44,6 @@ const NAV_COLUMNS = [
     color: '#2DBFA0', // brand teal — community / growth
     links: [
       { label: 'Events Calendar', path: '/events'  },
-      { label: 'Blog & Stories',  path: '/blog'    },
       { label: 'Contact Us',      path: '/contact' },
       { label: 'Volunteer',       path: '/contact' },
     ],
@@ -114,7 +113,7 @@ const NewsletterSignup: React.FC = () => {
         </div>
         <div>
           <p className="font-mono text-[11px] font-bold text-primary uppercase tracking-widest">You're on the list.</p>
-          <p className="font-mono text-[10px] text-text-muted mt-0.5">We'll be in touch with news and impact updates.</p>
+          <p className="font-mono text-[10px] text-white/70 mt-0.5">We'll be in touch with news and impact updates.</p>
         </div>
       </div>
     );
@@ -122,7 +121,7 @@ const NewsletterSignup: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <label htmlFor="footer-newsletter" className="block font-mono text-[10px] text-text-muted uppercase tracking-widest mb-3">
+      <label htmlFor="footer-newsletter" className="block font-mono text-[10px] text-white/70 uppercase tracking-widest mb-3">
         Email Address
       </label>
       <div className="flex gap-0">
@@ -258,7 +257,7 @@ export const Footer: React.FC = () => {
                     role="listitem"
                     className={[
                       'w-9 h-9 flex items-center justify-center',
-                      'border border-border text-text-muted',
+                      'border border-border text-white/70',
                       'hover:border-primary hover:text-primary hover:bg-primary/5',
                       'transition-all duration-200',
                       'focus:outline-none focus:ring-2 focus:ring-primary/60 rounded',

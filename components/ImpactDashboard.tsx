@@ -33,11 +33,11 @@ export const ImpactDashboard: React.FC = () => {
       <div className="relative p-8 md:p-12">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
           <div>
-            <p className="font-mono text-[10px] text-primary uppercase tracking-[0.4em] mb-4 font-bold opacity-60">
+            <p className="font-mono text-[10px] text-primary-text uppercase tracking-[0.4em] mb-4 font-bold">
               Operational Transparency
             </p>
             <h2 className="text-4xl md:text-5xl font-serif italic text-text tracking-tight">
-              Radical <em className="text-primary not-italic">Impact.</em>
+              Radical <em className="text-primary-text not-italic">Impact.</em>
             </h2>
           </div>
           <div className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export const ImpactDashboard: React.FC = () => {
                 className="space-y-3"
               >
                 <div className="flex items-center gap-2">
-                  <Icon size={14} className="text-primary opacity-60" />
+                  <Icon size={14} className="text-primary-text opacity-60" />
                   <span className="font-mono text-[9px] text-text-muted uppercase tracking-[0.2em]">
                     {metric.label}
                   </span>
@@ -87,8 +87,8 @@ export const ImpactDashboard: React.FC = () => {
           </div>
           <div className="bg-background/40 border border-border p-8 relative flex flex-col justify-between">
              <div className="flex items-center justify-between mb-8">
-               <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-primary">Where the Money Goes</span>
-               <PieChart size={18} className="text-primary opacity-[0.85]" />
+               <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold text-primary-text">Where the Money Goes</span>
+               <PieChart size={18} className="text-primary-text opacity-[0.85]" />
              </div>
              
              {/* Large unified impact bar */}
@@ -123,7 +123,7 @@ export const ImpactDashboard: React.FC = () => {
                   >
                     <div className="flex items-center gap-3">
                       <span className={`w-3 h-3 rounded-sm ${item.color} shadow-sm shadow-black/50`} />
-                      <span className="text-text group-hover:text-primary transition-colors">{item.label}</span>
+                      <span className="text-text group-hover:text-primary-text transition-colors">{item.label}</span>
                     </div>
                     <span className="text-text-muted font-bold">{item.pct}</span>
                   </motion.div>

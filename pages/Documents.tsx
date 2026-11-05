@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { Section } from '../components/Section';
-import { FileText, Download, ExternalLink, Calendar, ShieldCheck } from 'lucide-react';
-import { Button } from '../components/Button';
+import { FileText, Download, ExternalLink, Calendar, ShieldCheck, Mail } from 'lucide-react';
 import { getDocuments } from '../services/sanityService';
 import { ORGANIZATION } from '../src/organization';
 
@@ -16,82 +15,31 @@ interface Document {
     externalUrl?: string;
 }
 
+const REQUEST_EMAIL = 'hello@rebuiltvillage.org';
+
 export const Documents: React.FC = () => {
   usePageMeta(
     'Public Documents — Rebuilt Village',
-    'Access Rebuilt Village nonprofit public records including our 990 filings, articles of incorporation, grant reports, and bylaws.'
+    'Rebuilt Village nonprofit public records: EIN, 501(c)(3) status, and how to request our IRS determination letter and filings.'
   );
-    // Firestore is the source of truth (managed in FireCMS → Documents). These
-    // tiles render until the collection loads, and remain the fallback if it is
-    // empty or unreachable so the page never goes blank.
-    const FALLBACK_DOCUMENTS: Document[] = [
-        {
-            title: "Internal Revenue Service Form 990 (2024)",
-            description: "Annual tax return filed with the IRS showing our financial activities and governance.",
-            year: "2024",
-            type: "tax",
-            fileUrl: "#"
-        },
-        {
-            title: "Internal Revenue Service Form 990 (2023)",
-            description: "Previous year tax return for transparency and reference.",
-            year: "2023",
-            type: "tax",
-            fileUrl: "#"
-        },
-        {
-            title: "Annual Production Report 2024",
-            description: "Comprehensive overview of our programs, impact, and financial performance.",
-            year: "2024",
-            type: "annual",
-            fileUrl: "#"
-        },
-        {
-            title: "Audited Financial Statements (2024)",
-            description: "Independently audited financial statements showing our fiscal responsibility.",
-            year: "2024",
-            type: "financial",
-            fileUrl: "#"
-        },
-        {
-            title: "IRS Determination Letter",
-            description: "Official 501(c)(3) tax-exempt status confirmation from the IRS.",
-            year: "2023",
-            type: "governance",
-            fileUrl: "#"
-        },
-        {
-            title: "Organizational Bylaws",
-            description: "Governing documents outlining organizational structure and procedures.",
-            year: "2024",
-            type: "governance",
-            fileUrl: "#"
-        },
-        {
-            title: "Conflict of Interest Policy",
-            description: "Board and staff policies ensuring ethical governance.",
-            year: "2024",
-            type: "governance",
-            fileUrl: "#"
-        },
-        {
-            title: "Financial Reports (Q4 2024)",
-            description: "Quarterly financial summary for donors and stakeholders.",
-            year: "2024",
-            type: "financial",
-            fileUrl: "#"
-        }
-    ];
 
-    const [documents, setDocuments] = useState<Document[]>(FALLBACK_DOCUMENTS);
+    // Firestore is the source of truth (managed in FireCMS → Documents). Only
+    // documents that really exist are listed; there is deliberately no
+    // placeholder list, because a donor must never see a record that is not
+    // available.
+    const [documents, setDocuments] = useState<Document[]>([]);
+    const [loaded, setLoaded] = useState(false);
     useEffect(() => {
         let cancelled = false;
         getDocuments()
             .then((docs) => {
-                if (!cancelled && docs.length > 0) setDocuments(docs);
+                if (!cancelled) setDocuments(docs);
             })
             .catch(() => {
-                /* keep FALLBACK_DOCUMENTS */
+                /* leave the list empty; the request panel below explains how to ask */
+            })
+            .finally(() => {
+                if (!cancelled) setLoaded(true);
             });
         return () => {
             cancelled = true;
@@ -100,11 +48,11 @@ export const Documents: React.FC = () => {
 
     const getTypeColor = (type: Document['type']) => {
         switch (type) {
-            case 'tax': return 'text-primary border-primary/30';
-            case 'financial': return 'text-[#2DBFA0] border-[#2DBFA040]';
-            case 'annual': return 'text-white border-white/30';
-            case 'governance': return 'text-slate-400 border-slate-700';
-            default: return 'text-slate-500 border-slate-800';
+            case 'tax': return 'text-primary-text border-primary/40';
+            case 'financial': return 'text-text border-text/30';
+            case 'annual': return 'text-text border-text/30';
+            case 'governance': return 'text-text-muted border-border';
+            default: return 'text-text-muted border-border';
         }
     };
 
@@ -122,11 +70,11 @@ export const Documents: React.FC = () => {
         <>
             <Section bg="black" className="pt-32">
                 <div className="text-center">
-                    <div className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">Transparency Record</div>
-                    <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-white mb-8">Documents & Archives</h1>
+                    <div className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">Transparency Record</div>
+                    <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">Documents & Archives</h1>
                     <div className="h-1 w-24 bg-primary/30 mx-auto mb-10"></div>
-                    <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
-                        Access our tax returns, financial reports, and governance documents. We believe in radical transparency as a foundation for trust.
+                    <p className="text-xl text-text-muted max-w-2xl mx-auto leading-relaxed font-light">
+                        Our tax ID, tax-exempt status, and the public records we can share. We believe in open books as a foundation for trust.
                     </p>
                 </div>
             </Section>
@@ -135,80 +83,111 @@ export const Documents: React.FC = () => {
                 <div className="max-w-6xl mx-auto">
 
                     {/* Intro Section */}
-                    <div className="bg-slate-900/40 border border-slate-800 p-10 md:p-16 mb-20 relative overflow-hidden">
+                    <div className="bg-surface border border-border p-10 md:p-16 mb-20 relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-8 opacity-5">
                             <ShieldCheck size={120} />
                         </div>
                         <div className="relative z-10 max-w-3xl">
-                            <h2 className="text-3xl font-serif italic text-white mb-8">The Open Script</h2>
-                            <p className="text-slate-400 leading-relaxed mb-10 font-light text-lg">
-                                As a 501(c)(3) nonprofit organization, Rebuilt Village is committed to operating with the highest standards of accountability. We make our key documents publicly available so donors, partners, and community members can see exactly how the production is funded.
+                            <h2 className="text-3xl font-serif italic text-text mb-8">The Open Script</h2>
+                            <p className="text-text-muted leading-relaxed mb-10 font-light text-lg">
+                                As a 501(c)(3) nonprofit organization, Rebuilt Village is committed to operating with accountability. We share our key documents so donors, partners, and community members can see how the production is funded.
                             </p>
                             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                                <div className="bg-black border border-slate-800 p-6 flex flex-col justify-center">
-                                    <div className="font-mono text-[10px] text-primary mb-2 uppercase tracking-widest opacity-60">Tax ID (EIN)</div>
-                                    <div className="text-white font-serif italic text-xl">{ORGANIZATION.EIN}</div>
+                                <div className="bg-background border border-border p-6 flex flex-col justify-center">
+                                    <div className="font-mono text-[10px] text-primary-text mb-2 uppercase tracking-widest">Tax ID (EIN)</div>
+                                    <div className="text-text font-serif italic text-xl">{ORGANIZATION.EIN}</div>
                                 </div>
-                                <div className="bg-black border border-slate-800 p-6 flex flex-col justify-center">
-                                    <div className="font-mono text-[10px] text-primary mb-2 uppercase tracking-widest opacity-60">Status</div>
-                                    <div className="text-white font-serif italic text-xl">501(c)(3) Exempt</div>
+                                <div className="bg-background border border-border p-6 flex flex-col justify-center">
+                                    <div className="font-mono text-[10px] text-primary-text mb-2 uppercase tracking-widest">Status</div>
+                                    <div className="text-text font-serif italic text-xl">501(c)(3) Exempt</div>
                                 </div>
-                                <div className="bg-black border border-slate-800 p-6 flex flex-col justify-center">
-                                    <div className="font-mono text-[10px] text-primary mb-2 uppercase tracking-widest opacity-60">Inaugurated</div>
-                                    <div className="text-white font-serif italic text-xl">Est. 2023</div>
+                                <div className="bg-background border border-border p-6 flex flex-col justify-center">
+                                    <div className="font-mono text-[10px] text-primary-text mb-2 uppercase tracking-widest">Founded</div>
+                                    <div className="text-text font-serif italic text-xl">January 2025</div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Documents Grid */}
-                    <div className="grid md:grid-cols-2 gap-8">
-                        {documents.map((doc, index) => (
-                            <div
-                                key={doc._id ?? index}
-                                className="bg-slate-900/40 border border-slate-800 p-8 hover:border-primary transition-all duration-500 group relative"
-                            >
-                                <div className="flex items-start justify-between mb-8">
-                                    <div className="flex-1">
-                                        <div className={`inline-block px-3 py-1 text-[9px] font-mono uppercase tracking-widest mb-4 border ${getTypeColor(doc.type)}`}>
-                                            {getTypeLabel(doc.type)}
+                    {/* Documents Grid: only real records */}
+                    {documents.length > 0 && (
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {documents.map((doc, index) => {
+                                const href = doc.fileUrl || doc.externalUrl;
+                                return (
+                                    <div
+                                        key={doc._id ?? index}
+                                        className="bg-surface border border-border p-8 hover:border-primary transition-all duration-500 group relative"
+                                    >
+                                        <div className="flex items-start justify-between mb-8">
+                                            <div className="flex-1">
+                                                <div className={`inline-block px-3 py-1 text-[9px] font-mono uppercase tracking-widest mb-4 border ${getTypeColor(doc.type)}`}>
+                                                    {getTypeLabel(doc.type)}
+                                                </div>
+                                                <h3 className="text-2xl font-serif italic text-text mb-4 leading-tight">
+                                                    {doc.title}
+                                                </h3>
+                                                {doc.description && (
+                                                    <p className="text-text-muted text-sm leading-relaxed mb-8 font-light">
+                                                        {doc.description}
+                                                    </p>
+                                                )}
+                                                {doc.year && (
+                                                    <div className="flex items-center text-[10px] text-text-muted font-mono uppercase tracking-widest">
+                                                        <Calendar size={14} className="mr-2 text-primary-text" />
+                                                        Record Year: {doc.year}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <FileText className="text-border group-hover:text-primary/30 transition-colors ml-4 shrink-0" size={48} aria-hidden="true" />
                                         </div>
-                                        <h3 className="text-2xl font-serif italic text-white mb-4 leading-tight group-hover:text-primary transition-colors">
-                                            {doc.title}
-                                        </h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed mb-8 font-light">
-                                            {doc.description}
-                                        </p>
-                                        <div className="flex items-center text-[10px] text-slate-600 font-mono uppercase tracking-widest">
-                                            <Calendar size={14} className="mr-2 text-primary/60" />
-                                            Record Year: {doc.year}
-                                        </div>
-                                    </div>
-                                    <FileText className="text-slate-800 group-hover:text-primary/20 transition-colors ml-4 shrink-0" size={48} />
-                                </div>
 
-                                {/* Download Button */}
-                                <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="w-full border-slate-700 hover:border-white h-12"
-                                    onClick={() => window.open(doc.fileUrl || doc.externalUrl || '#', '_blank')}
-                                >
-                                    {doc.fileUrl ? (
-                                        <span className="flex items-center"><Download size={14} className="mr-2" /> Pull Master File</span>
-                                    ) : (
-                                        <span className="flex items-center"><ExternalLink size={14} className="mr-2" /> View Archive</span>
-                                    )}
-                                </Button>
-                            </div>
-                        ))}
-                    </div>
+                                        {/* Only documents with a real file or link get a button. */}
+                                        {href && (
+                                            <a
+                                                href={href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex w-full items-center justify-center h-12 border border-border hover:border-text font-mono text-xs font-bold uppercase tracking-widest text-text transition-colors"
+                                            >
+                                                {doc.fileUrl ? (
+                                                    <span className="flex items-center"><Download size={14} className="mr-2" aria-hidden="true" /> Download file<span className="sr-only"> (opens in a new tab)</span></span>
+                                                ) : (
+                                                    <span className="flex items-center"><ExternalLink size={14} className="mr-2" aria-hidden="true" /> View record<span className="sr-only"> (opens in a new tab)</span></span>
+                                                )}
+                                            </a>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    )}
+
+                    {/* No documents posted yet: say so, and say how to ask. */}
+                    {loaded && documents.length === 0 && (
+                        <div className="border border-dashed border-border bg-surface-highlight p-10 md:p-14 text-center">
+                            <FileText className="mx-auto mb-6 text-text-muted" size={36} aria-hidden="true" />
+                            <h2 className="text-2xl md:text-3xl font-serif italic text-text mb-4">
+                                Documents are available on request
+                            </h2>
+                            <p className="text-text-muted leading-relaxed max-w-xl mx-auto mb-8">
+                                Rebuilt Village is a young organization, founded in January 2025. Our IRS determination letter and public filings are available on request. Email us and we will send them to you.
+                            </p>
+                            <a
+                                href={`mailto:${REQUEST_EMAIL}?subject=${encodeURIComponent('Document request')}`}
+                                className="inline-flex items-center justify-center gap-2 h-12 px-8 bg-primary text-primary-foreground font-mono text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity"
+                            >
+                                <Mail size={14} aria-hidden="true" /> Request documents
+                            </a>
+                            <p className="mt-4 text-xs text-text-muted font-mono">{REQUEST_EMAIL}</p>
+                        </div>
+                    )}
 
                     {/* External Transparency Sites */}
-                    <div className="mt-24 border-t border-slate-900 pt-20">
+                    <div className="mt-24 border-t border-border pt-20">
                         <div className="text-center mb-12">
-                            <h3 className="text-3xl font-serif italic text-white mb-4">Independent Verification</h3>
-                            <p className="text-slate-500 font-mono text-[10px] uppercase tracking-widest">Third-party transparency platforms</p>
+                            <h3 className="text-3xl font-serif italic text-text mb-4">Independent Verification</h3>
+                            <p className="text-text-muted font-mono text-[10px] uppercase tracking-widest">Third-party transparency platforms</p>
                         </div>
                         <div className="grid md:grid-cols-3 gap-6">
                             {[
@@ -221,10 +200,11 @@ export const Documents: React.FC = () => {
                                     href={site.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center justify-between p-6 bg-slate-900/20 border border-slate-800 hover:border-primary transition-all group"
+                                    className="flex items-center justify-between p-6 bg-surface border border-border hover:border-primary transition-all group"
                                 >
-                                    <span className="text-slate-300 font-mono text-xs uppercase tracking-widest">{site.name}</span>
-                                    <ExternalLink size={14} className="text-slate-700 group-hover:text-primary" />
+                                    <span className="text-text font-mono text-xs uppercase tracking-widest">{site.name}</span>
+                                    <ExternalLink size={14} className="text-text-muted group-hover:text-primary-text" aria-hidden="true" />
+                                    <span className="sr-only">(opens in a new tab)</span>
                                 </a>
                             ))}
                         </div>
@@ -232,16 +212,15 @@ export const Documents: React.FC = () => {
 
                     {/* Contact for Questions */}
                     <div className="mt-20 text-center">
-                        <p className="text-slate-600 font-mono text-[10px] uppercase tracking-widest mb-6">
-                            Questions regarding compliance or fiscal oversight?
+                        <p className="text-text-muted font-mono text-[10px] uppercase tracking-widest mb-6">
+                            Questions about our finances or governance?
                         </p>
-                        <Button
-                            variant="ghost"
-                            className="text-primary hover:text-white"
-                            onClick={() => window.location.href = 'mailto:info@rebuiltvillage.org'}
+                        <a
+                            href={`mailto:${REQUEST_EMAIL}`}
+                            className="inline-flex items-center justify-center h-12 px-6 font-mono text-xs font-bold uppercase tracking-widest text-primary-text hover:text-text transition-colors"
                         >
-                            Contact Audit Committee
-                        </Button>
+                            Email {REQUEST_EMAIL}
+                        </a>
                     </div>
                 </div>
             </Section>

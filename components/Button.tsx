@@ -49,7 +49,7 @@ export const Button: React.FC<ButtonProps> = ({
     // Outline — ghost with border, used on dark backgrounds
     outline: [
       'border border-primary/40 bg-transparent',
-      'text-primary',
+      'text-primary-text',
       'hover:border-primary hover:bg-primary/8 hover:shadow-gold',
       'active:translate-y-0',
     ].join(' '),

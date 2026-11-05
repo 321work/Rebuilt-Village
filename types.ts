@@ -67,4 +67,5 @@ export interface Event {
   sponsoredBy?: string;
   accentColor?: string; // hex override — bypasses CSS variable bug
   tags?: string[];
+  datesTba?: boolean;   // season is known but the dates are not (card shows "TBA")
 }

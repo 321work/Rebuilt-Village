@@ -21,16 +21,16 @@ interface DisplayMember {
 
 const FALLBACK_TEAM: DisplayMember[] = [
   {
-    name:  'Tony Golden',
+    name:  'Anthony Golden',
     role:  'Executive Director',
     image: '/assets/brand/placeholder-team.png',
-    bio:   'Tony leads Rebuilt Village\'s day-to-day operations and programming, bringing deep film production experience to build real pathways for the next generation of Orlando storytellers.',
+    bio:   'Anthony founded Rebuilt Village and leads the day-to-day operations and programming, bringing deep film production experience to build real pathways for the next generation of Orlando storytellers.',
   },
   {
     name:  'Steve Kohn',
     role:  'President',
     image: '/assets/brand/placeholder-team.png',
-    bio:   'Steve co-founded Rebuilt Village with Tony and oversees organizational strategy, board governance, and long-term vision for film education in Central Florida.',
+    bio:   'Steve oversees organizational strategy, board governance, and long-term vision for film education in Central Florida.',
   },
   {
     name:  'Amanda Baez',
@@ -39,22 +39,10 @@ const FALLBACK_TEAM: DisplayMember[] = [
     bio:   'Amanda drives grant strategy and program development, ensuring Rebuilt Village\'s work is funded and that every initiative produces measurable impact for youth.',
   },
   {
-    name:  'Kenya Fulton',
-    role:  'Treasurer',
-    image: '/assets/brand/placeholder-team.png',
-    bio:   'Kenya manages Rebuilt Village\'s financial stewardship and ensures every donor dollar is invested with transparency and accountability.',
-  },
-  {
-    name:  'Jess Ayala',
+    name:  'Jessica Ayala',
     role:  'Secretary',
     image: '/assets/brand/placeholder-team.png',
-    bio:   'Jess keeps the organization organized and accountable — managing meeting records, board documentation, and organizational communications.',
-  },
-  {
-    name:  'Aaron Tanyhill',
-    role:  'Board Member',
-    image: '/assets/brand/placeholder-team.png',
-    bio:   'Aaron brings creative vision and community voice to Rebuilt Village\'s mission, helping shape programs and messaging that resonate with the people they serve.',
+    bio:   'Jessica keeps the organization organized and accountable — managing meeting records, board documentation, and organizational communications.',
   },
   {
     name:  'Karen Rugerio',
@@ -63,10 +51,16 @@ const FALLBACK_TEAM: DisplayMember[] = [
     bio:   'Karen brings expertise in youth internship development and career pathways, guiding how students transition from Rebuilt Village programs into working in the arts.',
   },
   {
-    name:  'Nef Alexander',
-    role:  'Social Media & Marketing',
+    name:  'Franny Titus',
+    role:  'Board Member',
     image: '/assets/brand/placeholder-team.png',
-    bio:   'Nef leads Rebuilt Village\'s digital presence and brand storytelling — telling the organization\'s story to Central Florida and beyond.',
+    bio:   'Franny is a Florida-based creative, performer, and content creator with a background in acting, production, and storytelling, currently expanding purpose-driven projects that inspire others.',
+  },
+  {
+    name:  'Shauna Golden',
+    role:  'Board Member',
+    image: '/assets/brand/placeholder-team.png',
+    bio:   'Shauna brings a blend of theatrical artistry and logistical precision to the team, drawing on her background as an actress and an experienced stage manager.',
   },
 ];
 
@@ -107,7 +101,7 @@ export const About: React.FC = () => {
     <>
       {/* ── Hero ──────────────────────────────────────────────────────── */}
       <Section bg="black" className="text-center pt-32">
-        <div className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+        <div className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
           Origin Story
         </div>
         <h1 className="text-5xl md:text-7xl font-serif italic tracking-tight text-text mb-8">
@@ -116,7 +110,7 @@ export const About: React.FC = () => {
         <div className="h-1 w-24 bg-primary/30 mx-auto mb-10" />
         <p className="text-xl text-text-muted max-w-3xl mx-auto leading-relaxed font-light">
           Founded in January 2025 in Orlando, Florida — born from the Orlando production company{' '}
-          <span className="text-primary">Rebuilt Minds</span> — with a simple belief:{' '}
+          <span className="text-primary-text">Rebuilt Minds</span> — with a simple belief:{' '}
           talent is universal, but opportunity is not.
         </p>
       </Section>
@@ -126,13 +120,13 @@ export const About: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           {/* Vision Block */}
           <div className="text-center mb-32">
-            <div className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+            <div className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
               The Vision
             </div>
             <h2 className="text-4xl md:text-6xl font-serif italic text-text mb-4">
               Rebuilding Community through Art
             </h2>
-            <p className="font-serif text-text-muted/60 italic text-lg max-w-xl mx-auto mt-4">
+            <p className="font-serif text-text-muted italic text-lg max-w-xl mx-auto mt-4">
               "It takes a village to tell a story, and stories to rebuild a village."
             </p>
             <div className="h-px w-32 bg-border mx-auto mt-8" />
@@ -160,7 +154,7 @@ export const About: React.FC = () => {
 
             <div>
               <div className="flex items-center space-x-3 mb-6">
-                <Milestone size={20} className="text-primary" />
+                <Milestone size={20} className="text-primary-text" />
                 <h2 className="text-sm font-mono uppercase tracking-widest text-text">
                   Our Mission Statement
                 </h2>
@@ -235,7 +229,7 @@ export const About: React.FC = () => {
       <Section bg="black" className="border-t border-border">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-20">
-            <div className="font-mono text-[10px] text-primary mb-4 uppercase tracking-[0.4em] font-bold opacity-60">
+            <div className="font-mono text-[10px] text-primary-text mb-4 uppercase tracking-[0.4em] font-bold">
               Act II
             </div>
             <h2 className="text-4xl md:text-6xl font-serif italic text-text mb-6">
@@ -252,9 +246,9 @@ export const About: React.FC = () => {
             {/* Scene 01: Infrastructure */}
             <div className="relative border-l-2 border-primary/30 pl-12">
               <div className="absolute -left-[29px] top-0 w-14 h-14 bg-background border-2 border-primary/30 rounded-full flex items-center justify-center">
-                <span className="text-2xl font-serif italic text-primary">01</span>
+                <span className="text-2xl font-serif italic text-primary-text">01</span>
               </div>
-              <div className="font-mono text-[9px] text-primary mb-3 uppercase tracking-[0.3em] font-bold">
+              <div className="font-mono text-[9px] text-primary-text mb-3 uppercase tracking-[0.3em] font-bold">
                 Scene 01: Infrastructure
               </div>
               <h3 className="text-3xl font-serif italic text-text mb-4">Establishing the Studio</h3>
@@ -285,22 +279,19 @@ export const About: React.FC = () => {
                 className="absolute -left-[29px] top-0 w-14 h-14 bg-background border-2 rounded-full flex items-center justify-center"
                 style={{ borderColor: '#2DBFA040' }}
               >
-                <span className="text-2xl font-serif italic" style={{ color: '#2DBFA0' }}>02</span>
+                <span className="text-2xl font-serif italic text-brand-teal-text">02</span>
               </div>
-              <div
-                className="font-mono text-[9px] mb-3 uppercase tracking-[0.3em] font-bold"
-                style={{ color: '#2DBFA0' }}
-              >
+              <div className="font-mono text-[9px] mb-3 uppercase tracking-[0.3em] font-bold text-brand-teal-text">
                 Scene 02: Community Engagement
               </div>
               <h3 className="text-3xl font-serif italic text-text mb-4">Lights, Camera, Connection</h3>
-              <p className="text-text-muted font-mono text-xs uppercase tracking-widest mb-6">2026 Season</p>
+              <p className="text-text-muted font-mono text-xs uppercase tracking-widest mb-6">2026–27 Season</p>
               <ul className="space-y-4">
                 <li className="flex items-start text-text-muted">
                   <span className="w-2 h-2 rounded-full mt-2 mr-4 shrink-0" style={{ backgroundColor: '#2DBFA0' }} />
                   <div>
                     <span className="font-semibold text-text">Film-apalooza at Dr. Phillips High School</span>{' '}
-                    <span className="font-mono text-xs" style={{ color: '#2DBFA0' }}>(May 15–17, 2026)</span>
+                    <span className="font-mono text-xs text-text-muted">(held May 15–17, 2026)</span>
                     {': '}
                     A 3-day student film festival at the Dr. Phillips Film & Television Magnet Program,
                     sponsored by Rebuilt Village. Day 1: Senior Film Showcase with talk-back.
@@ -312,11 +303,11 @@ export const About: React.FC = () => {
                   <span className="w-2 h-2 rounded-full mt-2 mr-4 shrink-0" style={{ backgroundColor: '#2DBFA0' }} />
                   <div>
                     <span className="font-semibold text-text">Summer Camp Launch</span>{' '}
-                    <span className="font-mono text-xs" style={{ color: '#2DBFA0' }}>(Summer 2026)</span>
+                    <span className="font-mono text-xs text-text-muted">(Summer 2027, dates to be announced)</span>
                     {': '}
-                    The inaugural Rebuilt Village Summer Camp — youth programs integrating film, theatre,
-                    and visual art at John H. Jackson Community Center in Orlando. A space where young
-                    voices learn to frame their own stories.
+                    The inaugural Rebuilt Village Summer Camp is planned for summer 2027 — youth programs
+                    integrating film, theatre, and visual art in Orlando. A space where young voices learn
+                    to frame their own stories.
                   </div>
                 </li>
               </ul>
@@ -325,9 +316,9 @@ export const About: React.FC = () => {
             {/* Scene 03: Sustainable Funding */}
             <div className="relative border-l-2 border-primary/30 pl-12 pb-8">
               <div className="absolute -left-[29px] top-0 w-14 h-14 bg-background border-2 border-primary/30 rounded-full flex items-center justify-center">
-                <span className="text-2xl font-serif italic text-primary">03</span>
+                <span className="text-2xl font-serif italic text-primary-text">03</span>
               </div>
-              <div className="font-mono text-[9px] text-primary mb-3 uppercase tracking-[0.3em] font-bold">
+              <div className="font-mono text-[9px] text-primary-text mb-3 uppercase tracking-[0.3em] font-bold">
                 Scene 03: Sustainable Funding
               </div>
               <h3 className="text-3xl font-serif italic text-text mb-4">The Long Take</h3>
@@ -337,9 +328,9 @@ export const About: React.FC = () => {
                   <span className="w-2 h-2 bg-primary rounded-full mt-2 mr-4 shrink-0" />
                   <div>
                     <span className="font-semibold text-text">{GALA.TITLE}</span>{' '}
-                    <span className="text-primary font-mono text-xs">{`(${GALA.DATE_LABEL})`}</span>
+                    <span className="text-primary-text font-mono text-xs">{`(${GALA.DATE_LABEL})`}</span>
                     {': Our first annual fundraising gala, held to kick off the holiday season with food and drinks, local student films, a look at our upcoming arts programs, and a silent auction. Proceeds support youth film and arts programming. '}
-                    <Link to="/events" className="text-primary hover:underline">See event details and tickets</Link>
+                    <Link to="/events" className="text-primary-text hover:underline">See event details and tickets</Link>
                     {'.'}
                   </div>
                 </li>
@@ -380,7 +371,7 @@ export const About: React.FC = () => {
       <Section bg="dark" className="border-t border-border">
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col items-center text-center mb-12">
-            <ShieldCheck size={32} className="text-primary mb-6" />
+            <ShieldCheck size={32} className="text-primary-text mb-6" />
             <h2 className="text-3xl font-serif italic text-text mb-4">Produced With Integrity</h2>
             <p className="text-text-muted font-light leading-relaxed max-w-2xl">
               Rebuilt Village is committed to the highest standards of financial stewardship.
@@ -394,7 +385,7 @@ export const About: React.FC = () => {
               className="flex items-center justify-between p-6 bg-surface border border-border hover:border-primary transition-all group"
             >
               <div className="flex items-center text-text-muted">
-                <FileText className="w-5 h-5 mr-4 text-text-muted group-hover:text-primary transition-colors" />
+                <FileText className="w-5 h-5 mr-4 text-text-muted group-hover:text-primary-text transition-colors" />
                 <span className="font-mono text-xs uppercase tracking-widest">IRS Determination Letter</span>
               </div>
               <span className="text-[10px] font-mono text-text-muted uppercase">PDF Archive</span>
@@ -404,7 +395,7 @@ export const About: React.FC = () => {
               className="flex items-center justify-between p-6 bg-surface border border-border hover:border-primary transition-all group"
             >
               <div className="flex items-center text-text-muted">
-                <ShieldCheck className="w-5 h-5 mr-4 text-text-muted group-hover:text-primary transition-colors" />
+                <ShieldCheck className="w-5 h-5 mr-4 text-text-muted group-hover:text-primary-text transition-colors" />
                 <span className="font-mono text-xs uppercase tracking-widest">501(c)(3) Status</span>
               </div>
               <span className="text-[10px] font-mono text-text-muted uppercase">Verified</span>
